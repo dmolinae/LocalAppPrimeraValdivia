@@ -10,7 +10,6 @@
         mc:Ignorable="d"
         GlowBrush="Black"
         WindowStartupLocation="CenterScreen"
-        xmlns:data="clr-namespace:PrimeraValdivia.ViewModels"
         Title="PrimeraValdivia - mainwindow" Height="720" Width="1280">
     <TabControl x:Name="tabControl">
         <TabItem Header="Voluntarios" Height="39" VerticalAlignment="Bottom">
@@ -90,10 +89,9 @@
                         </Button.Template>
                     </Button>
                 </StackPanel>
-                <DataGrid 
+                <DataGrid
                         ItemsSource="{Binding Companias}"
                         Grid.Row="0"
-                        SelectedItem="{Binding CompaniaModel}"
                         AutoGenerateColumns="False" 
                         Height="535" Margin="10">
                     <DataGrid.Columns>
@@ -104,10 +102,10 @@
                                     Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"/>
                         <DataGridTextColumn 
                                     Header="id"
-                                    Binding="{Binding CompaniaModel.idCompania}" />
+                                    Binding="{Binding Compania.idCompania}"/>
                         <DataGridTextColumn 
                                     Header="nombre"
-                                    Binding="{Binding CompaniaModel.nombreCompania}" />
+                                    Binding="{Binding Compania.nombre}"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <ListView x:Name="listView" Height="100">
@@ -121,6 +119,11 @@
         </TabItem>
         <TabItem Header="Eventos">
             <Grid Background="#FFE5E5E5" Margin="10"/>
+        </TabItem>
+        <TabItem Header="Compania">
+            <StackPanel Orientation="Vertical" Background="#FFE5E5E5" Margin="10">
+                <TextBlock Text="{Binding Compania.nombre}"></TextBlock>
+            </StackPanel>
         </TabItem>
     </TabControl>
 </Controls:MetroWindow>

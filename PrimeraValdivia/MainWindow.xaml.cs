@@ -16,6 +16,7 @@ using System.Data.SQLite;
 using System.IO;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using PrimeraValdivia.ViewModels;
 
 namespace PrimeraValdivia
 {
@@ -27,6 +28,7 @@ namespace PrimeraValdivia
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new CompaniaViewModel();
             
         }
         private async void button_crearBD_Click(object sender, RoutedEventArgs e)

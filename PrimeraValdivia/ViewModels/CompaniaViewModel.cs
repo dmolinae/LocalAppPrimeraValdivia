@@ -10,48 +10,33 @@ namespace PrimeraValdivia.ViewModels
 {
     class CompaniaViewModel : ViewModelBase
     {
-        private CompaniaModel _compania;
-
-        public CompaniaModel Compania
-        {
-            get
-            {
-                return this._compania;
-            }
-            set
-            {
-                this._compania = value;
-                OnPropertyChanged();
-            }
-        }
-        private ObservableCollection<CompaniaModel> _companias;
-
-        public ObservableCollection<CompaniaModel> Companias
-        {
-            get
-            {
-                if (this._companias == null)
-                    this._companias = new ObservableCollection<CompaniaModel>();
-                return this._companias;
-            }
-            set
-            {
-                this._companias = value;
-                OnPropertyChanged();
-            }
-        }
         public CompaniaViewModel()
         {
-            this.Companias.Add(new CompaniaModel()
+            _Compania = new Compania
             {
                 idCompania = 0,
-                rut = "18578070-8",
-                clave = "1234", 
-                calle = "General Lagos",
-                numeroCalle = "1618",
-                ciudad = "Valdivia",
-                nombreCompania = "Los penes voladores"
-            });
+                rut = "root",
+                clave = "root",
+                nombre = "Molina S.A."
+            };
+            Companias = new List<Compania>();
+            Companias.Add(_Compania);
+        }
+
+        private Compania _Compania;
+        public Compania Compania
+        {
+            get { return _Compania; }
+        }
+
+        private List<Compania> _Companias;
+        public List<Compania> Companias
+        {
+            get { return _Companias; }
+            set
+            {
+                SetProperty(ref _Companias, value);
+            }
         }
     }
 }
