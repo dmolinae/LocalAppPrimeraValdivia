@@ -42,13 +42,46 @@ namespace PrimeraValdivia.Models
             }
         }
 
-        private string _nombre;
-        public string nombre
+        private string _nombreCompania;
+        public string nombreCompania
         {
-            get { return _nombre; }
+            get { return _nombreCompania; }
             set
             {
-                _nombre = value;
+                _nombreCompania = value;
+                OnPropertyChanged("nombre");
+            }
+        }
+
+        private string _calle;
+        public string calle
+        {
+            get { return _calle; }
+            set
+            {
+                _calle = value;
+                OnPropertyChanged("nombre");
+            }
+        }
+
+        private string _numeroCalle;
+        public string numeroCalle
+        {
+            get { return _numeroCalle; }
+            set
+            {
+                _numeroCalle = value;
+                OnPropertyChanged("nombre");
+            }
+        }
+
+        private string _ciudad;
+        public string ciudad
+        {
+            get { return _ciudad; }
+            set
+            {
+                _ciudad = value;
                 OnPropertyChanged("nombre");
             }
         }

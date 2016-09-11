@@ -12,15 +12,15 @@ namespace PrimeraValdivia.ViewModels
     {
         public CompaniaViewModel()
         {
-            _Compania = new Compania
+            Companias = new List<Compania>();
+            Companias.Add(new Compania
             {
                 idCompania = 0,
                 rut = "root",
                 clave = "root",
-                nombre = "Molina S.A."
-            };
-            Companias = new List<Compania>();
-            Companias.Add(_Compania);
+                nombreCompania = "Molina S.A."
+            }
+            );
         }
 
         private Compania _Compania;
