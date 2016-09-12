@@ -28,7 +28,7 @@ namespace PrimeraValdivia
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new CompaniaViewModel();
+            DataContext = new VoluntarioViewModel();
             
         }
         private async void button_crearBD_Click(object sender, RoutedEventArgs e)

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PrimeraValdivia"
+        xmlns:local="clr-namespace:PrimeraValdivia.Views"
         xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         x:Class="PrimeraValdivia.MainWindow"
@@ -89,24 +89,7 @@
                         </Button.Template>
                     </Button>
                 </StackPanel>
-                <DataGrid
-                        ItemsSource="{Binding Companias}"
-                        AutoGenerateColumns="False" 
-                        Height="535" Margin="10">
-                    <DataGrid.Columns>
-                        <DataGridCheckBoxColumn 
-                                    ElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                    Header="IsSelected"
-                                    Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"/>
-                        <DataGridTextColumn 
-                                    Header="id"
-                                    Binding="{Binding idCompania}"/>
-                        <DataGridTextColumn 
-                                    Header="nombre"
-                                    Binding="{Binding nombre}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <local:Voluntarios/>
                 <ListView x:Name="listView" Height="100">
                     <ListView.View>
                         <GridView>
