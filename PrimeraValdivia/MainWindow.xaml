@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PrimeraValdivia.Views"
+        xmlns:views="clr-namespace:PrimeraValdivia.Views"
         xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         x:Class="PrimeraValdivia.MainWindow"
@@ -20,10 +20,9 @@
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Height="60" Margin="5" HorizontalAlignment="Right" Grid.Row="0">
                     <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding SetTextCommand}"> Crear BD</Button>
-                    <local:add_button/>
                 </StackPanel>
                 <Grid Grid.Row="1">
-                    <local:Voluntarios/>
+                    <views:Voluntarios/>
                 </Grid>
             </Grid>
         </TabItem>

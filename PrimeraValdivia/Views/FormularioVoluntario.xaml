@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="PrimeraValdivia.Views.FormularioVoluntario"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PrimeraValdivia.Views"
+             mc:Ignorable="d">
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Rut" Width="130"/>
+            <TextBox Text="{Binding Voluntario.rut}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Nombre" Width="130"/>
+            <TextBox Text="{Binding Voluntario.nombre}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Fecha Nacimiento" Width="130"/>
+            <TextBox Text="{Binding Voluntario.fechaNacimiento}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Ciudad Nacimiento" Width="130"/>
+            <TextBox Text="{Binding Voluntario.ciudadNacimiento}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Grupo Sanguineo" Width="130"/>
+            <TextBox Text="{Binding Voluntario.grupoSanguineo}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Profesion" Width="130"/>
+            <TextBox Text="{Binding Voluntario.profesion}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Fecha Ingreso" Width="130"/>
+            <TextBox Text="{Binding Voluntario.fechaIngreso}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Fecha Reincorporacion" Width="130"/>
+            <TextBox Text="{Binding Voluntario.fechaReincorporacion}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Servicio Compañia" Width="130"/>
+            <TextBox Text="{Binding Voluntario.servicioCompania}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Servicio Militar" Width="130"/>
+            <TextBox Text="{Binding Voluntario.servicioMilitar}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Insignia" Width="130"/>
+            <TextBox Text="{Binding Voluntario.insignia}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Registro Compañia" Width="130"/>
+            <TextBox Text="{Binding Voluntario.registroCompania}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Cargo" Width="130"/>
+            <TextBox Text="{Binding Voluntario.cargo}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Calificacion" Width="130"/>
+            <TextBox Text="{Binding Voluntario.calificacion}" Width="200"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

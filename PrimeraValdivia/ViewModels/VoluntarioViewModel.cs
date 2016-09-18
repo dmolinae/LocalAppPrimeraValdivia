@@ -17,8 +17,8 @@ namespace PrimeraValdivia.ViewModels
     {
         public VoluntarioViewModel()
         {
-            _Voluntarios = new ObservableCollection<Voluntario>();
-            _Voluntarios.Add(new Voluntario
+            Voluntarios = new ObservableCollection<Voluntario>();
+            Voluntarios.Add(new Voluntario
             {
                 rut = "18578070-8",
                 nombre = "Daniel Molina",
@@ -39,17 +39,17 @@ namespace PrimeraValdivia.ViewModels
         }
         public string rut { get; set; }
 
-        private ObservableCollection<Voluntario> _Voluntarios;
+        private ObservableCollection<Voluntario> _voluntarios;
         public ObservableCollection<Voluntario> Voluntarios
         {
             get
             {
-                return _Voluntarios;
+                return _voluntarios;
             }
             set
             {
-                SetProperty(ref _Voluntarios, value);
-                Debug.Write("set voluntarios");
+                _voluntarios = value;
+                OnPropertyChanged("Voluntarios");
             }
         }
         

@@ -1,5 +1,4 @@
-﻿using PrimeraValdivia.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,14 +16,13 @@ using System.Windows.Shapes;
 namespace PrimeraValdivia.Views
 {
     /// <summary>
-    /// Interaction logic for add_button.xaml
+    /// Interaction logic for FormularioVoluntario.xaml
     /// </summary>
-    public partial class add_button : UserControl
+    public partial class FormularioVoluntario : UserControl
     {
-        public add_button()
+        public FormularioVoluntario()
         {
             InitializeComponent();
-            DataContext = new VoluntarioViewModel();
         }
     }
 }
