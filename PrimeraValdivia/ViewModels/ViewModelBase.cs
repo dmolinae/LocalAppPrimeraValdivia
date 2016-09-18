@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -18,6 +19,7 @@ namespace PrimeraValdivia.ViewModels
         }
         protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
         {
+            Debug.Write(propertyName);
             if (EqualityComparer<T>.Default.Equals(storage, value))
                 return false;
             storage = value;

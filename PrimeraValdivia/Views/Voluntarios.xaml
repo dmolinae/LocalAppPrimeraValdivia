@@ -7,9 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <DataGrid
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="0"
             ItemsSource="{Binding Voluntarios}"
             AutoGenerateColumns="True" Margin="10">
         </DataGrid>
+        <TextBlock Grid.Row="1" Text="{Binding rut}"/>
     </Grid>
 </UserControl>

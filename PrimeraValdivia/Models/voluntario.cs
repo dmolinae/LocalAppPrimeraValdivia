@@ -7,8 +7,25 @@ using System.ComponentModel;
 
 namespace PrimeraValdivia.Models
 {
-    class Voluntario : INotifyPropertyChanged
+    class Voluntario
     {
+        public string rut { get; set; }
+        public string nombre { get; set; }
+        public string fechaNacimiento { get; set; }
+        public string ciudadNacimiento { get; set; }
+        public string grupoSanguineo { get; set; }
+        public string profesion { get; set; }
+        public string fechaIngreso { get; set; }
+        public string fechaReincorporacion { get; set; }
+        public string servicioCompania { get; set; }
+        public string servicioMilitar { get; set; }
+        public int insignia { get; set; }
+        public int registroCompania { get; set; }
+        public string cargo { get; set; }
+        public string calificacion { get; set; }
+        /*
+        #region Atributos
+
         private String _rut;
         public String rut
         {
@@ -173,8 +190,7 @@ namespace PrimeraValdivia.Models
                 OnPropertyChanged("fk_idCompania");
             }
         }
-
-
+        #endregion
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -188,5 +204,6 @@ namespace PrimeraValdivia.Models
         }
 
         #endregion
+        */
     }
 }

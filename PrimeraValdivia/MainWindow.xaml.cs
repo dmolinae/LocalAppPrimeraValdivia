@@ -28,8 +28,7 @@ namespace PrimeraValdivia
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new VoluntarioViewModel();
-            
+            DataContext = new MainWindowViewModel();
         }
         private async void button_crearBD_Click(object sender, RoutedEventArgs e)
         {
@@ -37,28 +36,11 @@ namespace PrimeraValdivia
             dialog.SetIndeterminate();
             await Task.Run(() =>
             {
-                crearBD();
+                Utils.crearBD();
             });
             await dialog.CloseAsync();
             MessageDialogResult async_message = await this.ShowMessageAsync("Exito!", "La base de datos ha sido creada exitosamente.");
         }
-        public void crearBD()
-        {
-            string script = File.ReadAllText(getMainPath() + @"\dataBase_sqlite.sql");
-            SQLiteConnection conn = new SQLiteConnection("Data Source=bomberos.db");
-            conn.Open();
-            var command = conn.CreateCommand();
-            command.CommandText = script;
-            command.ExecuteNonQuery();
-            conn.Close();
-        }
-        private string getMainPath()
-        {
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            string actualPath = Directory.GetParent(path).FullName;
-            string binPath = Directory.GetParent(actualPath).FullName;
-            string mainPath = Directory.GetParent(binPath).FullName;
-            return mainPath;
-        }
+        
     }
 }
