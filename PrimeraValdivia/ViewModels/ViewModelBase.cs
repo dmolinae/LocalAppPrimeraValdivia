@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Threading;
+using System.Runtime.CompilerServices;
 
 namespace PrimeraValdivia.ViewModels
 {
@@ -19,7 +19,6 @@ namespace PrimeraValdivia.ViewModels
         }
         protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
         {
-            Debug.Write(propertyName);
             if (EqualityComparer<T>.Default.Equals(storage, value))
                 return false;
             storage = value;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace PrimeraValdivia.Views
     /// <summary>
     /// Interaction logic for FormularioVoluntario.xaml
     /// </summary>
-    public partial class FormularioVoluntario : UserControl
+    public partial class FormularioVoluntario : MetroWindow
     {
         public FormularioVoluntario()
         {

@@ -1,11 +1,19 @@
-﻿<UserControl x:Class="PrimeraValdivia.Views.FormularioVoluntario"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PrimeraValdivia.Views"
-             mc:Ignorable="d">
-    <StackPanel Orientation="Vertical">
+﻿<Controls:MetroWindow 
+        x:Class="PrimeraValdivia.Views.FormularioVoluntario"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:PrimeraValdivia.Views"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:viewModels="clr-namespace:PrimeraValdivia.ViewModels"
+        DataContext="clr-namespace:PrimeraValdivia.ViewModels.VoluntarioViewModel"
+        mc:Ignorable="d"
+        GlowBrush="Black"
+        WindowStartupLocation="CenterScreen" 
+             Width="400" Height="500">
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Rut" Width="130"/>
             <TextBox Text="{Binding Voluntario.rut}" Width="200"/>
@@ -62,5 +70,8 @@
             <Label Content="Calificacion" Width="130"/>
             <TextBox Text="{Binding Voluntario.calificacion}" Width="200"/>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="Guardar" Command="{Binding AgregarVoluntarioCommand}"/>
+        </StackPanel>
     </StackPanel>
-</UserControl>
+</Controls:MetroWindow>

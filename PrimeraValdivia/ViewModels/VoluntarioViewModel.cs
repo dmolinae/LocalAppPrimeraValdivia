@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PrimeraValdivia.Models;
+using PrimeraValdivia.Views;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows.Input;
 using PrimeraValdivia.Commands;
@@ -15,6 +16,56 @@ namespace PrimeraValdivia.ViewModels
 {
     class VoluntarioViewModel : ViewModelBase
     {
+        #region Variables privadas
+
+        private Voluntario _Voluntario;
+        private ObservableCollection<Voluntario> _Voluntarios;
+        private ICommand _AgregarVoluntarioCommand;
+
+        #endregion
+
+        #region Propiedades/Comandos públicos
+        
+        public Voluntario Voluntario
+        {
+            get { return _Voluntario; }
+            set
+            {
+                _Voluntario = value;
+                OnPropertyChanged("Voluntario");
+            }
+        }
+        
+        public ObservableCollection<Voluntario> Voluntarios
+        {
+            get
+            {
+                return _Voluntarios;
+            }
+            set
+            {
+                _Voluntarios = value;
+                OnPropertyChanged("Voluntarios");
+            }
+        }
+
+        public ICommand AgregarVoluntarioCommand
+        {
+            get
+            {
+                _AgregarVoluntarioCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => AgregarVoluntario()
+                };
+                return _AgregarVoluntarioCommand;
+            }
+        }
+
+        #endregion
+
+        #region Constructor/Métodos
+
         public VoluntarioViewModel()
         {
             Voluntarios = new ObservableCollection<Voluntario>();
@@ -35,59 +86,19 @@ namespace PrimeraValdivia.ViewModels
                 cargo = "Bombero",
                 calificacion = "Good"
             });
-            rut = "Hola";
-        }
-        public string rut { get; set; }
-
-        private ObservableCollection<Voluntario> _voluntarios;
-        public ObservableCollection<Voluntario> Voluntarios
-        {
-            get
-            {
-                return _voluntarios;
-            }
-            set
-            {
-                _voluntarios = value;
-                OnPropertyChanged("Voluntarios");
-            }
-        }
-        
-
-        private ICommand _AgregarVoluntarioCommand;
-        public ICommand AgregarVoluntarioCommand
-        {
-            get
-            {
-                _AgregarVoluntarioCommand = new RelayCommand()
-                {
-                    CanExecuteDelegate = c => true,
-                    ExecuteDelegate = c => AgregarVoluntario()
-                };
-                return _AgregarVoluntarioCommand;
-            }
         }
 
         private void AgregarVoluntario()
         {
-            Voluntarios.Add(new Voluntario
-            {
-                rut = "asdlfjsf-8",
-                nombre = "asdfasf Molina",
-                fechaNacimiento = "17/asdfasf/1993",
-                ciudadNacimiento = "Osasdfasdforno",
-                grupoSanguineo = "Aasdfasf",
-                profesion = "Estudiasdfasante",
-                fechaIngreso = "01/04asdfasdf/1993",
-                fechaReincorporacion = "99asdfasdf99",
-                servicioCompania = "serasdfasdfvicioCompania",
-                servicioMilitar = "Tasdfasrue",
-                insignia = 12,
-                registroCompania = 1233,
-                cargo = "Bomdasdbero",
-                calificacion = "Goasdasdod"
-            });
-            Debug.Write(Voluntarios.Count);
+            var voluntario = new Voluntario();
+
+            var viewmodel = new FormularioVoluntarioViewModel(Voluntarios);
+            var view = new FormularioVoluntario();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
         }
+
+        #endregion
     }
 }
