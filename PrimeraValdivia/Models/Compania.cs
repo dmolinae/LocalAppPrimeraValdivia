@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using PrimeraValdivia.ViewModels;
 
 namespace PrimeraValdivia.Models
 {
-    class Compania : INotifyPropertyChanged
+    class Compania : ViewModelBase
     {
         
         private int _idCompania;
@@ -85,19 +86,6 @@ namespace PrimeraValdivia.Models
                 OnPropertyChanged("nombre");
             }
         }
-
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(String propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        #endregion
+        
     }
 }

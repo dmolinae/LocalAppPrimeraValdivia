@@ -23,7 +23,7 @@
                 </Button.Effect>
             </Button>
         </StackPanel>
-        <DataGrid CanUserAddRows="True" ItemsSource="{Binding Voluntarios}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
+        <DataGrid CanUserAddRows="False" ItemsSource="{Binding Voluntarios}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
                   CanUserDeleteRows="True" CanUserReorderColumns="True" Grid.Row="1"
                   CanUserSortColumns="True" Margin="10">
 

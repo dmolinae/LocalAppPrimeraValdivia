@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
+using MySql.Data;
+using MySql.Data.MySqlClient;
+
 
 namespace PrimeraValdivia.ViewModels
 {

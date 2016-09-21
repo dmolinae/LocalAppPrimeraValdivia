@@ -11,6 +11,8 @@ using PrimeraValdivia.Commands;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using PrimeraValdivia.Helpers;
+using MySql.Data.MySqlClient;
 
 namespace PrimeraValdivia.ViewModels
 {
@@ -68,24 +70,23 @@ namespace PrimeraValdivia.ViewModels
 
         public VoluntarioViewModel()
         {
-            Voluntarios = new ObservableCollection<Voluntario>();
-            Voluntarios.Add(new Voluntario
+            /*
+            var dbCon = DBConnection.Instance();
+            dbCon.DatabaseName = "primeravaldivia$default";
+            if (dbCon.IsConnect())
             {
-                rut = "18578070-8",
-                nombre = "Daniel Molina",
-                fechaNacimiento = "17/11/1993",
-                ciudadNacimiento = "Osorno",
-                grupoSanguineo = "A",
-                profesion = "Estudiante",
-                fechaIngreso = "01/04/1993",
-                fechaReincorporacion = "9999",
-                servicioCompania = "servicioCompania",
-                servicioMilitar = "True",
-                insignia = 1,
-                registroCompania = 123,
-                cargo = "Bombero",
-                calificacion = "Good"
-            });
+                string query = "SELECT nombre,cargo FROM Voluntario";
+                var cmd = new MySqlCommand(query, dbCon.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    string someStringFromColumnZero = reader.GetString(0);
+                    string someStringFromColumnOne = reader.GetString(1);
+                    Debug.Write(someStringFromColumnZero + "," + someStringFromColumnOne);
+                }
+            }*/
+            Voluntarios = new ObservableCollection<Voluntario>();
+            
         }
 
         private void AgregarVoluntario()

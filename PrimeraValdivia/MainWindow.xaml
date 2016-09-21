@@ -10,6 +10,7 @@
         mc:Ignorable="d"
         GlowBrush="Black"
         WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         Title="{Binding Title}" Height="720" Width="1280">
     <TabControl x:Name="tabControl">
         <TabItem Header="Voluntarios" Height="39" VerticalAlignment="Bottom">
@@ -24,7 +25,12 @@
         </TabItem>
         <TabItem Header="Eventos">
             <Grid Background="#FFE5E5E5" Margin="10">
-                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <views:Eventos/>
+                </Grid>
             </Grid>
         </TabItem>
     </TabControl>

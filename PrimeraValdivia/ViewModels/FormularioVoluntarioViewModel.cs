@@ -16,7 +16,7 @@ namespace PrimeraValdivia.ViewModels
     {
         private ObservableCollection<Voluntario> _Voluntarios;
         private Voluntario _Voluntario;
-        private ICommand _AgregarVoluntarioCommand;
+        private ICommand _GuardarVoluntarioCommand;
 
         public Action CloseAction { get; set; }
 
@@ -43,16 +43,16 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
-        public ICommand AgregarVoluntarioCommand
+        public ICommand GuardarVoluntarioCommand
         {
             get
             {
-                _AgregarVoluntarioCommand = new RelayCommand()
+                _GuardarVoluntarioCommand = new RelayCommand()
                 {
                     CanExecuteDelegate = c => true,
-                    ExecuteDelegate = c => AgregarVoluntario()
+                    ExecuteDelegate = c => GuardarVoluntario()
                 };
-                return _AgregarVoluntarioCommand;
+                return _GuardarVoluntarioCommand;
             }
         }
 
@@ -62,7 +62,7 @@ namespace PrimeraValdivia.ViewModels
             Voluntario = new Voluntario();
         }
 
-        private void AgregarVoluntario()
+        private void GuardarVoluntario()
         {
             Voluntarios.Add(Voluntario);
             CloseAction();
