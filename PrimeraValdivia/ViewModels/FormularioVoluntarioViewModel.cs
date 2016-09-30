@@ -64,6 +64,8 @@ namespace PrimeraValdivia.ViewModels
 
         private void GuardarVoluntario()
         {
+            var model = new Voluntario();
+            model.AgregarVoluntario(Voluntario);
             Voluntarios.Add(Voluntario);
             CloseAction();
         }

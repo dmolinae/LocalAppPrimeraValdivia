@@ -5,12 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using PrimeraValdivia.ViewModels;
+using System.Collections.ObjectModel;
+using System.Data.SQLite;
+using System.Data;
+using System.Diagnostics;
 
 namespace PrimeraValdivia.Models
 {
     class Voluntario : ViewModelBase
     {
-        
+        private Utils utils = new Utils();
+        private string query;
+
         #region Atributos
 
         private String _rut;
@@ -35,14 +41,16 @@ namespace PrimeraValdivia.Models
             }
         }
 
-        private String _fechaNacimiento;
-        public String fechaNacimiento
+        private DateTime _fechaNacimiento;
+        public DateTime fechaNacimiento
         {
             get { return _fechaNacimiento; }
             set
             {
+                
                 _fechaNacimiento = value;
                 OnPropertyChanged("fechaNacimiento");
+                Debug.Write(_fechaNacimiento);
             }
         }
 
@@ -79,8 +87,8 @@ namespace PrimeraValdivia.Models
             }
         }
 
-        private String _fechaIngreso;
-        public String fechaIngreso
+        private DateTime _fechaIngreso = DateTime.Now;
+        public DateTime fechaIngreso
         {
             get { return _fechaIngreso; }
             set
@@ -90,8 +98,8 @@ namespace PrimeraValdivia.Models
             }
         }
 
-        private String _fechaReincorporacion;
-        public String fechaReincorporacion
+        private DateTime _fechaReincorporacion = DateTime.Now;
+        public DateTime fechaReincorporacion
         {
             get { return _fechaReincorporacion; }
             set
@@ -112,8 +120,8 @@ namespace PrimeraValdivia.Models
             }
         }
 
-        private String _servicioMilitar;
-        public String servicioMilitar
+        private bool _servicioMilitar;
+        public bool servicioMilitar
         {
             get { return _servicioMilitar; }
             set
@@ -177,6 +185,84 @@ namespace PrimeraValdivia.Models
                 OnPropertyChanged("fk_idCompania");
             }
         }
+        #endregion
+
+        #region Métodos
+        public Voluntario()
+        {
+
+        }
+        public Voluntario(string rut, string nombre, DateTime fechaNacimiento, string ciudadNacimiento, string grupoSanguineo, string profesion, DateTime fechaIngreso, DateTime fechaReincorporacion, string servicioCompania, bool servicioMilitar, int insignia, int registroCompania, string cargo, string calificacion, int fk_idCompania)
+        {
+            this.rut = rut;
+            this.nombre = nombre;
+            this.fechaNacimiento = fechaNacimiento;
+            this.ciudadNacimiento = ciudadNacimiento;
+            this.grupoSanguineo = grupoSanguineo;
+            this.profesion = profesion;
+            this.fechaIngreso = fechaIngreso;
+            this.fechaReincorporacion = fechaReincorporacion;
+            this.servicioCompania = servicioCompania;
+            this.servicioMilitar = servicioMilitar;
+            this.insignia = insignia;
+            this.registroCompania = registroCompania;
+            this.cargo = cargo;
+            this.calificacion = calificacion;
+            this.fk_idCompania = fk_idCompania;
+        }
+
+        public void AgregarVoluntario(Voluntario Voluntario)
+        {
+            query = String.Format(
+                "INSERT INTO Voluntario values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9},{10},{11},'{12}','{13}',{14})",
+                Voluntario.rut,
+                Voluntario.nombre,
+                Voluntario.fechaNacimiento,
+                Voluntario.ciudadNacimiento,
+                Voluntario.grupoSanguineo,
+                Voluntario.profesion,
+                Voluntario.fechaIngreso,
+                Voluntario.fechaReincorporacion,
+                Voluntario.servicioCompania,
+                (Voluntario.servicioMilitar)? 1 : 0,
+                Voluntario.insignia,
+                Voluntario.registroCompania,
+                Voluntario.cargo,
+                Voluntario.calificacion,
+                Voluntario.fk_idCompania
+                );
+            utils.ExecuteNonQuery(query);
+        }
+
+        public ObservableCollection<Voluntario> ObtenerVoluntarios()
+        {
+            ObservableCollection<Voluntario> Voluntarios = new ObservableCollection<Voluntario>();
+            query = "SELECT * FROM Voluntario";
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                Voluntario voluntarioActual = new Voluntario(
+                    row["rut"].ToString(),
+                    row["nombre"].ToString(),
+                    DateTime.Parse(row["fechaNacimiento"].ToString()),
+                    row["ciudadNacimiento"].ToString(),
+                    row["grupoSanguineo"].ToString(),
+                    row["profesion"].ToString(),
+                    DateTime.Parse(row["fechaIngreso"].ToString()),
+                    DateTime.Parse(row["fechaReincorporacion"].ToString()),
+                    row["servicioCompañia"].ToString(),
+                    bool.Parse(row["servicioMilitar"].ToString()),
+                    int.Parse(row["insignia"].ToString()),
+                    int.Parse(row["registroCompañia"].ToString()),
+                    row["cargo"].ToString(),
+                    row["calificacion"].ToString(),
+                    int.Parse(row["fk_idCompañia"].ToString())
+                    );
+                Voluntarios.Add(voluntarioActual);
+            }
+            return Voluntarios;
+        }
+
         #endregion
     }
 }

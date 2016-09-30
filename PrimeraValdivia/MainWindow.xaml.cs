@@ -30,6 +30,7 @@ namespace PrimeraValdivia
             InitializeComponent();
             DataContext = new MainWindowViewModel();
         }
+        /*
         private async void button_crearBD_Click(object sender, RoutedEventArgs e)
         {
             ProgressDialogController dialog = await this.ShowProgressAsync("Por favor espera...", "Creando base de datos");
@@ -41,6 +42,6 @@ namespace PrimeraValdivia
             await dialog.CloseAsync();
             MessageDialogResult async_message = await this.ShowMessageAsync("Exito!", "La base de datos ha sido creada exitosamente.");
         }
-        
+        */
     }
 }

@@ -23,11 +23,13 @@ namespace PrimeraValdivia.ViewModels
         private Voluntario _Voluntario;
         private ObservableCollection<Voluntario> _Voluntarios;
         private ICommand _AgregarVoluntarioCommand;
+        private Utils utils = new Utils();
+        private Voluntario model = new Voluntario();
 
         #endregion
 
         #region Propiedades/Comandos públicos
-        
+
         public Voluntario Voluntario
         {
             get { return _Voluntario; }
@@ -85,8 +87,7 @@ namespace PrimeraValdivia.ViewModels
                     Debug.Write(someStringFromColumnZero + "," + someStringFromColumnOne);
                 }
             }*/
-            Voluntarios = new ObservableCollection<Voluntario>();
-            
+            Voluntarios = model.ObtenerVoluntarios();
         }
 
         private void AgregarVoluntario()

@@ -24,7 +24,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Fecha Nacimiento" Width="130"/>
-            <TextBox Text="{Binding Voluntario.fechaNacimiento}" Width="200"/>
+            <DatePicker SelectedDate="{Binding Voluntario.fechaNacimiento}" Width="200"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Ciudad Nacimiento" Width="130"/>
@@ -40,11 +40,11 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Fecha Ingreso" Width="130"/>
-            <TextBox Text="{Binding Voluntario.fechaIngreso}" Width="200"/>
+            <DatePicker SelectedDate="{Binding Voluntario.fechaIngreso}" Width="200"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Fecha Reincorporacion" Width="130"/>
-            <TextBox Text="{Binding Voluntario.fechaReincorporacion}" Width="200"/>
+            <DatePicker SelectedDate="{Binding Voluntario.fechaReincorporacion}" Width="200"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Servicio Compañia" Width="130"/>
@@ -52,7 +52,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Servicio Militar" Width="130"/>
-            <TextBox Text="{Binding Voluntario.servicioMilitar}" Width="200"/>
+            <Controls:ToggleSwitch OnLabel="Si" OffLabel="No" IsChecked="{Binding Voluntario.servicioMilitar}" Width="200" Height="40"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Insignia" Width="130"/>

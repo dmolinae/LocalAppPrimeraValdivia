@@ -16,9 +16,11 @@
         <TabItem Header="Voluntarios" Height="39" VerticalAlignment="Bottom">
             <Grid Background="#FFE5E5E5" Margin="10">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Button Grid.Row="0" Content="Boton" Command="{Binding SetTextCommand}"/>
+                <Grid Grid.Row="1">
                     <views:Voluntarios/>
                 </Grid>
             </Grid>

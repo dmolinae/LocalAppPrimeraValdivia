@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SQLite;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,12 +17,14 @@ namespace PrimeraValdivia.ViewModels
         public MainWindowViewModel()
         {
             _Title = "Primera Valdivia";
+            var utils = new Utils();
+            utils.crearBD();
         }
 
         private string _Title;
         public string Title
         {
-            get { return _Title; }
+            get { return _Title + "_"; }
 
             set
             {
@@ -49,7 +53,7 @@ namespace PrimeraValdivia.ViewModels
 
         private void SetTitle()
         {
-            Title += " grows! ";
+            Title += "";
         }
         
     }
