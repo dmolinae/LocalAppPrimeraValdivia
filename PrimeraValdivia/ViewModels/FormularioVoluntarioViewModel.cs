@@ -61,6 +61,11 @@ namespace PrimeraValdivia.ViewModels
             this.Voluntarios = Voluntarios;
             Voluntario = new Voluntario();
         }
+        public FormularioVoluntarioViewModel(ObservableCollection<Voluntario> Voluntarios, Voluntario Voluntario)
+        {
+            this.Voluntarios = Voluntarios;
+            this.Voluntario = Voluntario;
+        }
 
         private void GuardarVoluntario()
         {

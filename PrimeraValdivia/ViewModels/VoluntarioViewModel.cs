@@ -23,6 +23,7 @@ namespace PrimeraValdivia.ViewModels
         private Voluntario _Voluntario;
         private ObservableCollection<Voluntario> _Voluntarios;
         private ICommand _AgregarVoluntarioCommand;
+        private ICommand _MostrarFormularioVoluntarioCommand;
         private Utils utils = new Utils();
         private Voluntario model = new Voluntario();
 
@@ -66,6 +67,19 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public ICommand MostrarFormularioVoluntarioCommand
+        {
+            get
+            {
+                _MostrarFormularioVoluntarioCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => MostrarVoluntario()
+                };
+                return _MostrarFormularioVoluntarioCommand;
+            }
+        }
+
         #endregion
 
         #region Constructor/Métodos
@@ -95,6 +109,15 @@ namespace PrimeraValdivia.ViewModels
             var voluntario = new Voluntario();
 
             var viewmodel = new FormularioVoluntarioViewModel(Voluntarios);
+            var view = new FormularioVoluntario();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
+        }
+
+        private void MostrarVoluntario()
+        {
+            var viewmodel = new FormularioVoluntarioViewModel(Voluntarios, Voluntario);
             var view = new FormularioVoluntario();
             view.DataContext = viewmodel;
             viewmodel.CloseAction = new Action(view.Close);

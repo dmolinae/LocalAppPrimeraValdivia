@@ -84,10 +84,10 @@ namespace PrimeraValdivia.ViewModels
             Eventos.Add(new Evento
             {
                 idEvento = 0,
-                correlativoLlamado = "123",
-                correlativoCBV = "132",
-                claveServicio = "23",
-                fecha = "20/09/2016",
+                correlativoLlamado = 2,
+                correlativoCBV = 1,
+                claveServicio = "02",
+                fecha = DateTime.Now,
                 calle = "General Lagos",
                 numeroCalle = "1618",
                 resumen = "Perro ladra todo el puto dia y no deja dormir ni estudiar a nadie"
@@ -95,10 +95,10 @@ namespace PrimeraValdivia.ViewModels
             Eventos.Add(new Evento
             {
                 idEvento = 1,
-                correlativoLlamado = "123",
-                correlativoCBV = "132",
-                claveServicio = "23",
-                fecha = "20/09/2016",
+                correlativoLlamado = 2,
+                correlativoCBV = 2,
+                claveServicio = "02",
+                fecha = DateTime.Now,
                 calle = "General Lagos",
                 numeroCalle = "1618",
                 resumen = "Perro ladra todo el puto dia y no deja dormir ni estudiar a nadie"
@@ -106,10 +106,10 @@ namespace PrimeraValdivia.ViewModels
             Eventos.Add(new Evento
             {
                 idEvento = 2,
-                correlativoLlamado = "123",
-                correlativoCBV = "132",
-                claveServicio = "23",
-                fecha = "20/09/2016",
+                correlativoLlamado = 1,
+                correlativoCBV = 3,
+                claveServicio = "03",
+                fecha = DateTime.Now,
                 calle = "General Lagos",
                 numeroCalle = "1618",
                 resumen = "Perro ladra todo el puto dia y no deja dormir ni estudiar a nadie"
@@ -128,8 +128,11 @@ namespace PrimeraValdivia.ViewModels
 
         private void MostrarEvento()
         {
-            Debug.Write(Evento.idEvento+" count: "+Eventos.Count);
-
+            var viewmodel = new FormularioEventoViewModel(Eventos,Evento);
+            var view = new FormularioEvento();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
         }
 
         #endregion

@@ -42,6 +42,16 @@
                 <DataGridTextColumn Header="registroCompania" Binding="{Binding Path=registroCompania, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="calificacion" Binding="{Binding Path=calificacion, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Button Content="Editar" Margin="3" Command="{Binding Path=DataContext.MostrarFormularioVoluntarioCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                        CommandParameter="{Binding}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
             </DataGrid.Columns>
         </DataGrid>

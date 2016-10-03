@@ -22,8 +22,8 @@ namespace PrimeraValdivia.Models
             }
         }
 
-        private string _correlativoLlamado;
-        public string correlativoLlamado
+        private int _correlativoLlamado;
+        public int correlativoLlamado
         {
             get { return _correlativoLlamado; }
             set
@@ -32,8 +32,8 @@ namespace PrimeraValdivia.Models
                 OnPropertyChanged("correlativoLlamado");
             }
         }
-        private string _correlativoCBV;
-        public string correlativoCBV
+        private int _correlativoCBV;
+        public int correlativoCBV
         {
             get { return _correlativoCBV; }
             set
@@ -52,8 +52,8 @@ namespace PrimeraValdivia.Models
                 OnPropertyChanged("claveServicio");
             }
         }
-        private string _fecha;
-        public string fecha
+        private DateTime _fecha = DateTime.Now;
+        public DateTime fecha
         {
             get { return _fecha; }
             set

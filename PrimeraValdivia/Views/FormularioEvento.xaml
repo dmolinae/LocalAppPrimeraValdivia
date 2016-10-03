@@ -1,4 +1,5 @@
 ﻿<Controls:MetroWindow 
+        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"  
         x:Class="PrimeraValdivia.Views.FormularioEvento"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,24 +8,111 @@
         xmlns:local="clr-namespace:PrimeraValdivia.Views"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:viewModels="clr-namespace:PrimeraValdivia.ViewModels"
-        DataContext="clr-namespace:PrimeraValdivia.ViewModels.EventoViewModel"
+        DataContext="clr-namespace:PrimeraValdivia.ViewModels.FormularioEventoViewModel"
         mc:Ignorable="d"
         GlowBrush="Black"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized">
 
-    <TabControl>
+    <Window.Resources>
+        <CollectionViewSource x:Key="CVS" Source="{Binding Voluntarios}"/>
+    </Window.Resources>
+    
+    <TabControl SelectedIndex="{Binding tabIndex}">
         <TabItem Header="Datos Comunes">
             <Grid Background="#FFE5E5E5" Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Content="Formulario sobre atributos de la tabla Evento" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF1B1B1B"/>
-                </Grid>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="0" Width="400" Background="#FF2C2C2C" Margin="10">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="ID" Width="130"/>
+                        <TextBox Text="{Binding Evento.idEvento}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="Correlativo Llamado" Width="130"/>
+                        <TextBox Text="{Binding Evento.correlativoLlamado}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="correlativoCBV" Width="130"/>
+                        <TextBox Text="{Binding Evento.correlativoCBV}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="claveServicio" Width="130"/>
+                        <TextBox Text="{Binding Evento.claveServicio, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="fecha" Width="130"/>
+                        <toolkit:DateTimePicker Format="Custom" FormatString="dd/MM/yyyy HH:mm" Text="{Binding Evento.fecha}" Width="200" Foreground="#FFC1C1C1" BorderBrush="#FFC1C1C1"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="motivo" Width="130"/>
+                        <TextBox Text="{Binding Evento.motivo}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="calle" Width="130"/>
+                        <TextBox Text="{Binding Evento.calle}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="numeroCalle" Width="130"/>
+                        <TextBox Text="{Binding Evento.numeroCalle}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="calleProxima" Width="130"/>
+                        <TextBox Text="{Binding Evento.calleProxima}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="sector" Width="130"/>
+                        <TextBox Text="{Binding Evento.sector}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="poblacion" Width="130"/>
+                        <TextBox Text="{Binding Evento.poblacion}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="ruta" Width="130"/>
+                        <TextBox Text="{Binding Evento.ruta}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="kilometroRuta" Width="130"/>
+                        <TextBox Text="{Binding Evento.kilometroRuta}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="bomberoCargo" Width="130"/>
+                        <TextBox Text="{Binding Evento.bomberoCargo}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="bomberoInforme" Width="130"/>
+                        <TextBox Text="{Binding Evento.bomberoInforme}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="codigoCargo" Width="130"/>
+                        <TextBox Text="{Binding Evento.codigoCargo}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="codigoInforme" Width="130"/>
+                        <TextBox Text="{Binding Evento.codigoInforme}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="numeroDepartamento" Width="130"/>
+                        <TextBox Text="{Binding Evento.numeroDepartamento}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="numeroBlock" Width="130"/>
+                        <TextBox Text="{Binding Evento.numeroBlock}" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="resumen" Width="130"/>
+                        <TextBox Text="{Binding Evento.resumen}" Width="200"/>
+                    </StackPanel>
+   
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,10,0">
+                        <Button Content="Siguiente" Command="{Binding AvanzarInformeUnoCommand}"/>
+                    </StackPanel>
+                </StackPanel>
             </Grid>
         </TabItem>
-        <TabItem Header="Datos Incendio/Rescate">
+        <TabItem Header="{Binding tab2header}" IsEnabled="{Binding tab2enabled}">
             <Grid Background="#FFE5E5E5" Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -41,7 +129,7 @@
                 </Grid>
             </Grid>
         </TabItem>
-        <TabItem Header="Detalles">
+        <TabItem Header="Detalles" IsEnabled="{Binding tab3enabled}">
             <Grid Background="#FFE5E5E5" Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -74,24 +162,27 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Column="0" Grid.Row="1">
-                    <DataGrid CanUserAddRows="True" ItemsSource="{Binding Voluntarios}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
-                              CanUserDeleteRows="True" CanUserReorderColumns="True" Grid.Row="1"
+                    <DataGrid ItemsSource="{Binding Source={StaticResource CVS}}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
+                              Grid.Row="1"
+                              CanUserAddRows="False"
+                             
                               CanUserSortColumns="True" Margin="10">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="rut" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                            <DataGridTextColumn Header="cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
                 <Grid Grid.Column="1" Grid.Row="1">
-                    <DataGrid CanUserAddRows="True" ItemsSource="{Binding Asistentes}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
-                              CanUserDeleteRows="True" CanUserReorderColumns="True" Grid.Row="1"
+                    <DataGrid ItemsSource="{Binding Asistentes}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
+                              Grid.Row="1"
+                              CanUserAddRows="False"
                               CanUserSortColumns="True" Margin="10">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="rut" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                            <DataGridTextColumn Header="cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

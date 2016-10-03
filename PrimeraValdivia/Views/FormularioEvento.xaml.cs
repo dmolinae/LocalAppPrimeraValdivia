@@ -1,4 +1,6 @@
-﻿using MahApps.Metro.Controls;
+﻿using GalaSoft.MvvmLight.Messaging;
+using MahApps.Metro.Controls;
+using PrimeraValdivia.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,8 @@ namespace PrimeraValdivia.Views
         public FormularioEvento()
         {
             InitializeComponent();
+
+            Messenger.Default.Send(new ViewCollectionViewSourceMessageToken() { CVS = (CollectionViewSource)(this.Resources["CVS"]) });
         }
     }
 }
