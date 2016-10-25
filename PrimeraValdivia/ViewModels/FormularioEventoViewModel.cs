@@ -15,25 +15,32 @@ namespace PrimeraValdivia.ViewModels
 {
     class FormularioEventoViewModel : ViewModelBase
     {
+        #region Atributos privados
+
         private Voluntario _Voluntario;
         private ObservableCollection<Voluntario> _Voluntarios;
-        private ObservableCollection<Voluntario> _Asistentes;
+        private ObservableCollection<Asistencia> _Asistentes;
         private ObservableCollection<Evento> _Eventos;
         private Evento _Evento;
         private ICommand _GuardarEventoCommand;
         private ICommand _AvanzarInformeUnoCommand;
-        private ICommand _DobleClickCommand;
+        private ICommand _ActionCommand;
         private string _tab2header = "Datos";
         private bool _tab2enabled = false;
         private bool _tab3enabled = false;
-        private bool _aChecked;
+        private bool _aChecked = true;
         private bool _fChecked;
         private bool _lChecked;
+        private bool _obChecked;
         private int _tabIndex;
         private CollectionViewSource CVS { get; set; }
 
-
+        private Asistencia asistenciaModel = new Asistencia();
         private Voluntario voluntarioModel = new Voluntario();
+
+        #endregion
+
+        #region Atributos publicos
 
         public Action CloseAction { get; set; }
 
@@ -102,6 +109,15 @@ namespace PrimeraValdivia.ViewModels
                 OnPropertyChanged("lChecked");
             }
         }
+        public bool obChecked
+        {
+            get { return _obChecked; }
+            set
+            {
+                _obChecked = value;
+                OnPropertyChanged("obChecked");
+            }
+        }
 
         public Evento Evento
         {
@@ -149,7 +165,7 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
-        public ObservableCollection<Voluntario> Asistentes
+        public ObservableCollection<Asistencia> Asistentes
         {
             get
             {
@@ -186,22 +202,43 @@ namespace PrimeraValdivia.ViewModels
                 return _AvanzarInformeUnoCommand;
             }
         }
-        public ICommand DobleClickCommand
+        public ICommand ActionCommand
         {
             get
             {
-                _DobleClickCommand = new RelayCommand()
+                _ActionCommand = new RelayCommand()
                 {
                     CanExecuteDelegate = c => true,
-                    ExecuteDelegate = c => DobleClickonTable()
+                    ExecuteDelegate = c => ActionOnTable()
                 };
-                return _DobleClickCommand;
+                return _ActionCommand;
             }
         }
 
-        private void DobleClickonTable()
+        #endregion
+
+        #region Metodos
+
+        private void ActionOnTable()
         {
-            Debug.Write("WORK"+Voluntario.rut);
+            string codigo = "";
+            if (obChecked)
+            {
+                if (aChecked) codigo = "A";
+                if (fChecked) codigo = "F";
+                if (lChecked) codigo = "L";
+            }
+            else
+            {
+                if (aChecked) codigo = "a";
+                if (fChecked) codigo = " ";
+                if (lChecked) codigo = " ";
+            }
+            
+
+            Asistencia Asistencia = new Asistencia(Voluntario.rut,Evento.idEvento,codigo,false);
+            asistenciaModel.AgregarAsistencia(Asistencia);
+            Asistentes.Add(Asistencia);
         }
 
         private bool ValidarCampos()
@@ -214,9 +251,6 @@ namespace PrimeraValdivia.ViewModels
         {
             CVS = token.CVS;
         }
-    
-
-
 
         public FormularioEventoViewModel(ObservableCollection<Evento> Eventos)
         {
@@ -224,6 +258,7 @@ namespace PrimeraValdivia.ViewModels
             Evento = new Evento();
             Evento.IniciarId();
             Voluntarios = voluntarioModel.ObtenerVoluntarios();
+            Asistentes = new ObservableCollection<Asistencia>();
         }
         public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, Evento Evento)
         {
@@ -232,6 +267,7 @@ namespace PrimeraValdivia.ViewModels
             tab2enabled = true;
             tab3enabled = true;
             DeterminarClaveServicio();
+            Asistentes = asistenciaModel.ObtenerAsistentesEvento(Evento.idEvento);
         }
         private void GuardarEvento()
         {
@@ -256,10 +292,11 @@ namespace PrimeraValdivia.ViewModels
             var model = new Evento();
             DeterminarClaveServicio();
             tabIndex = 1;
-            Debug.Write(tabIndex);
             Eventos.Add(Evento);
             model.AgregarEvento(Evento);
         }
+
+        #endregion
 
     }
 }

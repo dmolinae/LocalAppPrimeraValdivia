@@ -159,7 +159,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="110"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Column="0" Grid.Row="1">
@@ -176,38 +176,50 @@
                         </DataGrid.Columns>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDoubleClick">
-                                <i:InvokeCommandAction Command="{Binding DobleClickCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding ActionCommand}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
+                        <DataGrid.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding ActionCommand}"/>
+                        </DataGrid.InputBindings>
                     </DataGrid>
                 </Grid>
                 <Grid Grid.Column="1" Grid.Row="1">
-                    <DataGrid ItemsSource="{Binding Asistentes}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
+                    <DataGrid ItemsSource="{Binding Asistentes}" AutoGenerateColumns="False"
                               Grid.Row="1"
                               CanUserAddRows="False"
                               CanUserSortColumns="True" Margin="10">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="rut" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                            <DataGridTextColumn Header="cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                            <DataGridTextColumn Header="rut" Binding="{Binding Path=fk_rut, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                            <DataGridTextColumn Header="asistencia" Binding="{Binding Path=codigoAsistencia, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="obligatoria" Binding="{Binding Path=asistenciaObligatoria, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
                 <Grid Grid.Column="0" Grid.Row="0" Margin="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
+                        <RowDefinition Height="35"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBox Grid.Row="0" VerticalAlignment="Center"/>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" Background="#FF252525">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="ASISTENCIA OBLIGATORIA" VerticalAlignment="Center" FontSize="14"/>
+                        <Controls:ToggleSwitch Grid.Column="1" OnLabel="Si" OffLabel="No" IsChecked="{Binding obChecked}" Width="200" Height="40"/>
+                    </Grid>
+                    <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <RadioButton Grid.Column="0" Content="Marcar A" Foreground="#FF252525" IsChecked="{Binding aChecked}"/>
-                        <RadioButton Grid.Column="1" Content="Marcar F" Foreground="#FF252525" IsChecked="{Binding fChecked}"/>
-                        <RadioButton Grid.Column="2" Content="Marcar L" Foreground="#FF252525" IsChecked="{Binding lChecked}"/>
+                        <RadioButton Grid.Column="0" Content="Marcar Asistencia" Foreground="#FF252525" IsChecked="{Binding aChecked}"/>
+                        <RadioButton Grid.Column="1" Content="Marcar Falta" Foreground="#FF252525" IsChecked="{Binding fChecked}"/>
+                        <RadioButton Grid.Column="2" Content="Marcar Licencia" Foreground="#FF252525" IsChecked="{Binding lChecked}"/>
                     </Grid>
                 </Grid>
             </Grid>

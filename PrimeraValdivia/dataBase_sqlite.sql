@@ -302,7 +302,7 @@ CREATE TABLE IF NOT EXISTS "Acompañante"(
     REFERENCES "Vehiculo"("idVehiculo")
 );
 CREATE TABLE IF NOT EXISTS "Asistencia"(
-  "idAsistencia" INTEGER PRIMARY KEY NOT NULL,
+  "idAsistencia" INTEGER PRIMARY KEY AUTOINCREMENT,
   "fk_rut" VARCHAR(45),
   "fk_idEvento" INTEGER,
   "codigoAsistencia" VARCHAR(45),
