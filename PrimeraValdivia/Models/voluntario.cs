@@ -232,6 +232,29 @@ namespace PrimeraValdivia.Models
                 );
             utils.ExecuteNonQuery(query);
         }
+        public void EditarVoluntario(Voluntario Voluntario, string rut)
+        {
+            query = String.Format(
+                "UPDATE Voluntario SET rut = '{0}', nombre = '{1}', fechaNacimiento = '{2}', ciudadNacimiento = '{3}', grupoSanguineo = '{4}', profesion = '{5}', fechaIngreso = '{6}', fechaReincorporacion = '{7}', servicioCompañia = '{8}', servicioMilitar = {9}, insignia = {10}, registroCompañia = {11}, cargo = '{12}', calificacion = '{13}', fk_idCompañia = {14} WHERE rut = '{15}'",
+                Voluntario.rut,
+                Voluntario.nombre,
+                Voluntario.fechaNacimiento,
+                Voluntario.ciudadNacimiento,
+                Voluntario.grupoSanguineo,
+                Voluntario.profesion,
+                Voluntario.fechaIngreso,
+                Voluntario.fechaReincorporacion,
+                Voluntario.servicioCompania,
+                (Voluntario.servicioMilitar) ? 1 : 0,
+                Voluntario.insignia,
+                Voluntario.registroCompania,
+                Voluntario.cargo,
+                Voluntario.calificacion,
+                Voluntario.fk_idCompania,
+                rut
+                );
+            utils.ExecuteNonQuery(query);
+        }
 
         public ObservableCollection<Voluntario> ObtenerVoluntarios()
         {

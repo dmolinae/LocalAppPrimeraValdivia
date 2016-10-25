@@ -238,7 +238,7 @@ namespace PrimeraValdivia.ViewModels
 
             Asistencia Asistencia = new Asistencia(Voluntario.rut,Evento.idEvento,codigo,false);
             asistenciaModel.AgregarAsistencia(Asistencia);
-            Asistentes.Add(Asistencia);
+            Asistentes.Insert(0,Asistencia);
         }
 
         private bool ValidarCampos()
