@@ -135,6 +135,7 @@
     <Compile Include="Helpers\DBConnection.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\ViewCollectionViewSourceMessageToken.cs" />
+    <Compile Include="Models\Asistencia.cs" />
     <Compile Include="Models\Incendio\AfectadoIncendio.cs" />
     <Compile Include="Models\Apoyo.cs" />
     <Compile Include="Models\Incendio\AseguradoraViviendaAfectado.cs" />
@@ -152,8 +153,6 @@
     <Compile Include="Helpers\Utils.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\VoluntarioViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\Eventos.xaml.cs">
       <DependentUpon>Eventos.xaml</DependentUpon>
     </Compile>

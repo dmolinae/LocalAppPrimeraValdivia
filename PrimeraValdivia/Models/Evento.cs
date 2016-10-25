@@ -1,6 +1,9 @@
 ﻿using PrimeraValdivia.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +12,9 @@ namespace PrimeraValdivia.Models
 {
     class Evento : ViewModelBase
     {
+        private Utils utils = new Utils();
+        private string query;
+
         #region Atributos
 
         private int _idEvento;
@@ -82,8 +88,8 @@ namespace PrimeraValdivia.Models
                 OnPropertyChanged("calle");
             }
         }
-        private string _numeroCalle;
-        public string numeroCalle
+        private int _numeroCalle;
+        public int numeroCalle
         {
             get { return _numeroCalle; }
             set
@@ -132,8 +138,8 @@ namespace PrimeraValdivia.Models
                 OnPropertyChanged("ruta");
             }
         }
-        private string _kilometroRuta;
-        public string kilometroRuta
+        private int _kilometroRuta;
+        public int kilometroRuta
         {
             get { return _kilometroRuta; }
             set
@@ -214,5 +220,106 @@ namespace PrimeraValdivia.Models
         }
         #endregion
 
+        #region Metodos
+        public Evento()
+        {
+            
+        }
+
+        public Evento(int idEvento, int correlativoLlamado, int correlativoCBV, string claveServicio, DateTime fecha, string motivo, string calle, int numeroCalle, string calleProxima, string sector, string poblacion, string ruta, int kilometroRuta, string bomberoCargo, string bomberoInforme, string codigoCargo, string codigoInforme, string numeroDepartamento, string numeroBlock, string resumen)
+        {
+            this.idEvento = idEvento;
+            this.correlativoLlamado = correlativoLlamado;
+            this.correlativoCBV = correlativoCBV;
+            this.claveServicio = claveServicio;
+            this.fecha = fecha;
+            this.motivo = motivo;
+            this.calle = calle;
+            this.numeroCalle = numeroCalle;
+            this.calleProxima = calleProxima;
+            this.sector = sector;
+            this.poblacion = poblacion;
+            this.ruta = ruta;
+            this.kilometroRuta = kilometroRuta;
+            this.bomberoCargo = bomberoCargo;
+            this.bomberoInforme = bomberoInforme;
+            this.codigoCargo = codigoCargo;
+            this.codigoInforme = codigoInforme;
+            this.numeroDepartamento = numeroDepartamento;
+            this.numeroBlock = numeroBlock;
+            this.resumen = resumen;
+        }
+
+        public void AgregarEvento(Evento Evento)
+        {
+            query = String.Format(
+                "INSERT INTO Evento values({0},{1},{2},'{3}','{4}','{5}','{6}',{7},'{8}','{9}','{10}','{11}',{12},'{13}','{14}','{15}','{16}','{17}','{18}','{19}')",
+                Evento.idEvento,
+                Evento.correlativoLlamado,
+                Evento.correlativoCBV,
+                Evento.claveServicio,
+                Evento.fecha,
+                Evento.motivo,
+                Evento.calle,
+                Evento.numeroCalle,
+                Evento.calleProxima,
+                Evento.sector,
+                Evento.poblacion,
+                Evento.ruta,
+                Evento.kilometroRuta,
+                Evento.bomberoCargo,
+                Evento.bomberoInforme,
+                Evento.codigoCargo,
+                Evento.codigoInforme,
+                Evento.numeroDepartamento,
+                Evento.numeroBlock,
+                Evento.resumen
+                );
+            utils.ExecuteNonQuery(query);
+        }
+        public ObservableCollection<Evento> ObtenerEventos()
+        {
+            ObservableCollection<Evento> Eventos = new ObservableCollection<Evento>();
+            query = "SELECT * FROM Evento";
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                Evento eventoActual = new Evento(
+                    int.Parse(row["idEvento"].ToString()),
+                    int.Parse(row["correlativoLlamado"].ToString()),
+                    int.Parse(row["correlativoCBV"].ToString()),
+                    row["claveServicio"].ToString(),
+                    DateTime.Parse(row["fecha"].ToString()),
+                    row["motivo"].ToString(),
+                    row["calle"].ToString(),
+                    int.Parse(row["numeroCalle"].ToString()),
+                    row["calleProxima"].ToString(),
+                    row["sector"].ToString(),
+                    row["poblacion"].ToString(),
+                    row["ruta"].ToString(),
+                    int.Parse(row["kilometroRuta"].ToString()),
+                    row["bomberoCargo"].ToString(),
+                    row["bomberoInforme"].ToString(),
+                    row["codigoCargo"].ToString(),
+                    row["codigoInforme"].ToString(),
+                    row["numeroDepartamento"].ToString(),
+                    row["numeroBlock"].ToString(),
+                    row["resumen"].ToString()
+                    );
+                Eventos.Add(eventoActual);
+            }
+            return Eventos;
+        }
+        public void IniciarId()
+        {
+            query = "SELECT count(*) FROM Evento";
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                this.idEvento = int.Parse(row[0].ToString());
+            }
+        }
+
+        #endregion
     }
 }

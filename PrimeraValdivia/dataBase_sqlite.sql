@@ -7,10 +7,10 @@
 -- Schema: bomberos
 CREATE TABLE IF NOT EXISTS "Evento"(
   "idEvento" INTEGER PRIMARY KEY NOT NULL,
-  "correlativoLlamado" VARCHAR(45),
-  "correlativoCBV" VARCHAR(45),
+  "correlativoLlamado" INTEGER,
+  "correlativoCBV" INTEGER,
   "claveServicio" VARCHAR(45),
-  "fecha" DATETIME,
+  "fecha" VARCHAR(45),
   "motivo" VARCHAR(45),
   "calle" VARCHAR(45),
   "numeroCalle" INTEGER,

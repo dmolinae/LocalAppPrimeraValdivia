@@ -20,6 +20,7 @@ namespace PrimeraValdivia.ViewModels
         private ObservableCollection<Evento> _Eventos;
         private ICommand _AgregarEventoCommand;
         private ICommand _MostrarFormularioEventoCommand;
+        private Evento model = new Evento();
 
         #endregion
 
@@ -80,45 +81,11 @@ namespace PrimeraValdivia.ViewModels
 
         public EventoViewModel()
         {
-            Eventos = new ObservableCollection<Evento>();
-            Eventos.Add(new Evento
-            {
-                idEvento = 0,
-                correlativoLlamado = 2,
-                correlativoCBV = 1,
-                claveServicio = "02",
-                fecha = DateTime.Now,
-                calle = "General Lagos",
-                numeroCalle = "1618",
-                resumen = "Perro ladra todo el puto dia y no deja dormir ni estudiar a nadie"
-            });
-            Eventos.Add(new Evento
-            {
-                idEvento = 1,
-                correlativoLlamado = 2,
-                correlativoCBV = 2,
-                claveServicio = "02",
-                fecha = DateTime.Now,
-                calle = "General Lagos",
-                numeroCalle = "1618",
-                resumen = "Perro ladra todo el puto dia y no deja dormir ni estudiar a nadie"
-            });
-            Eventos.Add(new Evento
-            {
-                idEvento = 2,
-                correlativoLlamado = 1,
-                correlativoCBV = 3,
-                claveServicio = "03",
-                fecha = DateTime.Now,
-                calle = "General Lagos",
-                numeroCalle = "1618",
-                resumen = "Perro ladra todo el puto dia y no deja dormir ni estudiar a nadie"
-            });
+            Eventos = model.ObtenerEventos();
         }
 
         private void AgregarEvento()
         {
-            var Evento = new Evento();
             var viewmodel = new FormularioEventoViewModel(Eventos);
             var view = new FormularioEvento();
             view.DataContext = viewmodel;

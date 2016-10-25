@@ -22,9 +22,13 @@ namespace PrimeraValdivia.ViewModels
         private Evento _Evento;
         private ICommand _GuardarEventoCommand;
         private ICommand _AvanzarInformeUnoCommand;
+        private ICommand _DobleClickCommand;
         private string _tab2header = "Datos";
         private bool _tab2enabled = false;
         private bool _tab3enabled = false;
+        private bool _aChecked;
+        private bool _fChecked;
+        private bool _lChecked;
         private int _tabIndex;
         private CollectionViewSource CVS { get; set; }
 
@@ -69,6 +73,33 @@ namespace PrimeraValdivia.ViewModels
             {
                 _tab3enabled = value;
                 OnPropertyChanged("tab2enabled");
+            }
+        }
+        public bool aChecked
+        {
+            get { return _aChecked; }
+            set
+            {
+                _aChecked = value;
+                OnPropertyChanged("aChecked");
+            }
+        }
+        public bool fChecked
+        {
+            get { return _fChecked; }
+            set
+            {
+                _fChecked = value;
+                OnPropertyChanged("fChecked");
+            }
+        }
+        public bool lChecked
+        {
+            get { return _lChecked; }
+            set
+            {
+                _lChecked = value;
+                OnPropertyChanged("lChecked");
             }
         }
 
@@ -155,6 +186,24 @@ namespace PrimeraValdivia.ViewModels
                 return _AvanzarInformeUnoCommand;
             }
         }
+        public ICommand DobleClickCommand
+        {
+            get
+            {
+                _DobleClickCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => DobleClickonTable()
+                };
+                return _DobleClickCommand;
+            }
+        }
+
+        private void DobleClickonTable()
+        {
+            Debug.Write("WORK"+Voluntario.rut);
+        }
+
         private bool ValidarCampos()
         {
             if (Evento.claveServicio == null || Evento.claveServicio.Length == 0) return false;
@@ -165,11 +214,15 @@ namespace PrimeraValdivia.ViewModels
         {
             CVS = token.CVS;
         }
+    
+
+
 
         public FormularioEventoViewModel(ObservableCollection<Evento> Eventos)
         {
             this.Eventos = Eventos;
             Evento = new Evento();
+            Evento.IniciarId();
             Voluntarios = voluntarioModel.ObtenerVoluntarios();
         }
         public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, Evento Evento)
@@ -200,9 +253,12 @@ namespace PrimeraValdivia.ViewModels
         }
         private void AvanzarInformeUno()
         {
+            var model = new Evento();
             DeterminarClaveServicio();
             tabIndex = 1;
             Debug.Write(tabIndex);
+            Eventos.Add(Evento);
+            model.AgregarEvento(Evento);
         }
 
     }

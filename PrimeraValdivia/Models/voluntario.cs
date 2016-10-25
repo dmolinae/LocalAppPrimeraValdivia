@@ -41,7 +41,7 @@ namespace PrimeraValdivia.Models
             }
         }
 
-        private DateTime _fechaNacimiento;
+        private DateTime _fechaNacimiento = DateTime.Now;
         public DateTime fechaNacimiento
         {
             get { return _fechaNacimiento; }
@@ -50,7 +50,6 @@ namespace PrimeraValdivia.Models
                 
                 _fechaNacimiento = value;
                 OnPropertyChanged("fechaNacimiento");
-                Debug.Write(_fechaNacimiento);
             }
         }
 

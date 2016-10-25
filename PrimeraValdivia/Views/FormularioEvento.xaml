@@ -8,6 +8,7 @@
         xmlns:local="clr-namespace:PrimeraValdivia.Views"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:viewModels="clr-namespace:PrimeraValdivia.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         DataContext="clr-namespace:PrimeraValdivia.ViewModels.FormularioEventoViewModel"
         mc:Ignorable="d"
         GlowBrush="Black"
@@ -39,11 +40,11 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Label Content="claveServicio" Width="130"/>
-                        <TextBox Text="{Binding Evento.claveServicio, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                        <TextBox Text="{Binding Evento.claveServicio}" Width="200"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Label Content="fecha" Width="130"/>
-                        <toolkit:DateTimePicker Format="Custom" FormatString="dd/MM/yyyy HH:mm" Text="{Binding Evento.fecha}" Width="200" Foreground="#FFC1C1C1" BorderBrush="#FFC1C1C1"/>
+                        <DatePicker SelectedDate="{Binding Evento.fecha}" Width="200"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Label Content="motivo" Width="130"/>
@@ -158,20 +159,26 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="70"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Column="0" Grid.Row="1">
                     <DataGrid ItemsSource="{Binding Source={StaticResource CVS}}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
                               Grid.Row="1"
                               CanUserAddRows="False"
-                             
+                              CanUserDeleteRows="False"
+                              IsReadOnly="True"
                               CanUserSortColumns="True" Margin="10">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="rut" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
                             <DataGridTextColumn Header="cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
                         </DataGrid.Columns>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding DobleClickCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </DataGrid>
                 </Grid>
                 <Grid Grid.Column="1" Grid.Row="1">
@@ -187,12 +194,21 @@
                     </DataGrid>
                 </Grid>
                 <Grid Grid.Column="0" Grid.Row="0" Margin="8">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="80"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" VerticalAlignment="Center"/>
-                    <Button Content="Buscar" Grid.Column="1"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox Grid.Row="0" VerticalAlignment="Center"/>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <RadioButton Grid.Column="0" Content="Marcar A" Foreground="#FF252525" IsChecked="{Binding aChecked}"/>
+                        <RadioButton Grid.Column="1" Content="Marcar F" Foreground="#FF252525" IsChecked="{Binding fChecked}"/>
+                        <RadioButton Grid.Column="2" Content="Marcar L" Foreground="#FF252525" IsChecked="{Binding lChecked}"/>
+                    </Grid>
                 </Grid>
             </Grid>
         </TabItem>
