@@ -291,7 +291,7 @@ namespace PrimeraValdivia.ViewModels
         {
             var model = new Evento();
             DeterminarClaveServicio();
-            tabIndex = 1;
+            tabIndex = 3;
             Eventos.Add(Evento);
             model.AgregarEvento(Evento);
         }
