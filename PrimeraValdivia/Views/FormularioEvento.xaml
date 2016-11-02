@@ -13,104 +13,216 @@
         mc:Ignorable="d"
         GlowBrush="Black"
         WindowStartupLocation="CenterScreen"
-        WindowState="Maximized">
+        WindowState="Maximized" Height="769">
 
     <Window.Resources>
         <CollectionViewSource x:Key="CVS" Source="{Binding Voluntarios}"/>
     </Window.Resources>
-    
+
     <TabControl SelectedIndex="{Binding tabIndex}">
         <TabItem Header="Datos Comunes">
             <Grid Background="#FFE5E5E5" Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="0" Width="400" Background="#FF2C2C2C" Margin="10">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="ID" Width="130"/>
-                        <TextBox Text="{Binding Evento.idEvento}" Width="200"/>
+                <ScrollViewer>
+                    <StackPanel Grid.Row="0" 
+                                Orientation="Vertical" 
+                                HorizontalAlignment="Center" 
+                                Background="#FF2C2C2C" 
+                                Margin="10">
+                        <StackPanel.Resources>
+                            <Style TargetType="Grid">
+                                <Setter Property="Margin" Value="10"/>
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" FrameworkElement.FlowDirection="RightToLeft"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Correlativo Llamado" Width="130"/>
+                                <TextBox Text="{Binding Evento.correlativoLlamado}" Width="30"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Correlativo CBV" Width="130"/>
+                                <TextBox Text="{Binding Evento.correlativoCBV}" Width="30"/>
+                            </StackPanel>
+
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Fecha:" Width="130"/>
+                                <DatePicker SelectedDate="{Binding Evento.fecha}" Width="200"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Clave:" Width="130"/>
+                                <TextBox Text="{Binding Evento.claveServicio}" Width="30"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Motivo:" Width="130" HorizontalContentAlignment="Center"/>
+                                <TextBox Text="{Binding Evento.motivo}" Width="370"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Content="Calle" HorizontalContentAlignment="Center" Margin="130,0,0,0"/>
+                            <Label Grid.Row="0" Grid.Column="1" Content="Numero" HorizontalContentAlignment="Center" Margin="20,0,0,0"/>
+
+                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Direccion" Width="130" Margin="0,0,0,10"/>
+                                <TextBox Text="{Binding Evento.calle}" Width="470" Margin="0,0,0,10"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content=" "/>
+                                <TextBox Text="{Binding Evento.numeroCalle}" Width="50" Margin="0,0,0,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            </StackPanel>
+
+                            <Label Grid.Row="2" Grid.Column="0" Content="Ruta" HorizontalContentAlignment="Center" Margin="130,0,0,0"/>
+                            <Label Grid.Row="2" Grid.Column="1" Content="Km" HorizontalContentAlignment="Center" Margin="20,0,0,0"/>
+
+                            <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Ruta" Width="130" Margin="0,0,0,10"/>
+                                <TextBox Text="{Binding Evento.ruta}" Width="470" Margin="0,0,0,10"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content=" "/>
+                                <TextBox Text="{Binding Evento.kilometroRuta}" Width="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,0,10"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Calle Proxima" Width="130"/>
+                                <TextBox Text="{Binding Evento.calleProxima}" Width="470"/>
+                            </StackPanel>
+
+
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Sector" Width="130"/>
+                                <TextBox Text="{Binding Evento.sector}" Width="200"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Poblacion" Width="130" HorizontalContentAlignment="Center"/>
+                                <TextBox Text="{Binding Evento.poblacion}" Width="200"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Content="Nombre Bombero" HorizontalContentAlignment="Center" Margin="220,0,0,0"/>
+                            <Label Grid.Row="0" Grid.Column="1" Content="Codigo" HorizontalContentAlignment="Center" Margin="15,0,0,0"/>
+
+                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Bombero a cargo de la emergencia" Width="220"/>
+                                <ComboBox ItemsSource="{Binding Voluntarios}" DisplayMemberPath="nombre" Width="390" Text="{Binding Evento.bomberoCargo}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Bombero que tomo informe de servicio" Width="220"/>
+                                <ComboBox ItemsSource="{Binding Voluntarios}" DisplayMemberPath="nombre" Width="390" Text="{Binding Evento.bomberoInforme}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content=" "/>
+                                <TextBox Text="{Binding Evento.codigoCargo}" Width="50"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content=" "/>
+                                <TextBox Text="{Binding Evento.codigoInforme}" Width="50"/>
+                            </StackPanel>
+                        </Grid>
+                        <!--
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="numeroDepartamento" Width="130"/>
+                                <TextBox Text="{Binding Evento.numeroDepartamento}" Width="200"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="numeroBlock" Width="130"/>
+                                <TextBox Text="{Binding Evento.numeroBlock}" Width="200"/>
+                            </StackPanel>
+                            -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Resumen" Width="130"/>
+                                <TextBox AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Evento.resumen}" Width="540" Height="70"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Content="Siguiente" Command="{Binding AvanzarInformeUnoCommand}"/>
+                            </StackPanel>
+                        </Grid>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="Correlativo Llamado" Width="130"/>
-                        <TextBox Text="{Binding Evento.correlativoLlamado}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="correlativoCBV" Width="130"/>
-                        <TextBox Text="{Binding Evento.correlativoCBV}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="claveServicio" Width="130"/>
-                        <TextBox Text="{Binding Evento.claveServicio}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="fecha" Width="130"/>
-                        <DatePicker SelectedDate="{Binding Evento.fecha}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="motivo" Width="130"/>
-                        <TextBox Text="{Binding Evento.motivo}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="calle" Width="130"/>
-                        <TextBox Text="{Binding Evento.calle}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="numeroCalle" Width="130"/>
-                        <TextBox Text="{Binding Evento.numeroCalle}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="calleProxima" Width="130"/>
-                        <TextBox Text="{Binding Evento.calleProxima}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="sector" Width="130"/>
-                        <TextBox Text="{Binding Evento.sector}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="poblacion" Width="130"/>
-                        <TextBox Text="{Binding Evento.poblacion}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="ruta" Width="130"/>
-                        <TextBox Text="{Binding Evento.ruta}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="kilometroRuta" Width="130"/>
-                        <TextBox Text="{Binding Evento.kilometroRuta}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="bomberoCargo" Width="130"/>
-                        <TextBox Text="{Binding Evento.bomberoCargo}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="bomberoInforme" Width="130"/>
-                        <TextBox Text="{Binding Evento.bomberoInforme}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="codigoCargo" Width="130"/>
-                        <TextBox Text="{Binding Evento.codigoCargo}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="codigoInforme" Width="130"/>
-                        <TextBox Text="{Binding Evento.codigoInforme}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="numeroDepartamento" Width="130"/>
-                        <TextBox Text="{Binding Evento.numeroDepartamento}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="numeroBlock" Width="130"/>
-                        <TextBox Text="{Binding Evento.numeroBlock}" Width="200"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="resumen" Width="130"/>
-                        <TextBox Text="{Binding Evento.resumen}" Width="200"/>
-                    </StackPanel>
-   
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,10,0">
-                        <Button Content="Siguiente" Command="{Binding AvanzarInformeUnoCommand}"/>
-                    </StackPanel>
-                </StackPanel>
+
+
+                </ScrollViewer>
             </Grid>
         </TabItem>
         <TabItem Header="{Binding tab2header}" IsEnabled="{Binding tab2enabled}">
@@ -241,7 +353,7 @@
                 </Grid>
             </Grid>
         </TabItem>
-        
+
     </TabControl>
 </Controls:MetroWindow>
 
