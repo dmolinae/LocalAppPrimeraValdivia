@@ -55,6 +55,8 @@ namespace PrimeraValdivia.ViewModels
         }
         public DataTable ExecuteQuery(string txtQuery)
         {
+            ds = new DataSet();
+            dt = new DataTable();
             SetConnection();
             conn.Open();
             command = conn.CreateCommand();

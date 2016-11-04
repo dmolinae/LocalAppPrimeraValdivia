@@ -18,13 +18,15 @@ namespace PrimeraValdivia.ViewModels
         #region Atributos privados
 
         private Voluntario _Voluntario;
+        private Asistencia _Asistente;
         private ObservableCollection<Voluntario> _Voluntarios;
         private ObservableCollection<Asistencia> _Asistentes;
         private ObservableCollection<Evento> _Eventos;
         private Evento _Evento;
         private ICommand _GuardarEventoCommand;
         private ICommand _AvanzarInformeUnoCommand;
-        private ICommand _ActionCommand;
+        private ICommand _AgregarAsistenciaCommand;
+        private ICommand _EditarAsistenciaCommand;
         private string _tab2header = "Datos";
         private bool _tab2enabled = false;
         private bool _tab3enabled = false;
@@ -151,6 +153,15 @@ namespace PrimeraValdivia.ViewModels
                 OnPropertyChanged("Voluntario");
             }
         }
+        public Asistencia Asistente
+        {
+            get { return _Asistente; }
+            set
+            {
+                _Asistente = value;
+                OnPropertyChanged("Asistente");
+            }
+        }
 
         public ObservableCollection<Voluntario> Voluntarios
         {
@@ -202,16 +213,28 @@ namespace PrimeraValdivia.ViewModels
                 return _AvanzarInformeUnoCommand;
             }
         }
-        public ICommand ActionCommand
+        public ICommand AgregarAsistenciaCommand
         {
             get
             {
-                _ActionCommand = new RelayCommand()
+                _AgregarAsistenciaCommand = new RelayCommand()
                 {
                     CanExecuteDelegate = c => true,
-                    ExecuteDelegate = c => ActionOnTable()
+                    ExecuteDelegate = c => AgregarAsistencia()
                 };
-                return _ActionCommand;
+                return _AgregarAsistenciaCommand;
+            }
+        }
+        public ICommand EditarAsistenciaCommand
+        {
+            get
+            {
+                _EditarAsistenciaCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EditarAsistencia()
+                };
+                return _EditarAsistenciaCommand;
             }
         }
 
@@ -219,7 +242,7 @@ namespace PrimeraValdivia.ViewModels
 
         #region Metodos
 
-        private void ActionOnTable()
+        private void AgregarAsistencia()
         {
             string codigo = "";
             if (obChecked)
@@ -234,11 +257,39 @@ namespace PrimeraValdivia.ViewModels
                 if (fChecked) codigo = " ";
                 if (lChecked) codigo = " ";
             }
-            
 
             Asistencia Asistencia = new Asistencia(Voluntario.rut,Evento.idEvento,codigo,obChecked);
-            asistenciaModel.AgregarAsistencia(Asistencia);
-            Asistentes.Insert(0,Asistencia);
+            if (asistenciaModel.ExisteAsistencia(Asistencia))
+            {
+                
+            }
+            else
+            {
+                asistenciaModel.AgregarAsistencia(Asistencia);
+                Asistentes.Insert(0, Asistencia);
+            }
+            
+        }
+
+        private void EditarAsistencia()
+        {
+            string codigo = "";
+            if (obChecked)
+            {
+                if (aChecked) codigo = "A";
+                if (fChecked) codigo = "F";
+                if (lChecked) codigo = "L";
+            }
+            else
+            {
+                if (aChecked) codigo = "a";
+                if (fChecked) codigo = " ";
+                if (lChecked) codigo = " ";
+            }
+            Asistente.codigoAsistencia = codigo;
+            Asistente.asistenciaObligatoria = obChecked;
+            asistenciaModel.EditarAsistencia(Asistente);
+            
         }
 
         private bool ValidarCampos()

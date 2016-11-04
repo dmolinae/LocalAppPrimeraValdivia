@@ -286,7 +286,8 @@
                               CanUserDeleteRows="False"
                               IsReadOnly="True"
                               SelectionMode="Single"
-                              CanUserSortColumns="True" Margin="10">
+                              CanUserSortColumns="True" 
+                              Margin="10">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="rut" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
@@ -294,11 +295,11 @@
                         </DataGrid.Columns>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDoubleClick">
-                                <i:InvokeCommandAction Command="{Binding ActionCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding AgregarAsistenciaCommand}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <DataGrid.InputBindings>
-                            <KeyBinding Key="Enter" Command="{Binding ActionCommand}"/>
+                            <KeyBinding Key="Enter" Command="{Binding AgregarAsistenciaCommand}"/>
                         </DataGrid.InputBindings>
                     </DataGrid>
                 </Grid>
@@ -308,15 +309,24 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Content="Listado de voluntarios marcados" FontSize="14" Foreground="#FF272727" HorizontalAlignment="Center"/>
-                    <DataGrid ItemsSource="{Binding Asistentes}" AutoGenerateColumns="False"
+                    <DataGrid ItemsSource="{Binding Asistentes}" SelectedItem="{Binding Asistente}" AutoGenerateColumns="False"
                               Grid.Row="1"
                               CanUserAddRows="False"
-                              CanUserSortColumns="True" Margin="10">
+                              CanUserDeleteRows="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              CanUserSortColumns="True" 
+                              Margin="10">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="rut" Binding="{Binding Path=fk_rut, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
                             <DataGridTextColumn Header="asistencia" Binding="{Binding Path=codigoAsistencia, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="obligatoria" Binding="{Binding Path=asistenciaObligatoria, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataGrid.Columns>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding EditarAsistenciaCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </DataGrid>
                 </Grid>
                 <Grid Grid.Column="0" Grid.Row="0" Margin="8">

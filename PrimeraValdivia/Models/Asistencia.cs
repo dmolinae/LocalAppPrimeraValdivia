@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,6 +94,35 @@ namespace PrimeraValdivia.Models
                 Asistencia.fk_idEvento,
                 Asistencia.codigoAsistencia,
                 (Asistencia.asistenciaObligatoria) ? 1 : 0
+                );
+            utils.ExecuteNonQuery(query);
+        }
+
+        public bool ExisteAsistencia(Asistencia Asistencia)
+        {
+            Debug.Write(" PARAMS: "+Asistencia.fk_rut + " " + Asistencia.fk_idEvento);
+            bool existe = false;
+            query = String.Format(
+                "SELECT * FROM Asistencia WHERE fk_rut = {0} and fk_idEvento = {1}",
+                Asistencia.fk_rut,
+                Asistencia.fk_idEvento
+                );
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                existe = true;
+                Debug.Write("Rut: "+row["fk_rut"].ToString()+"Evento: "+row["fk_idEvento"].ToString());
+            }
+            return existe;
+        }
+        public void EditarAsistencia(Asistencia Asistencia)
+        {
+            query = String.Format(
+                "UPDATE Asistencia SET codigoAsistencia = '{0}', asistenciaObligatoria = {1} WHERE fk_rut = '{2}' and fk_idEvento = {3}",
+                Asistencia.codigoAsistencia,
+                (Asistencia.asistenciaObligatoria) ? 1 : 0,
+                Asistencia.fk_rut,
+                Asistencia.fk_idEvento
                 );
             utils.ExecuteNonQuery(query);
         }
