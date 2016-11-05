@@ -136,6 +136,7 @@
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\ViewCollectionViewSourceMessageToken.cs" />
     <Compile Include="Models\Asistencia.cs" />
+    <Compile Include="Models\Carro.cs" />
     <Compile Include="Models\Incendio\AfectadoIncendio.cs" />
     <Compile Include="Models\Apoyo.cs" />
     <Compile Include="Models\Incendio\AseguradoraViviendaAfectado.cs" />
@@ -145,16 +146,24 @@
     <Compile Include="Models\Rescate\AseguradoraVehiculo.cs" />
     <Compile Include="Models\Rescate\Vehiculo.cs" />
     <Compile Include="Models\Voluntario.cs" />
+    <Compile Include="ViewModels\CarroViewModel.cs" />
     <Compile Include="ViewModels\CompaniaViewModel.cs" />
     <Compile Include="ViewModels\EventoViewModel.cs" />
+    <Compile Include="ViewModels\FormularioCarroViewModel.cs" />
     <Compile Include="ViewModels\FormularioEventoViewModel.cs" />
     <Compile Include="ViewModels\FormularioVoluntarioViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Helpers\Utils.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\VoluntarioViewModel.cs" />
+    <Compile Include="Views\Carros.xaml.cs">
+      <DependentUpon>Carros.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Eventos.xaml.cs">
       <DependentUpon>Eventos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormularioCarro.xaml.cs">
+      <DependentUpon>FormularioCarro.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FormularioEvento.xaml.cs">
       <DependentUpon>FormularioEvento.xaml</DependentUpon>
@@ -177,7 +186,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Carros.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Eventos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FormularioCarro.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

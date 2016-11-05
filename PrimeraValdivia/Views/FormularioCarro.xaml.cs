@@ -1,4 +1,4 @@
-﻿using PrimeraValdivia.ViewModels;
+﻿using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +17,11 @@ using System.Windows.Shapes;
 namespace PrimeraValdivia.Views
 {
     /// <summary>
-    /// Interaction logic for Eventos.xaml
+    /// Interaction logic for FormularioCarro.xaml
     /// </summary>
-    public partial class Eventos : UserControl
+    public partial class FormularioCarro : MetroWindow
     {
-        public Eventos()
+        public FormularioCarro()
         {
             InitializeComponent();
         }

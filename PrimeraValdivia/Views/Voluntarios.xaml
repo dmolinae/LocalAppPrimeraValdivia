@@ -42,7 +42,7 @@
                 <DataGridTextColumn Header="registroCompania" Binding="{Binding Path=registroCompania, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="calificacion" Binding="{Binding Path=calificacion, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="70">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>

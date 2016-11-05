@@ -17,11 +17,11 @@ using System.Windows.Shapes;
 namespace PrimeraValdivia.Views
 {
     /// <summary>
-    /// Interaction logic for Eventos.xaml
+    /// Interaction logic for Carros.xaml
     /// </summary>
-    public partial class Eventos : UserControl
+    public partial class Carros : UserControl
     {
-        public Eventos()
+        public Carros()
         {
             InitializeComponent();
         }

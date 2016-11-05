@@ -86,21 +86,6 @@ namespace PrimeraValdivia.ViewModels
 
         public VoluntarioViewModel()
         {
-            /*
-            var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "primeravaldivia$default";
-            if (dbCon.IsConnect())
-            {
-                string query = "SELECT nombre,cargo FROM Voluntario";
-                var cmd = new MySqlCommand(query, dbCon.Connection);
-                var reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    string someStringFromColumnZero = reader.GetString(0);
-                    string someStringFromColumnOne = reader.GetString(1);
-                    Debug.Write(someStringFromColumnZero + "," + someStringFromColumnOne);
-                }
-            }*/
             Voluntarios = model.ObtenerVoluntarios();
         }
 

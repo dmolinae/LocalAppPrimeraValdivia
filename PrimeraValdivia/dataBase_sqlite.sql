@@ -119,6 +119,9 @@ CREATE TABLE IF NOT EXISTS "Carro"(
   "nombre" VARCHAR(45),
   "tipo" VARCHAR(45),
   "descripcion" VARCHAR(45),
+  "kilometraje" VARCHAR(45),
+  "horas_motor" VARCHAR(45),
+  "horas_bomba" VARCHAR(45),
   CONSTRAINT "idCarro_UNIQUE"
     UNIQUE("idCarro")
 );
