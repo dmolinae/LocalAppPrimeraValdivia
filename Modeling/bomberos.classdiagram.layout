@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="bomberos">
+  <logicalClassDesignerModelMoniker Id="999572a3-55fa-40e4-9c89-c6f5c9e3e28f" />
+  <nestedChildShapes>
+    <classShape Id="8e9a3f16-ef13-4f68-b1bd-47407f2fe998" absoluteBounds="2.375, 1.5, 1.5, 1.6683043545484542" hideQualifiedName="false" increaseHeight="0.18800345897674561" customColor="181, 193, 223">
+      <classMoniker Id="b037f556-bd29-4da2-8570-d7e8c7cc6388" LastKnownName="Material" />
+      <nestedChildShapes>
+        <AttributeElementListCompartment Id="d32684fa-dda6-43f0-bb29-418a83bb5486" absoluteBounds="2.39, 2.0153356393178306, 1.4700000000000002, 0.84179684768120444" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <OperationElementListCompartment Id="e347419d-a58e-4a4d-9c87-6eb03929fd92" absoluteBounds="2.39, 2.8671324869990347, 1.4700000000000002, 0.2011718675494194" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d797720d-9e45-4f0e-a448-d4a273c9c57a" absoluteBounds="4.875, 0.875, 1.875, 2.4690855797131861" hideQualifiedName="false" increaseHeight="0.18800345897674561" customColor="181, 193, 223">
+      <classMoniker Id="4c711a3d-883c-4dc0-90dc-86f6c0f17fca" LastKnownName="Apoyo" />
+      <nestedChildShapes>
+        <AttributeElementListCompartment Id="d26a8e6f-d743-4441-a16e-4a2d7776d18b" absoluteBounds="4.89, 1.3903356393178306, 1.8450000000000002, 1.6425780728459358" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <OperationElementListCompartment Id="f3db8432-d7a1-4914-8e34-5bf6160866e6" absoluteBounds="4.89, 3.0429137121637662, 1.8450000000000002, 0.20117186754941985" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</logicalClassDesignerDiagram>
