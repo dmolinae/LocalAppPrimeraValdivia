@@ -16,9 +16,12 @@ namespace PrimeraValdivia.ViewModels
             Companias.Add(new Compania
             {
                 idCompania = 0,
-                rut = "root",
-                clave = "root",
-                nombreCompania = "Molina S.A."
+                nombre = "Primera Valdivia",
+                clave = "1234",
+                calle = "...",
+                numeroCalle = 1234,
+                ciudad = "Valdivia",
+                registroCompania = 0,
             }
             );
         }

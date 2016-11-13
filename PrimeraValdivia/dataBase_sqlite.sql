@@ -77,16 +77,16 @@ CREATE TABLE IF NOT EXISTS "Incendio"(
     FOREIGN KEY("fk_idEventoInc")
     REFERENCES "Evento"("idEvento")
 );
-CREATE TABLE IF NOT EXISTS "Compañia"(
-  "idCompañia" INTEGER PRIMARY KEY NOT NULL,
-  "rut" VARCHAR(45) NOT NULL,
+CREATE TABLE IF NOT EXISTS "Compania"(
+  "idCompania" INTEGER PRIMARY KEY NOT NULL,
+  "nombre" VARCHAR(45) NOT NULL,
   "clave" VARCHAR(45) NOT NULL,
   "calle" VARCHAR(45) NOT NULL,
-  "numeroCalle" VARCHAR(45),
+  "numeroCalle" INTEGER,
   "ciudad" VARCHAR(45) NOT NULL,
-  "nombreCompañia" VARCHAR(45),
-  CONSTRAINT "idCompañia_UNIQUE"
-    UNIQUE("idCompañia")
+  "registroCompania" INTEGER,
+  CONSTRAINT "idCompania_UNIQUE"
+    UNIQUE("idCompania")
 );
 CREATE TABLE IF NOT EXISTS "MaterialPeligroso"(
   "idMaterialPeligroso" INTEGER PRIMARY KEY NOT NULL,
@@ -153,13 +153,13 @@ CREATE TABLE IF NOT EXISTS "Era"(
     FOREIGN KEY("fk_idEventoEra")
     REFERENCES "Evento"("idEvento")
 );
-CREATE TABLE IF NOT EXISTS "Tipo"(
-  "idTipo" INTEGER PRIMARY KEY NOT NULL,
+CREATE TABLE IF NOT EXISTS "Item"(
+  "idItem" INTEGER PRIMARY KEY NOT NULL,
   "nombre" VARCHAR(45),
   "fk_idCategoria" INTEGER,
   "descripcion" VARCHAR(45),
-  CONSTRAINT "idTipo_UNIQUE"
-    UNIQUE("idTipo"),
+  CONSTRAINT "idItem_UNIQUE"
+    UNIQUE("idItem"),
   CONSTRAINT "fk_idCategoria"
     FOREIGN KEY("fk_idCategoria")
     REFERENCES "Categoria"("idCategoria")
@@ -229,20 +229,28 @@ CREATE TABLE IF NOT EXISTS "Voluntario"(
   "ciudadNacimiento" VARCHAR(45) NOT NULL,
   "grupoSanguineo" VARCHAR(45) NOT NULL,
   "profesion" VARCHAR(45),
-  "fechaIngreso" VARCHAR(45) NOT NULL,
-  "fechaReincorporacion" VARCHAR(45),
-  "servicioCompañia" VARCHAR(45),
   "servicioMilitar" BOOLEAN,
   "insignia" INTEGER,
-  "registroCompañia" INTEGER,
   "cargo" VARCHAR(45),
-  "calificacion" VARCHAR(45),
-  "fk_idCompañia" INTEGER,
+  "nRegistroInterno" INTEGER,
+  "nRegistroExterno" INTEGER,
   CONSTRAINT "idVoluntario_UNIQUE"
-    UNIQUE("rut"),
-  CONSTRAINT "fk_idCompañia"
-    FOREIGN KEY("fk_idCompañia")
-    REFERENCES "Compañia"("idCompañia")
+    UNIQUE("rut")
+);
+CREATE TABLE IF NOT EXISTS "CompaniaVoluntario"(
+  "idCompaniaVoluntario" INTEGER PRIMARY KEY NOT NULL,
+  "fechaIngreso" VARCHAR(45),
+  "fechaSalida" VARCHAR(45),
+  "fk_compania" INTEGER,
+  "fk_voluntario" VARCHAR(45),
+  CONSTRAINT "idCompaniaVoluntario_UNIQUE"
+    UNIQUE("idCompaniaVoluntario"),
+  CONSTRAINT "fk_compania"
+    FOREIGN KEY("fk_compania")
+    REFERENCES "Compania"("idCompania"),
+  CONSTRAINT "fk_voluntario"
+    FOREIGN KEY("fk_voluntario")
+    REFERENCES "Voluntario"("rut")
 );
 CREATE TABLE IF NOT EXISTS "Aseguradora_Vehiculo"(
   "idAseguradora_vehiculo" INTEGER PRIMARY KEY NOT NULL,
@@ -331,3 +339,27 @@ CREATE TABLE IF NOT EXISTS "Aseguradora_Vivienda_Afectado"(
     FOREIGN KEY("fk_idAfectado")
     REFERENCES "Afectado_Incendio"("idAfectado")
 );
+
+/*
+INSERT INTO "Categoria" VALUES(0,"Cargos","Todos los cargos disponibles");
+INSERT INTO "Item" VALUES(0,"Director Honorario",0,"");
+INSERT INTO "Item" VALUES(1,"Director",0,"");
+INSERT INTO "Item" VALUES(2,"Secretario",0,"");
+INSERT INTO "Item" VALUES(3,"Tesorero",0,"");
+INSERT INTO "Item" VALUES(4,"Medico",0,"");
+INSERT INTO "Item" VALUES(5,"Abogado",0,"");
+INSERT INTO "Item" VALUES(6,"Capitan",0,"");
+INSERT INTO "Item" VALUES(7,"Teniente 1°",0,"");
+INSERT INTO "Item" VALUES(8,"Teniente 2°",0,"");
+INSERT INTO "Item" VALUES(9,"Teniente 3°",0,"");
+INSERT INTO "Item" VALUES(10,"Teniente 4°",0,"");
+INSERT INTO "Item" VALUES(11,"Odontologo",0,"");
+INSERT INTO "Item" VALUES(12,"Intendente",0,"");
+INSERT INTO "Item" VALUES(13,"Ingeniero Compañia",0,"");
+INSERT INTO "Item" VALUES(14,"Teniente de Maquinas",0,"");
+INSERT INTO "Item" VALUES(15,"Ayudante 1°",0,"");
+INSERT INTO "Item" VALUES(16,"Ayudante 2°",0,"");
+INSERT INTO "Item" VALUES(17,"Voluntario",0,"");
+INSERT INTO "Item" VALUES(18,"Aspirante",0,"");
+*/
+    

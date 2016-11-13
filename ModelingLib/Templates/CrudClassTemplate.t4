@@ -121,12 +121,12 @@ namespace PrimeraValdivia.Models
 
                 if(count < len - 1)
                 {
-                    if(type == "String") Write("'{"+count+"}',");
+                    if(type == "String" || type == "DateTime") Write("'{"+count+"}',");
                     else Write("{"+count+"},");
                 }
                 else
                 {
-                    if(type == "String") WriteLine("'{"+count+"}')\",");
+                    if(type == "String" || type == "DateTime") WriteLine("'{"+count+"}')\",");
                     else WriteLine("{"+count+"})\",");
                 }
                 count = count + 1;
@@ -135,9 +135,18 @@ namespace PrimeraValdivia.Models
             foreach(IProperty atributo in atributos)
             {
                 string name = atributo.Name;
-                
-                if(count < len - 1) WriteLine("\t\t\t\t"+clase+"."+name+",");
-                else WriteLine("\t\t\t\t"+clase+"."+name+"");
+                string type = atributo.Signature.Split(':')[1].Trim();
+
+				if(type == "bool")
+				{
+					if(count < len - 1) WriteLine("\t\t\t\t("+clase+"."+name+")? 1 : 0,");
+					else WriteLine("\t\t\t\t("+clase+"."+name+")? 1 : 0");
+                }
+				else
+				{
+					if(count < len - 1) WriteLine("\t\t\t\t"+clase+"."+name+",");
+					else WriteLine("\t\t\t\t"+clase+"."+name+"");
+                }
 
                 count = count + 1;
             }
@@ -160,12 +169,12 @@ namespace PrimeraValdivia.Models
                 
                 if(count < len - 1)
                 {
-                    if(type == "String") Write(name+" = "+"'{"+count+"}', ");
+                    if(type == "String" || type == "DateTime") Write(name+" = "+"'{"+count+"}', ");
                     else Write(name+" = "+"{"+count+"}, ");
                 }
                 else
                 {
-                    if(type == "String") Write(name+" = "+"'{"+count+"}' ");
+                    if(type == "String" || type == "DateTime") Write(name+" = "+"'{"+count+"}' ");
                     else Write(name+" = "+"{"+count+"} ");
                 }
                 count = count + 1;
@@ -182,7 +191,8 @@ namespace PrimeraValdivia.Models
                     else WriteLine("WHERE "+name+" = {"+len+"}\",");
                 }
 
-                WriteLine("\t\t\t\t"+clase+"."+name+",");
+				if(type == "bool") WriteLine("\t\t\t\t("+clase+"."+name+")? 1 : 0,");
+				else WriteLine("\t\t\t\t"+clase+"."+name+",");
 
                 count = count + 1;
             }
@@ -245,11 +255,11 @@ namespace PrimeraValdivia.Models
             WriteLine("\t\t\tforeach (DataRow row in dt.Rows)");
             WriteLine("\t\t\t{");
 
-            if(pk_type == "int") WriteLine("\t\t\t\tthis."+pk_name+" = "+"int.Parse(row[\""+pk_name+"\"].ToString());");
-            else if(pk_type == "float") WriteLine("\t\t\t\tthis."+pk_name+" = "+"float.Parse(row[\""+pk_name+"\"].ToString());");
-            else if(pk_type == "DateTime") WriteLine("\t\t\t\tthis."+pk_name+" = "+"DateTime.Parse(row[\""+pk_name+"\"].ToString());");
-            else if(pk_type == "bool") WriteLine("\t\t\t\tthis."+pk_name+" = "+"bool.Parse(row[\""+pk_name+"\"].ToString());");
-            else WriteLine("\t\t\t\tthis."+pk_name+" = "+"row[\""+pk_name+"\"].ToString();");
+            if(pk_type == "int") WriteLine("\t\t\t\tthis."+pk_name+" = "+"int.Parse(row[0].ToString());");
+            else if(pk_type == "float") WriteLine("\t\t\t\tthis."+pk_name+" = "+"float.Parse(row[0].ToString());");
+            else if(pk_type == "DateTime") WriteLine("\t\t\t\tthis."+pk_name+" = "+"DateTime.Parse(row[0].ToString());");
+            else if(pk_type == "bool") WriteLine("\t\t\t\tthis."+pk_name+" = "+"bool.Parse(row[0].ToString());");
+            else WriteLine("\t\t\t\tthis."+pk_name+" = "+"row[0].ToString();");
             
             WriteLine("\t\t\t}");
             WriteLine("\t\t}");

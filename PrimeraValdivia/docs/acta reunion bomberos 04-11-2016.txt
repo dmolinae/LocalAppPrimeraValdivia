@@ -1,0 +1,23 @@
+Arreglar campos del formulario agregar volunatrio:
+- Especifica el servicio a otra compañia
+- Registro compañia es interno y el numero registro cuerpo de bomberos valdivia es a nivel ciudad. 
+- Calificaciones con fecha y todas las que tiene, notificar si tiene premio. 
+- Desplegar todos los cargos que tiene la compañia.  
+- Agregar foto a los volunatrios. 
+- Agregar cargo a aspirante a voluntario. 
+- Modificar clave para que sea completa. 
+- Agregar boton alarma de incendio al formulario evento que especifica asistencia obligatoria. (motivo)
+- Codigo radial: remplaza el nombre en las comunicaciones radiales. (agregar a voluntario). Cada oficial tiene un codigo distinto por el tiempo que ocupa el cargo pero no pierde el codigo antiguo.
+- Asistencia: los que no marco, quedan como que no fueron. 
+- DET, es del cuerpo de bomberos de valdivia y es alguien externo. 
+- 10-3, 10-4, 14 Rescate. el resto es incendio.
+- En tipo de incendio: dejar el campo editable. 
+- Solo para 10-5 y 10-6 se coloca el tema de los gases.
+- No agregar aseguradora al programa. 
+- Rescate de vehiculos sin personas igual puede ocurrir.
+- Para las asistencias generales, exportar en pdf y que el programa permita modificar las cosas. 
+- Agregar asistencas previas de cada voluntario.
+- Colocar tabla material mayor con atributos de cada carro. 
+- Bencina despues del evento, cuanto se lleno y cuanto salio. 
+- Agregar la funcionalidad citaciones. 
+     

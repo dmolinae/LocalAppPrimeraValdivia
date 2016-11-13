@@ -28,20 +28,17 @@
                   CanUserSortColumns="True" Margin="10">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="rut" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="rut" Width="*" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="fechaNacimiento" Binding="{Binding Path=fechaNacimiento, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="ciudadNacimiento" Binding="{Binding Path=ciudadNacimiento, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="grupoSanguineo" Binding="{Binding Path=grupoSanguineo, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="profesion" Binding="{Binding Path=profesion, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="fechaIngreso" Binding="{Binding Path=fechaIngreso, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="fechaReincorporacion" Binding="{Binding Path=fechaReincorporacion, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="servicioCompania" Binding="{Binding Path=servicioCompania, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="servicioMilitar" Binding="{Binding Path=servicioMilitar, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="insignia" Binding="{Binding Path=insignia, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="registroCompania" Binding="{Binding Path=registroCompania, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="calificacion" Binding="{Binding Path=calificacion, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="nRegistroInterno" Binding="{Binding Path=nRegistroInterno, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="nRegistroExterno" Binding="{Binding Path=nRegistroExterno, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTemplateColumn Width="70">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

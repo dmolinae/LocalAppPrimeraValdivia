@@ -39,18 +39,6 @@
             <TextBox Text="{Binding Voluntario.profesion}" Width="200"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Fecha Ingreso" Width="130"/>
-            <DatePicker SelectedDate="{Binding Voluntario.fechaIngreso}" Width="200"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Fecha Reincorporacion" Width="130"/>
-            <DatePicker SelectedDate="{Binding Voluntario.fechaReincorporacion}" Width="200"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Servicio Compañia" Width="130"/>
-            <TextBox Text="{Binding Voluntario.servicioCompania}" Width="200"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Servicio Militar" Width="130"/>
             <Controls:ToggleSwitch OnLabel="Si" OffLabel="No" IsChecked="{Binding Voluntario.servicioMilitar}" Width="200" Height="40"/>
         </StackPanel>
@@ -59,17 +47,23 @@
             <TextBox Text="{Binding Voluntario.insignia}" Width="200"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Registro Compañia" Width="130"/>
-            <TextBox Text="{Binding Voluntario.registroCompania}" Width="200"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Cargo" Width="130"/>
-            <TextBox Text="{Binding Voluntario.cargo}" Width="200"/>
+            <ComboBox ItemsSource="{Binding Cargos}" DisplayMemberPath="nombre" Width="200" Text="{Binding Voluntario.cargo}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Calificacion" Width="130"/>
-            <TextBox Text="{Binding Voluntario.calificacion}" Width="200"/>
+            <Label Content="Número Registro Interno" Width="130"/>
+            <TextBox Text="{Binding Voluntario.nRegistroInterno}" Width="200"/>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Número Registro Nacional" Width="130"/>
+            <TextBox Text="{Binding Voluntario.nRegistroExterno}" Width="200"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Fecha Ingreso" Width="130"/>
+            <DatePicker SelectedDate="{Binding CompaniaVoluntario.fechaIngreso}" Width="200"/>
+        </StackPanel>
+
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
             <Button Content="Guardar" Command="{Binding GuardarVoluntarioCommand}"/>
         </StackPanel>

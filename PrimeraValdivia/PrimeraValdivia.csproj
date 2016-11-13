@@ -138,10 +138,13 @@
     <Compile Include="Models\Apoyo.cs" />
     <Compile Include="Models\Asistencia.cs" />
     <Compile Include="Models\Carro.cs" />
+    <Compile Include="Models\Categoria.cs" />
+    <Compile Include="Models\CompaniaVoluntario.cs" />
     <Compile Include="Models\Incendio\AfectadoIncendio.cs" />
     <Compile Include="Models\Incendio\AseguradoraViviendaAfectado.cs" />
     <Compile Include="Models\Evento.cs" />
     <Compile Include="Models\Incendio\Incendio.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Material.cs" />
     <Compile Include="Models\Rescate\AfectadoRescate.cs" />
     <Compile Include="Models\Rescate\AseguradoraVehiculo.cs" />
