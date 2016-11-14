@@ -82,11 +82,11 @@
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Label Content="Clave:" Width="130"/>
-                                <TextBox Text="{Binding Evento.claveServicio}" Width="30"/>
+                                <TextBox Text="{Binding Evento.claveServicio}" Width="70"/>
                             </StackPanel>
                             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Label Content="Motivo:" Width="130" HorizontalContentAlignment="Center"/>
-                                <TextBox Text="{Binding Evento.motivo}" Width="370"/>
+                                <TextBox Text="{Binding Evento.motivo}" Width="330"/>
                             </StackPanel>
                         </Grid>
 

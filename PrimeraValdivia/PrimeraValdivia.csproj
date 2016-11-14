@@ -155,6 +155,7 @@
     <Compile Include="ViewModels\EventoViewModel.cs" />
     <Compile Include="ViewModels\FormularioCarroViewModel.cs" />
     <Compile Include="ViewModels\FormularioEventoViewModel.cs" />
+    <Compile Include="ViewModels\FormularioMaterialViewModel.cs" />
     <Compile Include="ViewModels\FormularioVoluntarioViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Helpers\Utils.cs" />
@@ -171,6 +172,9 @@
     </Compile>
     <Compile Include="Views\FormularioEvento.xaml.cs">
       <DependentUpon>FormularioEvento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormularioMaterial.xaml.cs">
+      <DependentUpon>FormularioMaterial.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FormularioVoluntario.xaml.cs">
       <DependentUpon>FormularioVoluntario.xaml</DependentUpon>
@@ -203,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FormularioEvento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FormularioMaterial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -124,13 +124,33 @@ namespace PrimeraValdivia.Models
 			return Materials;
 		}
 
+        public ObservableCollection<Material> ObtenerMaterials(int idCarro)
+        {
+            ObservableCollection<Material> Materials = new ObservableCollection<Material>();
+            query = String.Format(
+                " SELECT * FROM Material WHERE fk_idCarro = {0}",
+                idCarro);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                Material Material = new Material(
+                    int.Parse(row["idMaterial"].ToString()),
+                    row["nombre"].ToString(),
+                    row["descripcion"].ToString(),
+                    int.Parse(row["fk_idCarro"].ToString())
+                );
+                Materials.Add(Material);
+            }
+            return Materials;
+        }
+
         public void IniciarId()
 		{
 			query = "SELECT count(*) FROM Material";
 			DataTable dt = utils.ExecuteQuery(query);
 			foreach (DataRow row in dt.Rows)
 			{
-				this.idMaterial = int.Parse(row["idMaterial"].ToString());
+				this.idMaterial = int.Parse(row[0].ToString());
 			}
 		}
         #endregion
