@@ -312,11 +312,11 @@ namespace PrimeraValdivia.Models
         }
         public void IniciarId()
         {
-            query = "SELECT count(*) FROM Evento";
+            query = "SELECT * FROM Evento ORDER BY idEvento DESC LIMIT 1";
             DataTable dt = utils.ExecuteQuery(query);
             foreach (DataRow row in dt.Rows)
             {
-                this.idEvento = int.Parse(row[0].ToString());
+                this.idEvento = int.Parse(row[0].ToString()) + 1;
             }
         }
 

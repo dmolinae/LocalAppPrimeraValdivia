@@ -140,14 +140,14 @@ namespace PrimeraValdivia.Models
 		}
 
         public void IniciarId()
-		{
-			query = "SELECT count(*) FROM CompaniaVoluntario";
-			DataTable dt = utils.ExecuteQuery(query);
-			foreach (DataRow row in dt.Rows)
-			{
-				this.idCompaniaVoluntario = int.Parse(row[0].ToString());
-			}
-		}
+        {
+            query = "SELECT * FROM CompaniaVoluntario ORDER BY idCompaniaVoluntario DESC LIMIT 1";
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                this.idCompaniaVoluntario = int.Parse(row[0].ToString()) + 1;
+            }
+        }
 
         public CompaniaVoluntario ObtenerCompaniaVoluntario(String fk_voluntario, int fk_compania)
         {

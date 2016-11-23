@@ -106,6 +106,14 @@ namespace PrimeraValdivia.Models
 			utils.ExecuteNonQuery(query);
 		}
 
+        public void EliminarMaterial(int idMaterial)
+        {
+            query = String.Format(
+                "DELETE FROM Material WHERE idMaterial = {0}",
+                idMaterial);
+            utils.ExecuteNonQuery(query);
+        }
+
         public ObservableCollection<Material> ObtenerMaterials()
 		{
 			ObservableCollection<Material> Materials = new ObservableCollection<Material>();
@@ -146,11 +154,11 @@ namespace PrimeraValdivia.Models
 
         public void IniciarId()
 		{
-			query = "SELECT count(*) FROM Material";
+			query = "SELECT * FROM Material ORDER BY idMaterial DESC LIMIT 1";
 			DataTable dt = utils.ExecuteQuery(query);
 			foreach (DataRow row in dt.Rows)
 			{
-				this.idMaterial = int.Parse(row[0].ToString());
+				this.idMaterial = int.Parse(row[0].ToString()) + 1;
 			}
 		}
         #endregion

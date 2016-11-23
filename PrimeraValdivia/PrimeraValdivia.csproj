@@ -137,6 +137,7 @@
     <Compile Include="Helpers\ViewCollectionViewSourceMessageToken.cs" />
     <Compile Include="Models\Apoyo.cs" />
     <Compile Include="Models\Asistencia.cs" />
+    <Compile Include="Models\Calificacion.cs" />
     <Compile Include="Models\Carro.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\CompaniaVoluntario.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="ViewModels\EventoViewModel.cs" />
     <Compile Include="ViewModels\FormularioCarroViewModel.cs" />
     <Compile Include="ViewModels\FormularioEventoViewModel.cs" />
+    <Compile Include="ViewModels\FormularioCalificacionViewModel.cs" />
     <Compile Include="ViewModels\FormularioMaterialViewModel.cs" />
     <Compile Include="ViewModels\FormularioVoluntarioViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -172,6 +174,9 @@
     </Compile>
     <Compile Include="Views\FormularioEvento.xaml.cs">
       <DependentUpon>FormularioEvento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormularioCalificacion.xaml.cs">
+      <DependentUpon>FormularioCalificacion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FormularioMaterial.xaml.cs">
       <DependentUpon>FormularioMaterial.xaml</DependentUpon>
@@ -209,6 +214,10 @@
     <Page Include="Views\FormularioEvento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FormularioCalificacion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FormularioMaterial.xaml">
       <SubType>Designer</SubType>

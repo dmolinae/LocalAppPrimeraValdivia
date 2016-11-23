@@ -25,6 +25,7 @@ namespace PrimeraValdivia.ViewModels
         private ICommand _AgregarMaterialCommand;
         private ICommand _GuardarMaterialCommand;
         private ICommand _MostrarFormularioMaterialCommand;
+        private ICommand _EliminarMaterialCommand;
         private string modo;
         private int idCarroActual;
 
@@ -132,6 +133,19 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public ICommand EliminarMaterialCommand
+        {
+            get
+            {
+                _EliminarMaterialCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EliminarMaterial()
+                };
+                return _EliminarMaterialCommand;
+            }
+        }
+
         #endregion
 
         #region Metodos
@@ -163,6 +177,12 @@ namespace PrimeraValdivia.ViewModels
             viewmodel.CloseAction = new Action(view.Close);
             view.Show();
             
+        }
+
+        private void EliminarMaterial()
+        {
+            MModel.EliminarMaterial(Material.idMaterial);
+            Materiales.Remove(Material);
         }
 
         private void EditarMaterial()

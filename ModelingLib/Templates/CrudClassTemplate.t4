@@ -202,6 +202,21 @@ namespace PrimeraValdivia.Models
             WriteLine("\t\t}");
         #>
 
+		<#
+			WriteLine("public void Eliminar"+clase+"("+pk_type+" "+pk_name+")");
+			WriteLine("\t\t{");
+			WriteLine("\t\t\tquery = String.Format(");
+			
+			if(pk_type == "String" || pk_type == "DateTime") 
+				WriteLine("\t\t\t\t\"DELETE FROM "+clase+" WHERE "+pk_name+" = '{0}'\",");
+			else
+				WriteLine("\t\t\t\t\"DELETE FROM "+clase+" WHERE "+pk_name+" = {0}\",");
+			
+			WriteLine("\t\t\t\t"+pk_name+");");
+			WriteLine("\t\t\tutils.ExecuteNonQuery(query);");
+			WriteLine("\t\t}");
+		#>
+
         <#
             WriteLine("public ObservableCollection<"+clase+"> "+"Obtener"+clase+"s()");
             WriteLine("\t\t{");
@@ -246,20 +261,16 @@ namespace PrimeraValdivia.Models
             WriteLine("\t\t\treturn "+clase+"s;");
             WriteLine("\t\t}");        
         #>
-
         <#
             WriteLine("public void IniciarId()");
             WriteLine("\t\t{");
-            WriteLine("\t\t\tquery = \"SELECT count(*) FROM "+clase+"\";");
+            WriteLine("\t\t\tquery = \"SELECT * FROM "+clase+" ORDER BY "+pk_name+" DESC LIMIT 1\";");
             WriteLine("\t\t\tDataTable dt = utils.ExecuteQuery(query);");
             WriteLine("\t\t\tforeach (DataRow row in dt.Rows)");
             WriteLine("\t\t\t{");
 
-            if(pk_type == "int") WriteLine("\t\t\t\tthis."+pk_name+" = "+"int.Parse(row[0].ToString());");
-            else if(pk_type == "float") WriteLine("\t\t\t\tthis."+pk_name+" = "+"float.Parse(row[0].ToString());");
-            else if(pk_type == "DateTime") WriteLine("\t\t\t\tthis."+pk_name+" = "+"DateTime.Parse(row[0].ToString());");
-            else if(pk_type == "bool") WriteLine("\t\t\t\tthis."+pk_name+" = "+"bool.Parse(row[0].ToString());");
-            else WriteLine("\t\t\t\tthis."+pk_name+" = "+"row[0].ToString();");
+            if(pk_type == "int") WriteLine("\t\t\t\tthis."+pk_name+" = "+"int.Parse(row[0].ToString()) + 1;");
+            else if(pk_type == "float") WriteLine("\t\t\t\tthis."+pk_name+" = "+"float.Parse(row[0].ToString()) + 1;");
             
             WriteLine("\t\t\t}");
             WriteLine("\t\t}");

@@ -41,6 +41,18 @@ CREATE TABLE IF NOT EXISTS "Motosierra"(
     FOREIGN KEY("fk_idEventoMotosierra")
     REFERENCES "Evento"("idEvento")
 );
+CREATE TABLE IF NOT EXISTS "Calificacion"(
+  "idCalificacion" INTEGER PRIMARY KEY NOT NULL,
+  "numero" INTEGER,
+  "premio" VARCHAR(45),
+  "anos" VARCHAR(45),
+  "fk_rutVoluntario" VARCHAR(45),
+  CONSTRAINT "idCalificacion_UNIQUE"
+    UNIQUE("idCalificacion"),
+  CONSTRAINT "fk_rutVoluntario"
+    FOREIGN KEY("fk_rutVoluntario")
+    REFERENCES "Voluntario"("rut")
+);
 CREATE TABLE IF NOT EXISTS "MaterialHospital"(
   "idMaterialHospital" INTEGER PRIMARY KEY NOT NULL,
   "tipoMaterial" VARCHAR(45),
@@ -119,9 +131,9 @@ CREATE TABLE IF NOT EXISTS "Carro"(
   "nombre" VARCHAR(45),
   "tipo" VARCHAR(45),
   "descripcion" VARCHAR(45),
-  "kilometraje" VARCHAR(45),
-  "horas_motor" VARCHAR(45),
-  "horas_bomba" VARCHAR(45),
+  "kilometraje" FLOAT,
+  "horas_motor" FLOAT,
+  "horas_bomba" FLOAT,
   CONSTRAINT "idCarro_UNIQUE"
     UNIQUE("idCarro")
 );
@@ -283,14 +295,14 @@ CREATE TABLE IF NOT EXISTS "MaterialMayor"(
   "idCarroEvento" INTEGER PRIMARY KEY NOT NULL,
   "conductor" VARCHAR(45),
   "oficialCargo" VARCHAR(45),
-  "horaSalidaCuartel" TIME,
-  "horaLlegadaEvento" TIME,
-  "horaSalidaEvento" DATETIME,
-  "horaLlegadaCuartel" DATETIME,
+  "horaSalidaCuartel" VARCHAR(45),
+  "horaLlegadaEvento" VARCHAR(45),
+  "horaSalidaEvento" VARCHAR(45),
+  "horaLlegadaCuartel" VARCHAR(45),
   "fk_idCarroMaterial" INTEGER,
   "fk_idEventoMaterial" INTEGER,
-  "kilometrajeSalida" INTEGER,
-  "kilometrajeLlegada" INTEGER,
+  "kilometrajeSalida" FLOAT,
+  "kilometrajeLlegada" FLOAT,
   CONSTRAINT "idCarroEvento_UNIQUE"
     UNIQUE("idCarroEvento"),
   CONSTRAINT "fk_idEventoMaterial"
@@ -362,4 +374,16 @@ INSERT INTO "Item" VALUES(16,"Ayudante 2°",0,"");
 INSERT INTO "Item" VALUES(17,"Voluntario",0,"");
 INSERT INTO "Item" VALUES(18,"Aspirante",0,"");
 */
-    
+/* INSERT INTO "Categoria" VALUES(1,"Años Calificacion","Todos las calificaciones disponibles");
+INSERT INTO "Item" VALUES(19,"5 Años",1,"");
+INSERT INTO "Item" VALUES(20,"10 Años",1,"");
+INSERT INTO "Item" VALUES(21,"15 Años",1,"");
+INSERT INTO "Item" VALUES(22,"20 Años",1,"");
+INSERT INTO "Item" VALUES(23,"25 Años",1,"");
+INSERT INTO "Item" VALUES(24,"30 Años",1"");
+INSERT INTO "Item" VALUES(25,"35 Años",1,"");
+INSERT INTO "Item" VALUES(26,"40 Años",1,"");
+INSERT INTO "Item" VALUES(27,"45 Años",1,"");
+INSERT INTO "Item" VALUES(28,"50 Años",1,"");
+INSERT INTO "Item" VALUES(29,"55 Años",1,"");
+*/

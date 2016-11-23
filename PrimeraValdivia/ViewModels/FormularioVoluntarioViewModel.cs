@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PrimeraValdivia.Models;
+using PrimeraValdivia.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using PrimeraValdivia.Commands;
@@ -17,15 +18,22 @@ namespace PrimeraValdivia.ViewModels
         #region Atributos Privados
 
         private ObservableCollection<Voluntario> _Voluntarios;
+        private ObservableCollection<Calificacion> _Calificaciones;
         private Voluntario _Voluntario;
+        private Calificacion _Calificacion;
         private CompaniaVoluntario _CompaniaVoluntario;
         private ICommand _GuardarVoluntarioCommand;
+        private ICommand _AgregarCalificacionCommand;
+        private ICommand _GuardarCalificacionCommand;
+        private ICommand _MostrarFormularioCalificacionCommand;
+        private ICommand _EliminarCalificacionCommand;
         private string modo;
         private string rutVoluntarioActual;
 
         private CompaniaVoluntario CVModel = new CompaniaVoluntario();
         private Voluntario VModel = new Voluntario();
         private Item IModel = new Item();
+        private Calificacion CModel = new Calificacion();
 
         private ObservableCollection<Item> _Cargos;
 
@@ -54,6 +62,15 @@ namespace PrimeraValdivia.ViewModels
                 OnPropertyChanged("Voluntario");
             }
         }
+        public Calificacion Calificacion
+        {
+            get { return _Calificacion; }
+            set
+            {
+                _Calificacion = value;
+                OnPropertyChanged("Calificacion");
+            }
+        }
 
         public CompaniaVoluntario CompaniaVoluntario
         {
@@ -78,6 +95,19 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public ObservableCollection<Calificacion> Calificaciones
+        {
+            get
+            {
+                return _Calificaciones;
+            }
+            set
+            {
+                _Calificaciones = value;
+                OnPropertyChanged("Calificaciones");
+            }
+        }
+
         public ICommand GuardarVoluntarioCommand
         {
             get
@@ -88,6 +118,58 @@ namespace PrimeraValdivia.ViewModels
                     ExecuteDelegate = c => GuardarVoluntario()
                 };
                 return _GuardarVoluntarioCommand;
+            }
+        }
+
+        public ICommand AgregarCalificacionCommand
+        {
+            get
+            {
+                _AgregarCalificacionCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => AgregarCalificacion()
+                };
+                return _AgregarCalificacionCommand;
+            }
+        }
+
+        public ICommand MostrarFormularioCalificacionCommand
+        {
+            get
+            {
+                _MostrarFormularioCalificacionCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EditarCalificacion()
+                };
+                return _MostrarFormularioCalificacionCommand;
+            }
+        }
+
+        public ICommand GuardarCalificacionCommand
+        {
+            get
+            {
+                _GuardarCalificacionCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => GuardarCalificacion()
+                };
+                return _GuardarCalificacionCommand;
+            }
+        }
+
+        public ICommand EliminarCalificacionCommand
+        {
+            get
+            {
+                _EliminarCalificacionCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EliminarCalificacion()
+                };
+                return _EliminarCalificacionCommand;
             }
         }
 
@@ -108,6 +190,7 @@ namespace PrimeraValdivia.ViewModels
         }
         public FormularioVoluntarioViewModel(ObservableCollection<Voluntario> Voluntarios, Voluntario Voluntario)
         {
+            this.Calificaciones = CModel.ObtenerCalificacions(Voluntario.rut);
             this.Cargos = IModel.ObtenerItemsCategoria(0);
 
             this.rutVoluntarioActual = Voluntario.rut;
@@ -138,6 +221,35 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        private void AgregarCalificacion()
+        {
+            var viewmodel = new FormularioCalificacionViewModel(Calificaciones, this.Voluntario.rut);
+            var view = new FormularioCalificacion();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
+        }
+
+        private void EliminarCalificacion()
+        {
+            CModel.EliminarCalificacion(Calificacion.idCalificacion);
+            Calificaciones.Remove(Calificacion);
+        }
+
+        private void EditarCalificacion()
+        {
+            var viewmodel = new FormularioCalificacionViewModel(Calificaciones, Calificacion);
+            var view = new FormularioCalificacion();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
+        }
+
+        private void GuardarCalificacion()
+        {
+            CModel.AgregarCalificacion(this.Calificacion);
+            Calificaciones.Add(this.Calificacion);
+        }
         #endregion
     }
 }

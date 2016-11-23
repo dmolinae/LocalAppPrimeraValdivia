@@ -12,7 +12,7 @@
         mc:Ignorable="d"
         GlowBrush="Black"
         WindowStartupLocation="CenterScreen" 
-             Width="800" Height="500">
+             Width="1000" Height="500">
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -72,6 +72,16 @@
                             <DataTemplate>
                                 <Grid>
                                     <Button Content="Editar" Command="{Binding Path=DataContext.MostrarFormularioMaterialCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="70">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button Content="Eliminar" Command="{Binding Path=DataContext.EliminarMaterialCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                             CommandParameter="{Binding}"/>
                                 </Grid>
                             </DataTemplate>

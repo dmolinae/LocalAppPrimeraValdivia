@@ -200,14 +200,14 @@ namespace PrimeraValdivia.Models
 		}
 
         public void IniciarId()
-		{
-			query = "SELECT count(*) FROM Apoyo";
-			DataTable dt = utils.ExecuteQuery(query);
-			foreach (DataRow row in dt.Rows)
-			{
-				this.idApoyo = int.Parse(row["idApoyo"].ToString());
-			}
-		}
+        {
+            query = "SELECT * FROM Apoyo ORDER BY idApoyo DESC LIMIT 1";
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                this.idApoyo = int.Parse(row[0].ToString()) + 1;
+            }
+        }
         #endregion
     }
 }
