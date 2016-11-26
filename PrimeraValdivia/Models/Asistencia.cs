@@ -103,15 +103,15 @@ namespace PrimeraValdivia.Models
             Debug.Write(" PARAMS: "+Asistencia.fk_rut + " " + Asistencia.fk_idEvento);
             bool existe = false;
             query = String.Format(
-                "SELECT * FROM Asistencia WHERE fk_rut = {0} and fk_idEvento = {1}",
+                "SELECT * FROM Asistencia WHERE fk_rut = '{0}' and fk_idEvento = {1}",
                 Asistencia.fk_rut,
                 Asistencia.fk_idEvento
                 );
+            Debug.Write("QUERY: " + query);
             DataTable dt = utils.ExecuteQuery(query);
             foreach (DataRow row in dt.Rows)
             {
                 existe = true;
-                Debug.Write("Rut: "+row["fk_rut"].ToString()+"Evento: "+row["fk_idEvento"].ToString());
             }
             return existe;
         }

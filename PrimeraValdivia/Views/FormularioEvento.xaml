@@ -170,19 +170,19 @@
 
                             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Label Content="Bombero a cargo de la emergencia" Width="220"/>
-                                <ComboBox ItemsSource="{Binding Voluntarios}" DisplayMemberPath="nombre" Width="390" Text="{Binding Evento.bomberoCargo}"/>
+                                <ComboBox ItemsSource="{Binding Voluntarios}" SelectedItem="{Binding VoluntarioCargo}" DisplayMemberPath="nombre" Width="390" Text="{Binding Evento.bomberoCargo}"/>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Label Content="Bombero que tomo informe de servicio" Width="220"/>
-                                <ComboBox ItemsSource="{Binding Voluntarios}" DisplayMemberPath="nombre" Width="390" Text="{Binding Evento.bomberoInforme}"/>
+                                <ComboBox ItemsSource="{Binding Voluntarios}" SelectedItem="{Binding VoluntarioInforme}" DisplayMemberPath="nombre" Width="390" Text="{Binding Evento.bomberoInforme}"/>
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Label Content=" "/>
-                                <TextBox Text="{Binding Evento.codigoCargo}" Width="50"/>
+                                <TextBox IsEnabled="False" Text="{Binding VoluntarioCargo.codigoRadial}" Width="50"/>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Label Content=" "/>
-                                <TextBox Text="{Binding Evento.codigoInforme}" Width="50"/>
+                                <TextBox IsEnabled="False" Text="{Binding VoluntarioInforme.codigoRadial}" Width="50"/>
                             </StackPanel>
                         </Grid>
                         <!--

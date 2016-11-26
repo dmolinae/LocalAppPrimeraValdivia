@@ -19,6 +19,8 @@ namespace PrimeraValdivia.ViewModels
 
         private Voluntario _Voluntario;
         private Asistencia _Asistente;
+        private Voluntario _VoluntarioCargo;
+        private Voluntario _VoluntarioInforme;
         private ObservableCollection<Voluntario> _Voluntarios;
         private ObservableCollection<Asistencia> _Asistentes;
         private ObservableCollection<Evento> _Eventos;
@@ -151,6 +153,26 @@ namespace PrimeraValdivia.ViewModels
             {
                 _Voluntario = value;
                 OnPropertyChanged("Voluntario");
+            }
+        }
+        public Voluntario VoluntarioCargo
+        {
+            get { return _VoluntarioCargo; }
+            set
+            {
+                _VoluntarioCargo = value;
+                OnPropertyChanged("VoluntarioCargo");
+                this.Evento.codigoCargo = VoluntarioCargo.codigoRadial;
+            }
+        }
+        public Voluntario VoluntarioInforme
+        {
+            get { return _VoluntarioInforme; }
+            set
+            {
+                _VoluntarioInforme = value;
+                OnPropertyChanged("VoluntarioInforme");
+                this.Evento.codigoInforme = VoluntarioInforme.codigoRadial;
             }
         }
         public Asistencia Asistente

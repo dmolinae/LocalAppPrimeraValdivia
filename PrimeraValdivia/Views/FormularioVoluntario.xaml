@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         GlowBrush="Black"
         WindowStartupLocation="CenterScreen" 
-             Width="1000" Height="500">
+             Width="1100" Height="500">
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -62,10 +62,13 @@
                 <Label Content="Número Registro Nacional" Width="130"/>
                 <TextBox Text="{Binding Voluntario.nRegistroExterno}" Width="200"/>
             </StackPanel>
-
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Fecha Ingreso" Width="130"/>
                 <DatePicker SelectedDate="{Binding CompaniaVoluntario.fechaIngreso}" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Codigo Radial" Width="130"/>
+                <TextBox Text="{Binding Voluntario.codigoRadial}" Width="200"/>
             </StackPanel>
 
         </StackPanel>

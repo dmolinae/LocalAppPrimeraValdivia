@@ -246,6 +246,7 @@ CREATE TABLE IF NOT EXISTS "Voluntario"(
   "cargo" VARCHAR(45),
   "nRegistroInterno" INTEGER,
   "nRegistroExterno" INTEGER,
+  "codigoRadial" VARCHAR(45),
   CONSTRAINT "idVoluntario_UNIQUE"
     UNIQUE("rut")
 );
@@ -373,8 +374,8 @@ INSERT INTO "Item" VALUES(15,"Ayudante 1°",0,"");
 INSERT INTO "Item" VALUES(16,"Ayudante 2°",0,"");
 INSERT INTO "Item" VALUES(17,"Voluntario",0,"");
 INSERT INTO "Item" VALUES(18,"Aspirante",0,"");
-*/
-/* INSERT INTO "Categoria" VALUES(1,"Años Calificacion","Todos las calificaciones disponibles");
+
+INSERT INTO "Categoria" VALUES(1,"Años Calificacion","Todos las calificaciones disponibles");
 INSERT INTO "Item" VALUES(19,"5 Años",1,"");
 INSERT INTO "Item" VALUES(20,"10 Años",1,"");
 INSERT INTO "Item" VALUES(21,"15 Años",1,"");

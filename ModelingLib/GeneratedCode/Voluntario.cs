@@ -140,6 +140,17 @@ namespace PrimeraValdivia.Models
 			}
 		}
 
+		private String _codigoRadial;
+		public String codigoRadial
+		{
+			get { return _codigoRadial; }
+			set
+			{
+				_codigoRadial = value;
+				OnPropertyChanged("codigoRadial");
+			}
+		}
+
 
         #endregion
 
@@ -150,7 +161,7 @@ namespace PrimeraValdivia.Models
 
         }
 
-        public Voluntario(String rut, String nombre, DateTime fechaNacimiento, String ciudadNacimiento, String grupoSanguineo, String profesion, bool servicioMilitar, int insignia, String cargo, int nRegistroInterno, int nRegistroExterno)
+        public Voluntario(String rut, String nombre, DateTime fechaNacimiento, String ciudadNacimiento, String grupoSanguineo, String profesion, bool servicioMilitar, int insignia, String cargo, int nRegistroInterno, int nRegistroExterno, String codigoRadial)
 		{
 			this.rut = rut;
 			this.nombre = nombre;
@@ -163,31 +174,13 @@ namespace PrimeraValdivia.Models
 			this.cargo = cargo;
 			this.nRegistroInterno = nRegistroInterno;
 			this.nRegistroExterno = nRegistroExterno;
+			this.codigoRadial = codigoRadial;
 		}
 
         public void AgregarVoluntario(Voluntario Voluntario)
 		{
 			query = String.Format(
-				"INSERT INTO Voluntario(rut,nombre,fechaNacimiento,ciudadNacimiento,grupoSanguineo,profesion,servicioMilitar,insignia,cargo,nRegistroInterno,nRegistroExterno) VALUES('{0}','{1}','{2}','{3}','{4}','{5}',{6},{7},'{8}',{9},{10})",
-				Voluntario.rut,
-				Voluntario.nombre,
-				Voluntario.fechaNacimiento,
-				Voluntario.ciudadNacimiento,
-				Voluntario.grupoSanguineo,
-				Voluntario.profesion,
-				(Voluntario.servicioMilitar)? 1 : 0,
-				Voluntario.insignia,
-				Voluntario.cargo,
-				Voluntario.nRegistroInterno,
-				Voluntario.nRegistroExterno
-				);
-			utils.ExecuteNonQuery(query);
-		}
-
-        public void EditarVoluntario(Voluntario Voluntario, String rut)
-		{
-			query = String.Format(
-				"UPDATE Voluntario SET rut = '{0}', nombre = '{1}', fechaNacimiento = '{2}', ciudadNacimiento = '{3}', grupoSanguineo = '{4}', profesion = '{5}', servicioMilitar = {6}, insignia = {7}, cargo = '{8}', nRegistroInterno = {9}, nRegistroExterno = {10} WHERE rut = '{11}'",
+				"INSERT INTO Voluntario(rut,nombre,fechaNacimiento,ciudadNacimiento,grupoSanguineo,profesion,servicioMilitar,insignia,cargo,nRegistroInterno,nRegistroExterno,codigoRadial) VALUES('{0}','{1}','{2}','{3}','{4}','{5}',{6},{7},'{8}',{9},{10},'{11}')",
 				Voluntario.rut,
 				Voluntario.nombre,
 				Voluntario.fechaNacimiento,
@@ -199,6 +192,27 @@ namespace PrimeraValdivia.Models
 				Voluntario.cargo,
 				Voluntario.nRegistroInterno,
 				Voluntario.nRegistroExterno,
+				Voluntario.codigoRadial
+				);
+			utils.ExecuteNonQuery(query);
+		}
+
+        public void EditarVoluntario(Voluntario Voluntario, String rut)
+		{
+			query = String.Format(
+				"UPDATE Voluntario SET rut = '{0}', nombre = '{1}', fechaNacimiento = '{2}', ciudadNacimiento = '{3}', grupoSanguineo = '{4}', profesion = '{5}', servicioMilitar = {6}, insignia = {7}, cargo = '{8}', nRegistroInterno = {9}, nRegistroExterno = {10}, codigoRadial = '{11}' WHERE rut = '{12}'",
+				Voluntario.rut,
+				Voluntario.nombre,
+				Voluntario.fechaNacimiento,
+				Voluntario.ciudadNacimiento,
+				Voluntario.grupoSanguineo,
+				Voluntario.profesion,
+				(Voluntario.servicioMilitar)? 1 : 0,
+				Voluntario.insignia,
+				Voluntario.cargo,
+				Voluntario.nRegistroInterno,
+				Voluntario.nRegistroExterno,
+				Voluntario.codigoRadial,
 				rut
 				);
 			utils.ExecuteNonQuery(query);
@@ -230,19 +244,12 @@ namespace PrimeraValdivia.Models
 					int.Parse(row["insignia"].ToString()),
 					row["cargo"].ToString(),
 					int.Parse(row["nRegistroInterno"].ToString()),
-					int.Parse(row["nRegistroExterno"].ToString())
+					int.Parse(row["nRegistroExterno"].ToString()),
+					row["codigoRadial"].ToString()
 				);
 				Voluntarios.Add(Voluntario);
 			}
 			return Voluntarios;
-		}
-        public void IniciarId()
-		{
-			query = "SELECT * FROM Voluntario ORDER BY rut DESC LIMIT 1";
-			DataTable dt = utils.ExecuteQuery(query);
-			foreach (DataRow row in dt.Rows)
-			{
-			}
 		}
         #endregion
     }
