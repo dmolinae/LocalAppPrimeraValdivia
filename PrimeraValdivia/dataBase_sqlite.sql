@@ -46,11 +46,12 @@ CREATE TABLE IF NOT EXISTS "Calificacion"(
   "numero" INTEGER,
   "premio" VARCHAR(45),
   "anos" VARCHAR(45),
-  "fk_rutVoluntario" VARCHAR(45),
+  "fk_idVoluntario" INTEGER,
+  "fecha" VARCHAR(45),
   CONSTRAINT "idCalificacion_UNIQUE"
     UNIQUE("idCalificacion"),
-  CONSTRAINT "fk_rutVoluntario"
-    FOREIGN KEY("fk_rutVoluntario")
+  CONSTRAINT "fk_idVoluntario"
+    FOREIGN KEY("fk_idVoluntario")
     REFERENCES "Voluntario"("rut")
 );
 CREATE TABLE IF NOT EXISTS "MaterialHospital"(
@@ -235,7 +236,7 @@ CREATE TABLE IF NOT EXISTS "Gas"(
     REFERENCES "Incendio"("idIncendio")
 );
 CREATE TABLE IF NOT EXISTS "Voluntario"(
-  "rut" VARCHAR(45) PRIMARY KEY NOT NULL,
+  "idVoluntario" INTEGER PRIMARY KEY NOT NULL,
   "nombre" VARCHAR(45) NOT NULL,
   "fechaNacimiento" VARCHAR(45) NOT NULL,
   "ciudadNacimiento" VARCHAR(45) NOT NULL,
@@ -247,6 +248,7 @@ CREATE TABLE IF NOT EXISTS "Voluntario"(
   "nRegistroInterno" INTEGER,
   "nRegistroExterno" INTEGER,
   "codigoRadial" VARCHAR(45),
+  "rut" VARCHAR(45) NOT NULL,
   CONSTRAINT "idVoluntario_UNIQUE"
     UNIQUE("rut")
 );
@@ -381,7 +383,7 @@ INSERT INTO "Item" VALUES(20,"10 Años",1,"");
 INSERT INTO "Item" VALUES(21,"15 Años",1,"");
 INSERT INTO "Item" VALUES(22,"20 Años",1,"");
 INSERT INTO "Item" VALUES(23,"25 Años",1,"");
-INSERT INTO "Item" VALUES(24,"30 Años",1"");
+INSERT INTO "Item" VALUES(24,"30 Años",1,"");
 INSERT INTO "Item" VALUES(25,"35 Años",1,"");
 INSERT INTO "Item" VALUES(26,"40 Años",1,"");
 INSERT INTO "Item" VALUES(27,"45 Años",1,"");

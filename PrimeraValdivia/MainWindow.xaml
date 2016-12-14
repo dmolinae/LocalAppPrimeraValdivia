@@ -43,5 +43,15 @@
                 </Grid>
             </Grid>
         </TabItem>
+        <TabItem Header="Generar Documentos">
+            <Grid Background="#FFE5E5E5" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <views:GenerarDocs/>
+                </Grid>
+            </Grid>
+        </TabItem>
     </TabControl>
 </Controls:MetroWindow>

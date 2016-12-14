@@ -24,6 +24,7 @@ namespace PrimeraValdivia.ViewModels
         private ObservableCollection<Voluntario> _Voluntarios;
         private ICommand _AgregarVoluntarioCommand;
         private ICommand _MostrarFormularioVoluntarioCommand;
+        private ICommand _EliminarVoluntarioCommand;
         private Utils utils = new Utils();
         private Voluntario model = new Voluntario();
 
@@ -79,7 +80,18 @@ namespace PrimeraValdivia.ViewModels
                 return _MostrarFormularioVoluntarioCommand;
             }
         }
-
+        public ICommand EliminarVoluntarioCommand
+        {
+            get
+            {
+                _EliminarVoluntarioCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EliminarVoluntario()
+                };
+                return _EliminarVoluntarioCommand;
+            }
+        }
         #endregion
 
         #region Constructor/Métodos
@@ -98,6 +110,12 @@ namespace PrimeraValdivia.ViewModels
             view.DataContext = viewmodel;
             viewmodel.CloseAction = new Action(view.Close);
             view.Show();
+        }
+
+        private void EliminarVoluntario()
+        {
+            model.EliminarVoluntario(Voluntario.idVoluntario);
+            Voluntarios.Remove(Voluntario);
         }
 
         private void MostrarVoluntario()

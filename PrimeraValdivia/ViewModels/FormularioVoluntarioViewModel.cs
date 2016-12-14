@@ -28,7 +28,7 @@ namespace PrimeraValdivia.ViewModels
         private ICommand _MostrarFormularioCalificacionCommand;
         private ICommand _EliminarCalificacionCommand;
         private string modo;
-        private string rutVoluntarioActual;
+        private int idVoluntarioActual;
 
         private CompaniaVoluntario CVModel = new CompaniaVoluntario();
         private Voluntario VModel = new Voluntario();
@@ -184,16 +184,20 @@ namespace PrimeraValdivia.ViewModels
             this.modo = "agregar";
             this.Voluntarios = Voluntarios;
             this.Voluntario = new Voluntario();
+            this.Voluntario.IniciarId();
+            this.Voluntario.nRegistroInterno = this.Voluntario.idVoluntario;
 
             this.CompaniaVoluntario = new CompaniaVoluntario();
             this.CompaniaVoluntario.IniciarId();
+
+            this.Calificaciones = CModel.ObtenerCalificacions(Voluntario.idVoluntario);
         }
         public FormularioVoluntarioViewModel(ObservableCollection<Voluntario> Voluntarios, Voluntario Voluntario)
         {
-            this.Calificaciones = CModel.ObtenerCalificacions(Voluntario.rut);
+            this.Calificaciones = CModel.ObtenerCalificacions(Voluntario.idVoluntario);
             this.Cargos = IModel.ObtenerItemsCategoria(0);
 
-            this.rutVoluntarioActual = Voluntario.rut;
+            this.idVoluntarioActual = Voluntario.idVoluntario;
             this.modo = "editar";
             this.Voluntarios = Voluntarios;
             this.Voluntario = Voluntario;
@@ -215,7 +219,7 @@ namespace PrimeraValdivia.ViewModels
             }
             if (this.modo.Equals("editar"))
             {
-                VModel.EditarVoluntario(Voluntario, this.rutVoluntarioActual);
+                VModel.EditarVoluntario(Voluntario, this.idVoluntarioActual);
                 CVModel.EditarCompaniaVoluntario(this.CompaniaVoluntario, this.CompaniaVoluntario.idCompaniaVoluntario);
                 CloseAction();
             }
@@ -223,7 +227,7 @@ namespace PrimeraValdivia.ViewModels
 
         private void AgregarCalificacion()
         {
-            var viewmodel = new FormularioCalificacionViewModel(Calificaciones, this.Voluntario.rut);
+            var viewmodel = new FormularioCalificacionViewModel(Calificaciones, this.Voluntario.idVoluntario);
             var view = new FormularioCalificacion();
             view.DataContext = viewmodel;
             viewmodel.CloseAction = new Action(view.Close);

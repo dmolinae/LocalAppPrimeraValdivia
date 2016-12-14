@@ -11,13 +11,17 @@
         mc:Ignorable="d"
         GlowBrush="Black"
         WindowStartupLocation="CenterScreen" 
-             Width="1100" Height="500">
+             Width="1200" Height="500">
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="ID" Width="130"/>
+                <TextBox IsEnabled="False" Text="{Binding Voluntario.idVoluntario}" Width="200"/>
+            </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Rut" Width="130"/>
                 <TextBox Text="{Binding Voluntario.rut}" Width="200"/>
@@ -55,11 +59,11 @@
                 <ComboBox ItemsSource="{Binding Cargos}" DisplayMemberPath="nombre" Width="200" Text="{Binding Voluntario.cargo}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Label Content="Número Registro Interno" Width="130"/>
+                <Label Content="N° Registro Interno" Width="130"/>
                 <TextBox Text="{Binding Voluntario.nRegistroInterno}" Width="200"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Label Content="Número Registro Nacional" Width="130"/>
+                <Label Content="N° Registro Nacional" Width="130"/>
                 <TextBox Text="{Binding Voluntario.nRegistroExterno}" Width="200"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -91,7 +95,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Numero Calificacion" Binding="{Binding Path=numero, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="Premio" Binding="{Binding Path=premio, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Header="Años" Binding="{Binding Path=anos, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                    <DataGridTextColumn Header="Años" Binding="{Binding Path=anos, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding Path=fecha, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
                     <DataGridTemplateColumn Width="70">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

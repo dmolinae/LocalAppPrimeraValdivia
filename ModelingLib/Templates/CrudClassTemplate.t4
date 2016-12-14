@@ -261,6 +261,59 @@ namespace PrimeraValdivia.Models
             WriteLine("\t\t\treturn "+clase+"s;");
             WriteLine("\t\t}");        
         #>
+
+		<#
+            WriteLine("public ObservableCollection<"+clase+"> "+"Obtener"+clase+"()");
+            WriteLine("\t\t{");
+
+            WriteLine("\t\t\tObservableCollection<"+clase+"> "+clase+"s = new ObservableCollection<"+clase+">();");
+
+            WriteLine("\t\t\tquery = String.Format(");
+			
+			if(pk_type == "String" || pk_type == "DateTime") 
+				WriteLine("\t\t\t\t\"SELECT * FROM "+clase+" WHERE "+pk_name+" = '{0}'\",");
+			else
+				WriteLine("\t\t\t\t\"SELECT * FROM "+clase+" WHERE "+pk_name+" = {0}\",");
+			
+			WriteLine("\t\t\t\t"+pk_name+");");
+
+            WriteLine("\t\t\tDataTable dt = utils.ExecuteQuery(query);");
+            WriteLine("\t\t\tforeach (DataRow row in dt.Rows)");
+            WriteLine("\t\t\t{");
+            WriteLine("\t\t\t\t"+clase+" "+clase+" = new "+clase+"(");
+
+            count = 0;
+            foreach(IProperty atributo in atributos)
+            {
+                string name = atributo.Name;
+                string type = atributo.Signature.Split(':')[1].Trim();
+                
+                if(count < len - 1)
+                {
+                    if(type == "int") WriteLine("\t\t\t\t\t"+"int.Parse(row[\""+name+"\"].ToString()),");
+                    else if(type == "float") WriteLine("\t\t\t\t\t"+"float.Parse(row[\""+name+"\"].ToString()),");
+                    else if(type == "DateTime") WriteLine("\t\t\t\t\t"+"DateTime.Parse(row[\""+name+"\"].ToString()),");
+                    else if(type == "bool") WriteLine("\t\t\t\t\t"+"bool.Parse(row[\""+name+"\"].ToString()),");
+                    else WriteLine("\t\t\t\t\t"+"row[\""+name+"\"].ToString(),");
+                }
+                else
+                {
+                    if(type == "int") WriteLine("\t\t\t\t\t"+"int.Parse(row[\""+name+"\"].ToString())");
+                    else if(type == "float") WriteLine("\t\t\t\t\t"+"float.Parse(row[\""+name+"\"].ToString())");
+                    else if(type == "DateTime") WriteLine("\t\t\t\t\t"+"DateTime.Parse(row[\""+name+"\"].ToString())");
+                    else if(type == "bool") WriteLine("\t\t\t\t\t"+"bool.Parse(row[\""+name+"\"].ToString())");
+                    else WriteLine("\t\t\t\t\t"+"row[\""+name+"\"].ToString()");
+                }
+
+                count = count + 1;
+            }
+            WriteLine("\t\t\t\t);");
+            WriteLine("\t\t\t\t"+clase+"s.Add("+clase+");");
+            WriteLine("\t\t\t}");
+            WriteLine("\t\t\treturn "+clase+"s;");
+            WriteLine("\t\t}");        
+        #>
+
         <#
 			if(pk_type == "int" || pk_type == "float")
             {

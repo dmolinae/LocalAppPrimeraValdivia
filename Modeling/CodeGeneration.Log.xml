@@ -6,24 +6,24 @@
   <MessageClass Name="Error" Label="Error" Option="Show errors" />
   <MessageClass Name="Property" Label="Property" Option="Show metadata" />
   <MessageClass Name="Diagnostic" Label="Message" Option="Show diagnostic messages" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="High" Text="Code generation or text transformation started." />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Diagnostic" Text="Name = ClassTemplate" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Diagnostic" Text="Overwrite = True" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Diagnostic" Text="ProjectPath = ..\ModelingLib\ModelingLib.csproj" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Diagnostic" Text="TargetName = {Name}" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Diagnostic" Text="TemplateFilePath = ..\ModelingLib\Templates\CrudClassTemplate.t4" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\Users\Daniel Molina\Source\Repos\LocalAppPrimeraValdivia\ModelingLib\Templates\CrudClassTemplate.t4" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Medium" Text="Modeling's Text Template Binding: 'ClassTemplate' will apply CrudClassTemplate.t4 to: 'Modeling::Voluntario' -  (Class) " />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Medium" Text="'Modeling::Voluntario' -  (Class) : success (file replaced) - C:\Users\Daniel Molina\Source\Repos\LocalAppPrimeraValdivia\ModelingLib\GeneratedCode\Voluntario.cs" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Diagnostic" Text="Name = StructTemplate" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Diagnostic" Text="Overwrite = True" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Diagnostic" Text="ProjectPath = ..\ModelingLib\ModelingLib.csproj" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Diagnostic" Text="TargetName = {Name}" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Diagnostic" Text="TemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4" />
-  <Message Timestamp="2016-11-26T16:10:35" Importance="Medium" Text="Modeling's Text Template Binding: 'StructTemplate' will apply StructTemplate.t4 to: 'Modeling::Voluntario' -  (Class) " />
-  <Message Timestamp="2016-11-26T16:10:36" Importance="Diagnostic" Text="'Modeling::Voluntario' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
-  <Message Timestamp="2016-11-26T16:10:36" Importance="High" Text="Code generation complete. Errors: 0. Warnings: 0." />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="High" Text="Code generation or text transformation started." />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="Name = ClassTemplate" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="Overwrite = True" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="ProjectPath = ..\ModelingLib\ModelingLib.csproj" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="TargetName = {Name}" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="TemplateFilePath = ..\ModelingLib\Templates\CrudClassTemplate.t4" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\Users\Daniel Molina\Source\Repos\LocalAppPrimeraValdivia\ModelingLib\Templates\CrudClassTemplate.t4" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Medium" Text="Modeling's Text Template Binding: 'ClassTemplate' will apply CrudClassTemplate.t4 to: 'Modeling::Carro' -  (Class) " />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Medium" Text="'Modeling::Carro' -  (Class) : success (file created) - C:\Users\Daniel Molina\Source\Repos\LocalAppPrimeraValdivia\ModelingLib\GeneratedCode\Carro.cs" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="Name = StructTemplate" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="Overwrite = True" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="ProjectPath = ..\ModelingLib\ModelingLib.csproj" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="TargetName = {Name}" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="TemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4" />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Medium" Text="Modeling's Text Template Binding: 'StructTemplate' will apply StructTemplate.t4 to: 'Modeling::Carro' -  (Class) " />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="Diagnostic" Text="'Modeling::Carro' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2016-12-14T01:39:12" Importance="High" Text="Code generation complete. Errors: 0. Warnings: 0." />
 </Log>

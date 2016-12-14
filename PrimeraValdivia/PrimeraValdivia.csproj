@@ -159,10 +159,14 @@
     <Compile Include="ViewModels\FormularioCalificacionViewModel.cs" />
     <Compile Include="ViewModels\FormularioMaterialViewModel.cs" />
     <Compile Include="ViewModels\FormularioVoluntarioViewModel.cs" />
+    <Compile Include="ViewModels\GenerarDocsViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Helpers\Utils.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\VoluntarioViewModel.cs" />
+    <Compile Include="Views\GenerarDocs.xaml.cs">
+      <DependentUpon>GenerarDocs.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Carros.xaml.cs">
       <DependentUpon>Carros.xaml</DependentUpon>
     </Compile>
@@ -199,6 +203,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\GenerarDocs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Carros.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

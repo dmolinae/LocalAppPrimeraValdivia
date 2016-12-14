@@ -19,6 +19,7 @@ namespace PrimeraValdivia.ViewModels
         private ObservableCollection<Carro> _Carros;
         private ICommand _AgregarCarroCommand;
         private ICommand _MostrarFormularioCarroCommand;
+        private ICommand _EliminarCarroCommand;
         private Utils utils = new Utils();
         private Carro model = new Carro();
 
@@ -68,6 +69,19 @@ namespace PrimeraValdivia.ViewModels
                 return _MostrarFormularioCarroCommand;
             }
         }
+
+        public ICommand EliminarCarroCommand
+        {
+            get
+            {
+                _EliminarCarroCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EliminarCarro()
+                };
+                return _EliminarCarroCommand;
+            }
+        }
         #endregion
 
         #region Constructor/Métodos
@@ -86,6 +100,12 @@ namespace PrimeraValdivia.ViewModels
             view.DataContext = viewmodel;
             viewmodel.CloseAction = new Action(view.Close);
             view.Show();
+        }
+
+        private void EliminarCarro()
+        {
+            model.EliminarCarro(Carro.idCarro);
+            Carros.Remove(Carro);
         }
 
         private void MostrarCarro()

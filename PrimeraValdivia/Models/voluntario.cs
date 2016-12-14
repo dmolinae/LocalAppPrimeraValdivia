@@ -19,14 +19,14 @@ namespace PrimeraValdivia.Models
 
         #region Atributos
         
-		private String _rut;
-		public String rut
+		private int _idVoluntario;
+		public int idVoluntario
 		{
-			get { return _rut; }
+			get { return _idVoluntario; }
 			set
 			{
-				_rut = value;
-				OnPropertyChanged("rut");
+				_idVoluntario = value;
+				OnPropertyChanged("idVoluntario");
 			}
 		}
 
@@ -151,6 +151,17 @@ namespace PrimeraValdivia.Models
 			}
 		}
 
+		private String _rut;
+		public String rut
+		{
+			get { return _rut; }
+			set
+			{
+				_rut = value;
+				OnPropertyChanged("rut");
+			}
+		}
+
 
         #endregion
 
@@ -161,9 +172,9 @@ namespace PrimeraValdivia.Models
 
         }
 
-        public Voluntario(String rut, String nombre, DateTime fechaNacimiento, String ciudadNacimiento, String grupoSanguineo, String profesion, bool servicioMilitar, int insignia, String cargo, int nRegistroInterno, int nRegistroExterno, String codigoRadial)
+        public Voluntario(int idVoluntario, String nombre, DateTime fechaNacimiento, String ciudadNacimiento, String grupoSanguineo, String profesion, bool servicioMilitar, int insignia, String cargo, int nRegistroInterno, int nRegistroExterno, String codigoRadial, String rut)
 		{
-			this.rut = rut;
+			this.idVoluntario = idVoluntario;
 			this.nombre = nombre;
 			this.fechaNacimiento = fechaNacimiento;
 			this.ciudadNacimiento = ciudadNacimiento;
@@ -175,33 +186,14 @@ namespace PrimeraValdivia.Models
 			this.nRegistroInterno = nRegistroInterno;
 			this.nRegistroExterno = nRegistroExterno;
 			this.codigoRadial = codigoRadial;
+			this.rut = rut;
 		}
 
         public void AgregarVoluntario(Voluntario Voluntario)
 		{
 			query = String.Format(
-				"INSERT INTO Voluntario(rut,nombre,fechaNacimiento,ciudadNacimiento,grupoSanguineo,profesion,servicioMilitar,insignia,cargo,nRegistroInterno,nRegistroExterno,codigoRadial) VALUES('{0}','{1}','{2}','{3}','{4}','{5}',{6},{7},'{8}',{9},{10},'{11}')",
-				Voluntario.rut,
-				Voluntario.nombre,
-				Voluntario.fechaNacimiento,
-				Voluntario.ciudadNacimiento,
-				Voluntario.grupoSanguineo,
-				Voluntario.profesion,
-				(Voluntario.servicioMilitar)? 1 : 0,
-				Voluntario.insignia,
-				Voluntario.cargo,
-				Voluntario.nRegistroInterno,
-				Voluntario.nRegistroExterno,
-				Voluntario.codigoRadial
-				);
-			utils.ExecuteNonQuery(query);
-		}
-
-        public void EditarVoluntario(Voluntario Voluntario, String rut)
-		{
-			query = String.Format(
-				"UPDATE Voluntario SET rut = '{0}', nombre = '{1}', fechaNacimiento = '{2}', ciudadNacimiento = '{3}', grupoSanguineo = '{4}', profesion = '{5}', servicioMilitar = {6}, insignia = {7}, cargo = '{8}', nRegistroInterno = {9}, nRegistroExterno = {10}, codigoRadial = '{11}' WHERE rut = '{12}'",
-				Voluntario.rut,
+				"INSERT INTO Voluntario(idVoluntario,nombre,fechaNacimiento,ciudadNacimiento,grupoSanguineo,profesion,servicioMilitar,insignia,cargo,nRegistroInterno,nRegistroExterno,codigoRadial,rut) VALUES({0},'{1}','{2}','{3}','{4}','{5}',{6},{7},'{8}',{9},{10},'{11}','{12}')",
+				Voluntario.idVoluntario,
 				Voluntario.nombre,
 				Voluntario.fechaNacimiento,
 				Voluntario.ciudadNacimiento,
@@ -213,16 +205,38 @@ namespace PrimeraValdivia.Models
 				Voluntario.nRegistroInterno,
 				Voluntario.nRegistroExterno,
 				Voluntario.codigoRadial,
-				rut
+				Voluntario.rut
 				);
 			utils.ExecuteNonQuery(query);
 		}
 
-		public void EliminarVoluntario(String rut)
+        public void EditarVoluntario(Voluntario Voluntario, int idVoluntario)
 		{
 			query = String.Format(
-				"DELETE FROM Voluntario WHERE rut = '{0}'",
-				rut);
+				"UPDATE Voluntario SET idVoluntario = {0}, nombre = '{1}', fechaNacimiento = '{2}', ciudadNacimiento = '{3}', grupoSanguineo = '{4}', profesion = '{5}', servicioMilitar = {6}, insignia = {7}, cargo = '{8}', nRegistroInterno = {9}, nRegistroExterno = {10}, codigoRadial = '{11}', rut = '{12}' WHERE idVoluntario = {13}",
+				Voluntario.idVoluntario,
+				Voluntario.nombre,
+				Voluntario.fechaNacimiento,
+				Voluntario.ciudadNacimiento,
+				Voluntario.grupoSanguineo,
+				Voluntario.profesion,
+				(Voluntario.servicioMilitar)? 1 : 0,
+				Voluntario.insignia,
+				Voluntario.cargo,
+				Voluntario.nRegistroInterno,
+				Voluntario.nRegistroExterno,
+				Voluntario.codigoRadial,
+				Voluntario.rut,
+				idVoluntario
+				);
+			utils.ExecuteNonQuery(query);
+		}
+
+		public void EliminarVoluntario(int idVoluntario)
+		{
+			query = String.Format(
+				"DELETE FROM Voluntario WHERE idVoluntario = {0}",
+				idVoluntario);
 			utils.ExecuteNonQuery(query);
 		}
 
@@ -234,7 +248,7 @@ namespace PrimeraValdivia.Models
 			foreach (DataRow row in dt.Rows)
 			{
 				Voluntario Voluntario = new Voluntario(
-					row["rut"].ToString(),
+					int.Parse(row["idVoluntario"].ToString()),
 					row["nombre"].ToString(),
 					DateTime.Parse(row["fechaNacimiento"].ToString()),
 					row["ciudadNacimiento"].ToString(),
@@ -245,11 +259,51 @@ namespace PrimeraValdivia.Models
 					row["cargo"].ToString(),
 					int.Parse(row["nRegistroInterno"].ToString()),
 					int.Parse(row["nRegistroExterno"].ToString()),
-					row["codigoRadial"].ToString()
+					row["codigoRadial"].ToString(),
+					row["rut"].ToString()
 				);
 				Voluntarios.Add(Voluntario);
 			}
 			return Voluntarios;
+		}
+
+		public ObservableCollection<Voluntario> ObtenerVoluntario()
+		{
+			ObservableCollection<Voluntario> Voluntarios = new ObservableCollection<Voluntario>();
+			query = String.Format(
+				"SELECT * FROM Voluntario WHERE idVoluntario = {0}",
+				idVoluntario);
+			DataTable dt = utils.ExecuteQuery(query);
+			foreach (DataRow row in dt.Rows)
+			{
+				Voluntario Voluntario = new Voluntario(
+					int.Parse(row["idVoluntario"].ToString()),
+					row["nombre"].ToString(),
+					DateTime.Parse(row["fechaNacimiento"].ToString()),
+					row["ciudadNacimiento"].ToString(),
+					row["grupoSanguineo"].ToString(),
+					row["profesion"].ToString(),
+					bool.Parse(row["servicioMilitar"].ToString()),
+					int.Parse(row["insignia"].ToString()),
+					row["cargo"].ToString(),
+					int.Parse(row["nRegistroInterno"].ToString()),
+					int.Parse(row["nRegistroExterno"].ToString()),
+					row["codigoRadial"].ToString(),
+					row["rut"].ToString()
+				);
+				Voluntarios.Add(Voluntario);
+			}
+			return Voluntarios;
+		}
+
+        public void IniciarId()
+		{
+			query = "SELECT * FROM Voluntario ORDER BY idVoluntario DESC LIMIT 1";
+			DataTable dt = utils.ExecuteQuery(query);
+			foreach (DataRow row in dt.Rows)
+			{
+				this.idVoluntario = int.Parse(row[0].ToString()) + 1;
+			}
 		}
         #endregion
     }

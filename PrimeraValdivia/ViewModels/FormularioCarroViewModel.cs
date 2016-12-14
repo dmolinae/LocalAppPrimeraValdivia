@@ -157,7 +157,7 @@ namespace PrimeraValdivia.ViewModels
             Carro = new Carro();
             Carro.IniciarId();
 
-            Materiales = MModel.ObtenerMaterials(Carro.idCarro);
+            Materiales = MModel.ObtenerMaterials(Carro.idCarro); //ver si hay algun material asociado al ID, iniciar 'Materiales'
         }
         public FormularioCarroViewModel(ObservableCollection<Carro> Carros, Carro Carro)
         {

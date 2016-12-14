@@ -52,14 +52,14 @@ namespace PrimeraValdivia.Models
 			}
 		}
 
-		private String _fk_rutVoluntario;
-		public String fk_rutVoluntario
+		private int _fk_idVoluntario;
+		public int fk_idVoluntario
 		{
-			get { return _fk_rutVoluntario; }
+			get { return _fk_idVoluntario; }
 			set
 			{
-				_fk_rutVoluntario = value;
-				OnPropertyChanged("fk_rutVoluntario");
+				_fk_idVoluntario = value;
+				OnPropertyChanged("fk_idVoluntario");
 			}
 		}
 
@@ -74,6 +74,17 @@ namespace PrimeraValdivia.Models
 			}
 		}
 
+		private DateTime _fecha;
+		public DateTime fecha
+		{
+			get { return _fecha; }
+			set
+			{
+				_fecha = value;
+				OnPropertyChanged("fecha");
+			}
+		}
+
 
         #endregion
 
@@ -84,24 +95,26 @@ namespace PrimeraValdivia.Models
 
         }
 
-        public Calificacion(int idCalificacion, int numero, String anos, String fk_rutVoluntario, String premio)
+        public Calificacion(int idCalificacion, int numero, String anos, int fk_idVoluntario, String premio, DateTime fecha)
 		{
 			this.idCalificacion = idCalificacion;
 			this.numero = numero;
 			this.anos = anos;
-			this.fk_rutVoluntario = fk_rutVoluntario;
+			this.fk_idVoluntario = fk_idVoluntario;
 			this.premio = premio;
+			this.fecha = fecha;
 		}
 
         public void AgregarCalificacion(Calificacion Calificacion)
 		{
 			query = String.Format(
-				"INSERT INTO Calificacion(idCalificacion,numero,anos,fk_rutVoluntario,premio) VALUES({0},{1},'{2}','{3}','{4}')",
+				"INSERT INTO Calificacion(idCalificacion,numero,anos,fk_idVoluntario,premio,fecha) VALUES({0},{1},'{2}',{3},'{4}','{5}')",
 				Calificacion.idCalificacion,
 				Calificacion.numero,
 				Calificacion.anos,
-				Calificacion.fk_rutVoluntario,
-				Calificacion.premio
+				Calificacion.fk_idVoluntario,
+				Calificacion.premio,
+				Calificacion.fecha
 				);
 			utils.ExecuteNonQuery(query);
 		}
@@ -109,12 +122,13 @@ namespace PrimeraValdivia.Models
         public void EditarCalificacion(Calificacion Calificacion, int idCalificacion)
 		{
 			query = String.Format(
-				"UPDATE Calificacion SET idCalificacion = {0}, numero = {1}, anos = '{2}', fk_rutVoluntario = '{3}', premio = '{4}' WHERE idCalificacion = {5}",
+				"UPDATE Calificacion SET idCalificacion = {0}, numero = {1}, anos = '{2}', fk_idVoluntario = {3}, premio = '{4}', fecha = '{5}' WHERE idCalificacion = {6}",
 				Calificacion.idCalificacion,
 				Calificacion.numero,
 				Calificacion.anos,
-				Calificacion.fk_rutVoluntario,
+				Calificacion.fk_idVoluntario,
 				Calificacion.premio,
+				Calificacion.fecha,
 				idCalificacion
 				);
 			utils.ExecuteNonQuery(query);
@@ -139,19 +153,21 @@ namespace PrimeraValdivia.Models
 					int.Parse(row["idCalificacion"].ToString()),
 					int.Parse(row["numero"].ToString()),
 					row["anos"].ToString(),
-					row["fk_rutVoluntario"].ToString(),
-					row["premio"].ToString()
+					int.Parse(row["fk_idVoluntario"].ToString()),
+					row["premio"].ToString(),
+					DateTime.Parse(row["fecha"].ToString())
 				);
 				Calificacions.Add(Calificacion);
 			}
 			return Calificacions;
 		}
-        public ObservableCollection<Calificacion> ObtenerCalificacions(String rut)
+
+        public ObservableCollection<Calificacion> ObtenerCalificacions(int idVoluntario)
         {
             ObservableCollection<Calificacion> Calificacions = new ObservableCollection<Calificacion>();
             query = String.Format(
-                " SELECT * FROM Calificacion WHERE fk_rutVoluntario = '{0}'",
-                rut);
+                " SELECT * FROM Calificacion WHERE fk_idVoluntario = {0}",
+                idVoluntario);
             DataTable dt = utils.ExecuteQuery(query);
             foreach (DataRow row in dt.Rows)
             {
@@ -159,13 +175,51 @@ namespace PrimeraValdivia.Models
                     int.Parse(row["idCalificacion"].ToString()),
                     int.Parse(row["numero"].ToString()),
                     row["anos"].ToString(),
-                    row["fk_rutVoluntario"].ToString(),
-                    row["premio"].ToString()
+                    int.Parse(row["fk_idVoluntario"].ToString()),
+                    row["premio"].ToString(),
+                    DateTime.Parse(row["fecha"].ToString())
                 );
                 Calificacions.Add(Calificacion);
             }
             return Calificacions;
         }
+
+        public ObservableCollection<Calificacion> ObtenerCalificacion()
+		{
+			ObservableCollection<Calificacion> Calificacions = new ObservableCollection<Calificacion>();
+			query = String.Format(
+				"SELECT * FROM Calificacion WHERE idCalificacion = {0}",
+				idCalificacion);
+			DataTable dt = utils.ExecuteQuery(query);
+			foreach (DataRow row in dt.Rows)
+			{
+				Calificacion Calificacion = new Calificacion(
+					int.Parse(row["idCalificacion"].ToString()),
+					int.Parse(row["numero"].ToString()),
+					row["anos"].ToString(),
+					int.Parse(row["fk_idVoluntario"].ToString()),
+					row["premio"].ToString(),
+					DateTime.Parse(row["fecha"].ToString())
+				);
+				Calificacions.Add(Calificacion);
+			}
+			return Calificacions;
+		}
+
+        public int ContarRegistrosVoluntario(int idVoluntario)
+        {
+            int num = 0;
+            query = String.Format(
+                "SELECT count(*) FROM Calificacion WHERE fk_idVoluntario = {0}",
+                idVoluntario);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                num = int.Parse(row[0].ToString());
+            }
+            return num;
+        }
+
         public void IniciarId()
 		{
 			query = "SELECT * FROM Calificacion ORDER BY idCalificacion DESC LIMIT 1";
@@ -175,20 +229,6 @@ namespace PrimeraValdivia.Models
 				this.idCalificacion = int.Parse(row[0].ToString()) + 1;
 			}
 		}
-
-        public int ContarRegistrosVoluntario(String rut)
-        {
-            int num = 0;
-            query = String.Format(
-                "SELECT count(*) FROM Calificacion WHERE fk_rutVoluntario = '{0}'",
-                rut);
-            DataTable dt = utils.ExecuteQuery(query);
-            foreach (DataRow row in dt.Rows)
-            {
-                num = int.Parse(row[0].ToString());
-            }
-            return num;
-        }
         #endregion
     }
 }

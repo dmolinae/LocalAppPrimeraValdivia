@@ -81,15 +81,15 @@ namespace PrimeraValdivia.ViewModels
 
         #region Metodos
 
-        public FormularioCalificacionViewModel(ObservableCollection<Calificacion> Calificacions, String rut)
+        public FormularioCalificacionViewModel(ObservableCollection<Calificacion> Calificacions, int idVoluntario)
         {
             this.AnosCalificaciones = IModel.ObtenerItemsCategoria(1);
 
             this.modo = "agregar";
             Calificacion = new Calificacion();
             Calificacion.IniciarId();
-            Calificacion.numero = CModel.ContarRegistrosVoluntario(rut);
-            Calificacion.fk_rutVoluntario = rut;
+            Calificacion.numero = CModel.ContarRegistrosVoluntario(idVoluntario);
+            Calificacion.fk_idVoluntario = idVoluntario;
             this.Calificaciones = Calificacions;
         }
         public FormularioCalificacionViewModel(ObservableCollection<Calificacion> Calificacions, Calificacion Calificacion)
@@ -106,6 +106,7 @@ namespace PrimeraValdivia.ViewModels
         {
             if (this.modo.Equals("agregar"))
             {
+                
                 CModel.AgregarCalificacion(this.Calificacion);
                 Calificaciones.Add(Calificacion);
                 CloseAction();
