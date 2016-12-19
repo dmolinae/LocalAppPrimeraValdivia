@@ -64,9 +64,10 @@
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Label Content="Fecha:" Width="130"/>
                                 <toolkit:DateTimePicker 
                                     Format="Custom" 
@@ -74,6 +75,14 @@
                                     Value="{Binding Evento.fecha}"
                                     Foreground="White"
                                     Width="200"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Controls:ToggleSwitch OnLabel="Si" OffLabel="No" IsChecked="{Binding Evento.asistenciaObligatoria}" Width="100" Height="40"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Label Content="Asistencia Obligatoria" Width="130"/>
                             </StackPanel>
                         </Grid>
 
@@ -361,13 +370,11 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Background="#FF252525">
+                    <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Content="ASISTENCIA OBLIGATORIA" VerticalAlignment="Center" FontSize="14"/>
-                        <Controls:ToggleSwitch Grid.Column="1" OnLabel="Si" OffLabel="No" IsChecked="{Binding obChecked}" Width="200" Height="40"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>

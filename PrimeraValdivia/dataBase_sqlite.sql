@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS "Evento"(
   "numeroBlock" VARCHAR(45),
   "resumen" VARCHAR(45),
   "codigoServicio" VARCHAR(10),
+  "asistenciaObligatoria" BOOLEAN,
   CONSTRAINT "idEvento_UNIQUE"
     UNIQUE("idEvento")
 );

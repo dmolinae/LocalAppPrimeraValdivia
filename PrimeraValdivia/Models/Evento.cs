@@ -250,6 +250,17 @@ namespace PrimeraValdivia.Models
 			}
 		}
 
+		private bool _asistenciaObligatoria;
+		public bool asistenciaObligatoria
+		{
+			get { return _asistenciaObligatoria; }
+			set
+			{
+				_asistenciaObligatoria = value;
+				OnPropertyChanged("asistenciaObligatoria");
+			}
+		}
+
 
         #endregion
 
@@ -260,7 +271,7 @@ namespace PrimeraValdivia.Models
 
         }
 
-        public Evento(int idEvento, int correlativoLlamado, int correlativoCBV, String claveServicio, DateTime fecha, String motivo, String calle, int numeroCalle, String calleProxima, String sector, String poblacion, String ruta, int kilometroRuta, String bomberoCargo, String bomberoInforme, String codigoCargo, String codigoInforme, String numeroDepartamento, String numeroBlock, String resumen, String codigoServicio)
+        public Evento(int idEvento, int correlativoLlamado, int correlativoCBV, String claveServicio, DateTime fecha, String motivo, String calle, int numeroCalle, String calleProxima, String sector, String poblacion, String ruta, int kilometroRuta, String bomberoCargo, String bomberoInforme, String codigoCargo, String codigoInforme, String numeroDepartamento, String numeroBlock, String resumen, String codigoServicio, bool asistenciaObligatoria)
 		{
 			this.idEvento = idEvento;
 			this.correlativoLlamado = correlativoLlamado;
@@ -283,41 +294,13 @@ namespace PrimeraValdivia.Models
 			this.numeroBlock = numeroBlock;
 			this.resumen = resumen;
 			this.codigoServicio = codigoServicio;
+			this.asistenciaObligatoria = asistenciaObligatoria;
 		}
 
         public void AgregarEvento(Evento Evento)
 		{
 			query = String.Format(
-				"INSERT INTO Evento(idEvento,correlativoLlamado,correlativoCBV,claveServicio,fecha,motivo,calle,numeroCalle,calleProxima,sector,poblacion,ruta,kilometroRuta,bomberoCargo,bomberoInforme,codigoCargo,codigoInforme,numeroDepartamento,numeroBlock,resumen,codigoServicio) VALUES({0},{1},{2},'{3}','{4}','{5}','{6}',{7},'{8}','{9}','{10}','{11}',{12},'{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}')",
-				Evento.idEvento,
-				Evento.correlativoLlamado,
-				Evento.correlativoCBV,
-				Evento.claveServicio,
-				Evento.fecha,
-				Evento.motivo,
-				Evento.calle,
-				Evento.numeroCalle,
-				Evento.calleProxima,
-				Evento.sector,
-				Evento.poblacion,
-				Evento.ruta,
-				Evento.kilometroRuta,
-				Evento.bomberoCargo,
-				Evento.bomberoInforme,
-				Evento.codigoCargo,
-				Evento.codigoInforme,
-				Evento.numeroDepartamento,
-				Evento.numeroBlock,
-				Evento.resumen,
-				Evento.codigoServicio
-				);
-			utils.ExecuteNonQuery(query);
-		}
-
-        public void EditarEvento(Evento Evento, int idEvento)
-		{
-			query = String.Format(
-				"UPDATE Evento SET idEvento = {0}, correlativoLlamado = {1}, correlativoCBV = {2}, claveServicio = '{3}', fecha = '{4}', motivo = '{5}', calle = '{6}', numeroCalle = {7}, calleProxima = '{8}', sector = '{9}', poblacion = '{10}', ruta = '{11}', kilometroRuta = {12}, bomberoCargo = '{13}', bomberoInforme = '{14}', codigoCargo = '{15}', codigoInforme = '{16}', numeroDepartamento = '{17}', numeroBlock = '{18}', resumen = '{19}', codigoServicio = '{20}' WHERE idEvento = {21}",
+				"INSERT INTO Evento(idEvento,correlativoLlamado,correlativoCBV,claveServicio,fecha,motivo,calle,numeroCalle,calleProxima,sector,poblacion,ruta,kilometroRuta,bomberoCargo,bomberoInforme,codigoCargo,codigoInforme,numeroDepartamento,numeroBlock,resumen,codigoServicio,asistenciaObligatoria) VALUES({0},{1},{2},'{3}','{4}','{5}','{6}',{7},'{8}','{9}','{10}','{11}',{12},'{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}',{21})",
 				Evento.idEvento,
 				Evento.correlativoLlamado,
 				Evento.correlativoCBV,
@@ -339,6 +322,37 @@ namespace PrimeraValdivia.Models
 				Evento.numeroBlock,
 				Evento.resumen,
 				Evento.codigoServicio,
+				(Evento.asistenciaObligatoria)? 1 : 0
+				);
+			utils.ExecuteNonQuery(query);
+		}
+
+        public void EditarEvento(Evento Evento, int idEvento)
+		{
+			query = String.Format(
+				"UPDATE Evento SET idEvento = {0}, correlativoLlamado = {1}, correlativoCBV = {2}, claveServicio = '{3}', fecha = '{4}', motivo = '{5}', calle = '{6}', numeroCalle = {7}, calleProxima = '{8}', sector = '{9}', poblacion = '{10}', ruta = '{11}', kilometroRuta = {12}, bomberoCargo = '{13}', bomberoInforme = '{14}', codigoCargo = '{15}', codigoInforme = '{16}', numeroDepartamento = '{17}', numeroBlock = '{18}', resumen = '{19}', codigoServicio = '{20}', asistenciaObligatoria = {21} WHERE idEvento = {22}",
+				Evento.idEvento,
+				Evento.correlativoLlamado,
+				Evento.correlativoCBV,
+				Evento.claveServicio,
+				Evento.fecha,
+				Evento.motivo,
+				Evento.calle,
+				Evento.numeroCalle,
+				Evento.calleProxima,
+				Evento.sector,
+				Evento.poblacion,
+				Evento.ruta,
+				Evento.kilometroRuta,
+				Evento.bomberoCargo,
+				Evento.bomberoInforme,
+				Evento.codigoCargo,
+				Evento.codigoInforme,
+				Evento.numeroDepartamento,
+				Evento.numeroBlock,
+				Evento.resumen,
+				Evento.codigoServicio,
+				(Evento.asistenciaObligatoria)? 1 : 0,
 				idEvento
 				);
 			utils.ExecuteNonQuery(query);
@@ -380,7 +394,8 @@ namespace PrimeraValdivia.Models
 					row["numeroDepartamento"].ToString(),
 					row["numeroBlock"].ToString(),
 					row["resumen"].ToString(),
-					row["codigoServicio"].ToString()
+					row["codigoServicio"].ToString(),
+					bool.Parse(row["asistenciaObligatoria"].ToString())
 				);
 				Eventos.Add(Evento);
 			}
@@ -417,7 +432,8 @@ namespace PrimeraValdivia.Models
 					row["numeroDepartamento"].ToString(),
 					row["numeroBlock"].ToString(),
 					row["resumen"].ToString(),
-					row["codigoServicio"].ToString()
+					row["codigoServicio"].ToString(),
+					bool.Parse(row["asistenciaObligatoria"].ToString())
 				);
 				Eventos.Add(Evento);
 			}

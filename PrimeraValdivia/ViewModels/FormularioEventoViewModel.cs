@@ -29,14 +29,12 @@ namespace PrimeraValdivia.ViewModels
         private ICommand _AvanzarInformeUnoCommand;
         private ICommand _AgregarAsistenciaCommand;
         private ICommand _EditarAsistenciaCommand;
-        private string _hora;
         private string _tab2header = "Datos";
         private bool _tab2enabled = false;
         private bool _tab3enabled = false;
         private bool _aChecked = true;
         private bool _fChecked;
         private bool _lChecked;
-        private bool _obChecked;
         private int _tabIndex;
         private CollectionViewSource CVS { get; set; }
 
@@ -68,21 +66,7 @@ namespace PrimeraValdivia.ViewModels
                 OnPropertyChanged("tab2header");
             }
         }
-
-        public string hora
-        {
-            get { return _hora; }
-            set
-            {
-                _hora = value;
-                OnPropertyChanged("hora");
-                if (hora.Length == 4)
-                {
-                    TimeSpan ts = new TimeSpan(int.Parse(hora.Substring(0,2)),int.Parse(hora.Substring(1,2)),0);
-                    this.Evento.fecha = this.Evento.fecha + ts;
-                }
-            }
-        }
+        
 
         public bool tab2enabled
         {
@@ -127,15 +111,6 @@ namespace PrimeraValdivia.ViewModels
             {
                 _lChecked = value;
                 OnPropertyChanged("lChecked");
-            }
-        }
-        public bool obChecked
-        {
-            get { return _obChecked; }
-            set
-            {
-                _obChecked = value;
-                OnPropertyChanged("obChecked");
             }
         }
 
@@ -283,7 +258,7 @@ namespace PrimeraValdivia.ViewModels
         private void AgregarAsistencia()
         {
             string codigo = "";
-            if (obChecked)
+            if (Evento.asistenciaObligatoria)
             {
                 if (aChecked) codigo = "A";
                 if (fChecked) codigo = "F";
@@ -296,7 +271,7 @@ namespace PrimeraValdivia.ViewModels
                 if (lChecked) codigo = " ";
             }
 
-            Asistencia Asistencia = new Asistencia(Voluntario.rut,Evento.idEvento,codigo,obChecked);
+            Asistencia Asistencia = new Asistencia(Voluntario.rut,Evento.idEvento,codigo,Evento.asistenciaObligatoria);
             if (asistenciaModel.ExisteAsistencia(Asistencia))
             {
                 
@@ -312,7 +287,7 @@ namespace PrimeraValdivia.ViewModels
         private void EditarAsistencia()
         {
             string codigo = "";
-            if (obChecked)
+            if (Evento.asistenciaObligatoria)
             {
                 if (aChecked) codigo = "A";
                 if (fChecked) codigo = "F";
@@ -325,7 +300,7 @@ namespace PrimeraValdivia.ViewModels
                 if (lChecked) codigo = " ";
             }
             Asistente.codigoAsistencia = codigo;
-            Asistente.asistenciaObligatoria = obChecked;
+            Asistente.asistenciaObligatoria = Evento.asistenciaObligatoria;
             asistenciaModel.EditarAsistencia(Asistente);
             
         }
@@ -365,12 +340,12 @@ namespace PrimeraValdivia.ViewModels
         }
         private void DeterminarClaveServicio()
         {
-            if (Evento.claveServicio.Equals("02"))
+            if (Evento.codigoServicio.Equals("02"))
             {
                 tab2header = "Datos Incendio";
                 tab2enabled = true;
             }
-            else if (Evento.claveServicio.Equals("03"))
+            else if (Evento.codigoServicio.Equals("03"))
             {
                 tab2header = "Datos Rescate";
                 tab2enabled = true;
