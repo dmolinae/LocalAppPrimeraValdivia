@@ -176,6 +176,20 @@ namespace PrimeraValdivia.Models
             return numero;
         }
 
+        public int ObtenerNumeroAsistencias(String fk_rut)
+        {
+            int numero = 0;
+            query = String.Format(
+                "SELECT COUNT(asistenciaObligatoria) AS result FROM Asistencia WHERE fk_rut = '{0}' and (codigoAsistencia = 'A' or codigoAsistencia = 'a') ",
+                fk_rut);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                numero = int.Parse(row["result"].ToString());
+            }
+            return numero;
+        }
+
         #endregion
     }
 }
