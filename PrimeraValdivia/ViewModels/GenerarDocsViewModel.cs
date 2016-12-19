@@ -54,7 +54,7 @@ namespace PrimeraValdivia.ViewModels
         
         private void GenerarAsistencia()
         {
-            Document doc = new Document(PageSize.LETTER.Rotate());
+            Document doc = new Document(PageSize.A4.Rotate());
             PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(@"Asistencia.pdf", FileMode.Create));
 
             doc.AddTitle("Asistencia");
@@ -232,7 +232,9 @@ namespace PrimeraValdivia.ViewModels
                             columna_resumen.AddCell(cell_resumen);
                             break;
                         case 2:
-                            columna_resumen.AddCell(" ");
+                            cell_resumen = new PdfPCell(new Phrase(AModel.ObtenerNumeroAsistencias(voluntario.rut).ToString()));
+                            cell_resumen.HorizontalAlignment = Element.ALIGN_CENTER;
+                            columna_resumen.AddCell(cell_resumen);
                             break;
                         case 3:
                             columna_resumen.AddCell(" ");

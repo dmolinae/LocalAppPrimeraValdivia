@@ -356,7 +356,6 @@ CREATE TABLE IF NOT EXISTS "Aseguradora_Vivienda_Afectado"(
     FOREIGN KEY("fk_idAfectado")
     REFERENCES "Afectado_Incendio"("idAfectado")
 );
-
 /*
 INSERT INTO "Categoria" VALUES(0,"Cargos","Todos los cargos disponibles");
 INSERT INTO "Item" VALUES(0,"Director Honorario",0,"");
