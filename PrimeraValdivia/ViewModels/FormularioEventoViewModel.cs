@@ -29,6 +29,7 @@ namespace PrimeraValdivia.ViewModels
         private ICommand _AvanzarInformeUnoCommand;
         private ICommand _AgregarAsistenciaCommand;
         private ICommand _EditarAsistenciaCommand;
+        private string _hora;
         private string _tab2header = "Datos";
         private bool _tab2enabled = false;
         private bool _tab3enabled = false;
@@ -65,6 +66,24 @@ namespace PrimeraValdivia.ViewModels
             {
                 _tab2header = value;
                 OnPropertyChanged("tab2header");
+            }
+        }
+
+        public string hora
+        {
+            get {
+                _hora = this.Evento.fecha.ToString("HH: mm");
+                return _hora;
+            }
+            set
+            {
+                _hora = value;
+                OnPropertyChanged("hora");
+                if (hora.Length == 4)
+                {
+                    TimeSpan ts = new TimeSpan(int.Parse(hora.Substring(0,2)),int.Parse(hora.Substring(1,2)),0);
+                    this.Evento.fecha = this.Evento.fecha + ts;
+                }
             }
         }
 

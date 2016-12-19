@@ -1,4 +1,6 @@
-﻿using PrimeraValdivia.ViewModels;
+﻿
+
+using PrimeraValdivia.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,310 +18,426 @@ namespace PrimeraValdivia.Models
         private string query;
 
         #region Atributos
+        
+		private int _idEvento;
+		public int idEvento
+		{
+			get { return _idEvento; }
+			set
+			{
+				_idEvento = value;
+				OnPropertyChanged("idEvento");
+			}
+		}
 
-        private int _idEvento;
-        public int idEvento
-        {
-            get { return _idEvento; }
-            set
-            {
-                _idEvento = value;
-                OnPropertyChanged("idEvento");
-            }
-        }
+		private int _correlativoLlamado;
+		public int correlativoLlamado
+		{
+			get { return _correlativoLlamado; }
+			set
+			{
+				_correlativoLlamado = value;
+				OnPropertyChanged("correlativoLlamado");
+			}
+		}
 
-        private int _correlativoLlamado;
-        public int correlativoLlamado
-        {
-            get { return _correlativoLlamado; }
-            set
-            {
-                _correlativoLlamado = value;
-                OnPropertyChanged("correlativoLlamado");
-            }
-        }
-        private int _correlativoCBV;
-        public int correlativoCBV
-        {
-            get { return _correlativoCBV; }
-            set
-            {
-                _correlativoCBV = value;
-                OnPropertyChanged("correlativoCBV");
-            }
-        }
-        private string _claveServicio;
-        public string claveServicio
-        {
-            get { return _claveServicio; }
-            set
-            {
-                _claveServicio = value;
-                OnPropertyChanged("claveServicio");
-            }
-        }
-        private DateTime _fecha = DateTime.Now;
-        public DateTime fecha
-        {
-            get { return _fecha; }
-            set
-            {
-                _fecha = value;
-                OnPropertyChanged("fecha");
-            }
-        }
-        private string _motivo;
-        public string motivo
-        {
-            get { return _motivo; }
-            set
-            {
-                _motivo = value;
-                OnPropertyChanged("motivo");
-            }
-        }
-        private string _calle;
-        public string calle
-        {
-            get { return _calle; }
-            set
-            {
-                _calle = value;
-                OnPropertyChanged("calle");
-            }
-        }
-        private int _numeroCalle;
-        public int numeroCalle
-        {
-            get { return _numeroCalle; }
-            set
-            {
-                _numeroCalle = value;
-                OnPropertyChanged("numeroCalle");
-            }
-        }
-        private string _calleProxima;
-        public string calleProxima
-        {
-            get { return _calleProxima; }
-            set
-            {
-                _calleProxima = value;
-                OnPropertyChanged("calleProxima");
-            }
-        }
-        private string _sector;
-        public string sector
-        {
-            get { return _sector; }
-            set
-            {
-                _sector = value;
-                OnPropertyChanged("sector");
-            }
-        }
-        private string _poblacion;
-        public string poblacion
-        {
-            get { return _poblacion; }
-            set
-            {
-                _poblacion = value;
-                OnPropertyChanged("poblacion");
-            }
-        }
-        private string _ruta;
-        public string ruta
-        {
-            get { return _ruta; }
-            set
-            {
-                _ruta = value;
-                OnPropertyChanged("ruta");
-            }
-        }
-        private int _kilometroRuta;
-        public int kilometroRuta
-        {
-            get { return _kilometroRuta; }
-            set
-            {
-                _kilometroRuta = value;
-                OnPropertyChanged("kilometroRuta");
-            }
-        }
-        private string _bomberoCargo;
-        public string bomberoCargo
-        {
-            get { return _bomberoCargo; }
-            set
-            {
-                _bomberoCargo = value;
-                OnPropertyChanged("bomberoCargo");
-            }
-        }
-        private string _bomberoInforme;
-        public string bomberoInforme
-        {
-            get { return _bomberoInforme; }
-            set
-            {
-                _bomberoInforme = value;
-                OnPropertyChanged("bomberoInforme");
-            }
-        }
-        private string _codigoCargo;
-        public string codigoCargo
-        {
-            get { return _codigoCargo; }
-            set
-            {
-                _codigoCargo = value;
-                OnPropertyChanged("codigoCargo");
-            }
-        }
-        private string _codigoInforme;
-        public string codigoInforme
-        {
-            get { return _codigoInforme; }
-            set
-            {
-                _codigoInforme = value;
-                OnPropertyChanged("codigoInforme");
-            }
-        }
-        private string _numeroDepartamento;
-        public string numeroDepartamento
-        {
-            get { return _numeroDepartamento; }
-            set
-            {
-                _numeroDepartamento = value;
-                OnPropertyChanged("numeroDepartamento");
-            }
-        }
-        private string _numeroBlock;
-        public string numeroBlock
-        {
-            get { return _numeroBlock; }
-            set
-            {
-                _numeroBlock = value;
-                OnPropertyChanged("numeroBlock");
-            }
-        }
-        private string _resumen;
-        public string resumen
-        {
-            get { return _resumen; }
-            set
-            {
-                _resumen = value;
-                OnPropertyChanged("resumen");
-            }
-        }
+		private int _correlativoCBV;
+		public int correlativoCBV
+		{
+			get { return _correlativoCBV; }
+			set
+			{
+				_correlativoCBV = value;
+				OnPropertyChanged("correlativoCBV");
+			}
+		}
+
+		private String _claveServicio;
+		public String claveServicio
+		{
+			get { return _claveServicio; }
+			set
+			{
+				_claveServicio = value;
+				OnPropertyChanged("claveServicio");
+			}
+		}
+
+		private DateTime _fecha;
+		public DateTime fecha
+		{
+			get { return _fecha; }
+			set
+			{
+				_fecha = value;
+				OnPropertyChanged("fecha");
+			}
+		}
+
+		private String _motivo;
+		public String motivo
+		{
+			get { return _motivo; }
+			set
+			{
+				_motivo = value;
+				OnPropertyChanged("motivo");
+			}
+		}
+
+		private String _calle;
+		public String calle
+		{
+			get { return _calle; }
+			set
+			{
+				_calle = value;
+				OnPropertyChanged("calle");
+			}
+		}
+
+		private int _numeroCalle;
+		public int numeroCalle
+		{
+			get { return _numeroCalle; }
+			set
+			{
+				_numeroCalle = value;
+				OnPropertyChanged("numeroCalle");
+			}
+		}
+
+		private String _calleProxima;
+		public String calleProxima
+		{
+			get { return _calleProxima; }
+			set
+			{
+				_calleProxima = value;
+				OnPropertyChanged("calleProxima");
+			}
+		}
+
+		private String _sector;
+		public String sector
+		{
+			get { return _sector; }
+			set
+			{
+				_sector = value;
+				OnPropertyChanged("sector");
+			}
+		}
+
+		private String _poblacion;
+		public String poblacion
+		{
+			get { return _poblacion; }
+			set
+			{
+				_poblacion = value;
+				OnPropertyChanged("poblacion");
+			}
+		}
+
+		private String _ruta;
+		public String ruta
+		{
+			get { return _ruta; }
+			set
+			{
+				_ruta = value;
+				OnPropertyChanged("ruta");
+			}
+		}
+
+		private int _kilometroRuta;
+		public int kilometroRuta
+		{
+			get { return _kilometroRuta; }
+			set
+			{
+				_kilometroRuta = value;
+				OnPropertyChanged("kilometroRuta");
+			}
+		}
+
+		private String _bomberoCargo;
+		public String bomberoCargo
+		{
+			get { return _bomberoCargo; }
+			set
+			{
+				_bomberoCargo = value;
+				OnPropertyChanged("bomberoCargo");
+			}
+		}
+
+		private String _bomberoInforme;
+		public String bomberoInforme
+		{
+			get { return _bomberoInforme; }
+			set
+			{
+				_bomberoInforme = value;
+				OnPropertyChanged("bomberoInforme");
+			}
+		}
+
+		private String _codigoCargo;
+		public String codigoCargo
+		{
+			get { return _codigoCargo; }
+			set
+			{
+				_codigoCargo = value;
+				OnPropertyChanged("codigoCargo");
+			}
+		}
+
+		private String _codigoInforme;
+		public String codigoInforme
+		{
+			get { return _codigoInforme; }
+			set
+			{
+				_codigoInforme = value;
+				OnPropertyChanged("codigoInforme");
+			}
+		}
+
+		private String _numeroDepartamento;
+		public String numeroDepartamento
+		{
+			get { return _numeroDepartamento; }
+			set
+			{
+				_numeroDepartamento = value;
+				OnPropertyChanged("numeroDepartamento");
+			}
+		}
+
+		private String _numeroBlock;
+		public String numeroBlock
+		{
+			get { return _numeroBlock; }
+			set
+			{
+				_numeroBlock = value;
+				OnPropertyChanged("numeroBlock");
+			}
+		}
+
+		private String _resumen;
+		public String resumen
+		{
+			get { return _resumen; }
+			set
+			{
+				_resumen = value;
+				OnPropertyChanged("resumen");
+			}
+		}
+
+		private String _codigoServicio;
+		public String codigoServicio
+		{
+			get { return _codigoServicio; }
+			set
+			{
+				_codigoServicio = value;
+				OnPropertyChanged("codigoServicio");
+			}
+		}
+
+
         #endregion
 
         #region Metodos
+
         public Evento()
         {
-            
+
         }
 
-        public Evento(int idEvento, int correlativoLlamado, int correlativoCBV, string claveServicio, DateTime fecha, string motivo, string calle, int numeroCalle, string calleProxima, string sector, string poblacion, string ruta, int kilometroRuta, string bomberoCargo, string bomberoInforme, string codigoCargo, string codigoInforme, string numeroDepartamento, string numeroBlock, string resumen)
-        {
-            this.idEvento = idEvento;
-            this.correlativoLlamado = correlativoLlamado;
-            this.correlativoCBV = correlativoCBV;
-            this.claveServicio = claveServicio;
-            this.fecha = fecha;
-            this.motivo = motivo;
-            this.calle = calle;
-            this.numeroCalle = numeroCalle;
-            this.calleProxima = calleProxima;
-            this.sector = sector;
-            this.poblacion = poblacion;
-            this.ruta = ruta;
-            this.kilometroRuta = kilometroRuta;
-            this.bomberoCargo = bomberoCargo;
-            this.bomberoInforme = bomberoInforme;
-            this.codigoCargo = codigoCargo;
-            this.codigoInforme = codigoInforme;
-            this.numeroDepartamento = numeroDepartamento;
-            this.numeroBlock = numeroBlock;
-            this.resumen = resumen;
-        }
+        public Evento(int idEvento, int correlativoLlamado, int correlativoCBV, String claveServicio, DateTime fecha, String motivo, String calle, int numeroCalle, String calleProxima, String sector, String poblacion, String ruta, int kilometroRuta, String bomberoCargo, String bomberoInforme, String codigoCargo, String codigoInforme, String numeroDepartamento, String numeroBlock, String resumen, String codigoServicio)
+		{
+			this.idEvento = idEvento;
+			this.correlativoLlamado = correlativoLlamado;
+			this.correlativoCBV = correlativoCBV;
+			this.claveServicio = claveServicio;
+			this.fecha = fecha;
+			this.motivo = motivo;
+			this.calle = calle;
+			this.numeroCalle = numeroCalle;
+			this.calleProxima = calleProxima;
+			this.sector = sector;
+			this.poblacion = poblacion;
+			this.ruta = ruta;
+			this.kilometroRuta = kilometroRuta;
+			this.bomberoCargo = bomberoCargo;
+			this.bomberoInforme = bomberoInforme;
+			this.codigoCargo = codigoCargo;
+			this.codigoInforme = codigoInforme;
+			this.numeroDepartamento = numeroDepartamento;
+			this.numeroBlock = numeroBlock;
+			this.resumen = resumen;
+			this.codigoServicio = codigoServicio;
+		}
 
         public void AgregarEvento(Evento Evento)
-        {
-            query = String.Format(
-                "INSERT INTO Evento values({0},{1},{2},'{3}','{4}','{5}','{6}',{7},'{8}','{9}','{10}','{11}',{12},'{13}','{14}','{15}','{16}','{17}','{18}','{19}')",
-                Evento.idEvento,
-                Evento.correlativoLlamado,
-                Evento.correlativoCBV,
-                Evento.claveServicio,
-                Evento.fecha,
-                Evento.motivo,
-                Evento.calle,
-                Evento.numeroCalle,
-                Evento.calleProxima,
-                Evento.sector,
-                Evento.poblacion,
-                Evento.ruta,
-                Evento.kilometroRuta,
-                Evento.bomberoCargo,
-                Evento.bomberoInforme,
-                Evento.codigoCargo,
-                Evento.codigoInforme,
-                Evento.numeroDepartamento,
-                Evento.numeroBlock,
-                Evento.resumen
-                );
-            utils.ExecuteNonQuery(query);
-        }
-        public ObservableCollection<Evento> ObtenerEventos()
-        {
-            ObservableCollection<Evento> Eventos = new ObservableCollection<Evento>();
-            query = "SELECT * FROM Evento";
-            DataTable dt = utils.ExecuteQuery(query);
-            foreach (DataRow row in dt.Rows)
-            {
-                Evento eventoActual = new Evento(
-                    int.Parse(row["idEvento"].ToString()),
-                    int.Parse(row["correlativoLlamado"].ToString()),
-                    int.Parse(row["correlativoCBV"].ToString()),
-                    row["claveServicio"].ToString(),
-                    DateTime.Parse(row["fecha"].ToString()),
-                    row["motivo"].ToString(),
-                    row["calle"].ToString(),
-                    int.Parse(row["numeroCalle"].ToString()),
-                    row["calleProxima"].ToString(),
-                    row["sector"].ToString(),
-                    row["poblacion"].ToString(),
-                    row["ruta"].ToString(),
-                    int.Parse(row["kilometroRuta"].ToString()),
-                    row["bomberoCargo"].ToString(),
-                    row["bomberoInforme"].ToString(),
-                    row["codigoCargo"].ToString(),
-                    row["codigoInforme"].ToString(),
-                    row["numeroDepartamento"].ToString(),
-                    row["numeroBlock"].ToString(),
-                    row["resumen"].ToString()
-                    );
-                Eventos.Add(eventoActual);
-            }
-            return Eventos;
-        }
-        public void IniciarId()
-        {
-            query = "SELECT * FROM Evento ORDER BY idEvento DESC LIMIT 1";
-            DataTable dt = utils.ExecuteQuery(query);
-            foreach (DataRow row in dt.Rows)
-            {
-                this.idEvento = int.Parse(row[0].ToString()) + 1;
-            }
-        }
+		{
+			query = String.Format(
+				"INSERT INTO Evento(idEvento,correlativoLlamado,correlativoCBV,claveServicio,fecha,motivo,calle,numeroCalle,calleProxima,sector,poblacion,ruta,kilometroRuta,bomberoCargo,bomberoInforme,codigoCargo,codigoInforme,numeroDepartamento,numeroBlock,resumen,codigoServicio) VALUES({0},{1},{2},'{3}','{4}','{5}','{6}',{7},'{8}','{9}','{10}','{11}',{12},'{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}')",
+				Evento.idEvento,
+				Evento.correlativoLlamado,
+				Evento.correlativoCBV,
+				Evento.claveServicio,
+				Evento.fecha,
+				Evento.motivo,
+				Evento.calle,
+				Evento.numeroCalle,
+				Evento.calleProxima,
+				Evento.sector,
+				Evento.poblacion,
+				Evento.ruta,
+				Evento.kilometroRuta,
+				Evento.bomberoCargo,
+				Evento.bomberoInforme,
+				Evento.codigoCargo,
+				Evento.codigoInforme,
+				Evento.numeroDepartamento,
+				Evento.numeroBlock,
+				Evento.resumen,
+				Evento.codigoServicio
+				);
+			utils.ExecuteNonQuery(query);
+		}
 
+        public void EditarEvento(Evento Evento, int idEvento)
+		{
+			query = String.Format(
+				"UPDATE Evento SET idEvento = {0}, correlativoLlamado = {1}, correlativoCBV = {2}, claveServicio = '{3}', fecha = '{4}', motivo = '{5}', calle = '{6}', numeroCalle = {7}, calleProxima = '{8}', sector = '{9}', poblacion = '{10}', ruta = '{11}', kilometroRuta = {12}, bomberoCargo = '{13}', bomberoInforme = '{14}', codigoCargo = '{15}', codigoInforme = '{16}', numeroDepartamento = '{17}', numeroBlock = '{18}', resumen = '{19}', codigoServicio = '{20}' WHERE idEvento = {21}",
+				Evento.idEvento,
+				Evento.correlativoLlamado,
+				Evento.correlativoCBV,
+				Evento.claveServicio,
+				Evento.fecha,
+				Evento.motivo,
+				Evento.calle,
+				Evento.numeroCalle,
+				Evento.calleProxima,
+				Evento.sector,
+				Evento.poblacion,
+				Evento.ruta,
+				Evento.kilometroRuta,
+				Evento.bomberoCargo,
+				Evento.bomberoInforme,
+				Evento.codigoCargo,
+				Evento.codigoInforme,
+				Evento.numeroDepartamento,
+				Evento.numeroBlock,
+				Evento.resumen,
+				Evento.codigoServicio,
+				idEvento
+				);
+			utils.ExecuteNonQuery(query);
+		}
+
+		public void EliminarEvento(int idEvento)
+		{
+			query = String.Format(
+				"DELETE FROM Evento WHERE idEvento = {0}",
+				idEvento);
+			utils.ExecuteNonQuery(query);
+		}
+
+        public ObservableCollection<Evento> ObtenerEventos()
+		{
+			ObservableCollection<Evento> Eventos = new ObservableCollection<Evento>();
+			query = " SELECT * FROM Evento";
+			DataTable dt = utils.ExecuteQuery(query);
+			foreach (DataRow row in dt.Rows)
+			{
+				Evento Evento = new Evento(
+					int.Parse(row["idEvento"].ToString()),
+					int.Parse(row["correlativoLlamado"].ToString()),
+					int.Parse(row["correlativoCBV"].ToString()),
+					row["claveServicio"].ToString(),
+					DateTime.Parse(row["fecha"].ToString()),
+					row["motivo"].ToString(),
+					row["calle"].ToString(),
+					int.Parse(row["numeroCalle"].ToString()),
+					row["calleProxima"].ToString(),
+					row["sector"].ToString(),
+					row["poblacion"].ToString(),
+					row["ruta"].ToString(),
+					int.Parse(row["kilometroRuta"].ToString()),
+					row["bomberoCargo"].ToString(),
+					row["bomberoInforme"].ToString(),
+					row["codigoCargo"].ToString(),
+					row["codigoInforme"].ToString(),
+					row["numeroDepartamento"].ToString(),
+					row["numeroBlock"].ToString(),
+					row["resumen"].ToString(),
+					row["codigoServicio"].ToString()
+				);
+				Eventos.Add(Evento);
+			}
+			return Eventos;
+		}
+
+		public ObservableCollection<Evento> ObtenerEvento(int idEvento)
+		{
+			ObservableCollection<Evento> Eventos = new ObservableCollection<Evento>();
+			query = String.Format(
+				"SELECT * FROM Evento WHERE idEvento = {0}",
+				idEvento);
+			DataTable dt = utils.ExecuteQuery(query);
+			foreach (DataRow row in dt.Rows)
+			{
+				Evento Evento = new Evento(
+					int.Parse(row["idEvento"].ToString()),
+					int.Parse(row["correlativoLlamado"].ToString()),
+					int.Parse(row["correlativoCBV"].ToString()),
+					row["claveServicio"].ToString(),
+					DateTime.Parse(row["fecha"].ToString()),
+					row["motivo"].ToString(),
+					row["calle"].ToString(),
+					int.Parse(row["numeroCalle"].ToString()),
+					row["calleProxima"].ToString(),
+					row["sector"].ToString(),
+					row["poblacion"].ToString(),
+					row["ruta"].ToString(),
+					int.Parse(row["kilometroRuta"].ToString()),
+					row["bomberoCargo"].ToString(),
+					row["bomberoInforme"].ToString(),
+					row["codigoCargo"].ToString(),
+					row["codigoInforme"].ToString(),
+					row["numeroDepartamento"].ToString(),
+					row["numeroBlock"].ToString(),
+					row["resumen"].ToString(),
+					row["codigoServicio"].ToString()
+				);
+				Eventos.Add(Evento);
+			}
+			return Eventos;
+		}
+
+        public void IniciarId()
+		{
+			query = "SELECT * FROM Evento ORDER BY idEvento DESC LIMIT 1";
+			DataTable dt = utils.ExecuteQuery(query);
+			foreach (DataRow row in dt.Rows)
+			{
+				this.idEvento = int.Parse(row[0].ToString()) + 1;
+			}
+		}
         #endregion
     }
 }
+
+
+
+
+

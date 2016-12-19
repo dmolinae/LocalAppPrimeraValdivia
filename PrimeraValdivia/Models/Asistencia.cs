@@ -147,6 +147,35 @@ namespace PrimeraValdivia.Models
             return Asistentes;
         }
 
+        public String ObtenerCodigoAsistencia(int idEvento, String fk_rut)
+        {
+            String codigo = "Error";
+            query = String.Format(
+                "SELECT * FROM Asistencia WHERE fk_idEvento = {0} and fk_rut = '{1}'",
+                idEvento,
+                fk_rut);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                codigo = row["codigoAsistencia"].ToString();
+            }
+            return codigo;
+        }
+
+        public int ObtenerNumeroLlamados(String fk_rut)
+        {
+            int numero = 0;
+            query = String.Format(
+                "SELECT COUNT(asistenciaObligatoria) AS result FROM Asistencia WHERE fk_rut = '{0}' and asistenciaObligatoria = 1",
+                fk_rut);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach(DataRow row in dt.Rows)
+            {
+                numero = int.Parse(row["result"].ToString());
+            }
+            return numero;
+        }
+
         #endregion
     }
 }

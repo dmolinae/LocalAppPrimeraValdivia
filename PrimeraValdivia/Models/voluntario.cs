@@ -267,7 +267,7 @@ namespace PrimeraValdivia.Models
 			return Voluntarios;
 		}
 
-		public ObservableCollection<Voluntario> ObtenerVoluntario()
+		public ObservableCollection<Voluntario> ObtenerVoluntario(int idVoluntario)
 		{
 			ObservableCollection<Voluntario> Voluntarios = new ObservableCollection<Voluntario>();
 			query = String.Format(

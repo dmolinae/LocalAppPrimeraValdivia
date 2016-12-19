@@ -1,4 +1,4 @@
-﻿<Controls:MetroWindow 
+﻿<Controls:MetroWindow
         xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"  
         x:Class="PrimeraValdivia.Views.FormularioEvento"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -70,6 +70,10 @@
                                 <Label Content="Fecha:" Width="130"/>
                                 <DatePicker SelectedDate="{Binding Evento.fecha}" Width="200"/>
                             </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Hora:" Width="130"/>
+                                <TextBox Text="{Binding hora}" Width="50"/>
+                            </StackPanel>
                         </Grid>
 
                         <Grid>
@@ -87,6 +91,20 @@
                             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Label Content="Motivo:" Width="130" HorizontalContentAlignment="Center"/>
                                 <TextBox Text="{Binding Evento.motivo}" Width="330"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Codigo:" Width="130"/>
+                                <TextBox Text="{Binding Evento.codigoServicio}" Width="70"/>
                             </StackPanel>
                         </Grid>
 

@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS "Evento"(
   "numeroDepartamento" VARCHAR(45),
   "numeroBlock" VARCHAR(45),
   "resumen" VARCHAR(45),
+  "codigoServicio" VARCHAR(10),
   CONSTRAINT "idEvento_UNIQUE"
     UNIQUE("idEvento")
 );

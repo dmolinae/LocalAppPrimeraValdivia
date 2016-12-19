@@ -263,7 +263,7 @@ namespace PrimeraValdivia.Models
         #>
 
 		<#
-            WriteLine("public ObservableCollection<"+clase+"> "+"Obtener"+clase+"()");
+            WriteLine("public ObservableCollection<"+clase+"> "+"Obtener"+clase+"("+pk_type+" "+pk_name+")");
             WriteLine("\t\t{");
 
             WriteLine("\t\t\tObservableCollection<"+clase+"> "+clase+"s = new ObservableCollection<"+clase+">();");
