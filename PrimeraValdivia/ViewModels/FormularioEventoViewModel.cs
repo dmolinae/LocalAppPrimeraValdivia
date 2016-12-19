@@ -71,10 +71,7 @@ namespace PrimeraValdivia.ViewModels
 
         public string hora
         {
-            get {
-                _hora = this.Evento.fecha.ToString("HH: mm");
-                return _hora;
-            }
+            get { return _hora; }
             set
             {
                 _hora = value;

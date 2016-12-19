@@ -68,11 +68,12 @@
 
                             <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Label Content="Fecha:" Width="130"/>
-                                <DatePicker SelectedDate="{Binding Evento.fecha}" Width="200"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Hora:" Width="130"/>
-                                <TextBox Text="{Binding hora}" Width="50"/>
+                                <toolkit:DateTimePicker 
+                                    Format="Custom" 
+                                    FormatString="dd/MM/yyyy HH:mm:ss" 
+                                    Value="{Binding Evento.fecha}"
+                                    Foreground="White"
+                                    Width="200"/>
                             </StackPanel>
                         </Grid>
 
