@@ -84,8 +84,9 @@ namespace PrimeraValdivia.Models
 
         }
 
-        public Asistencia(int fk_idVoluntario, int fk_idEvento, String codigoAsistencia, bool asistenciaObligatoria)
+        public Asistencia(int idAsistencia, int fk_idVoluntario, int fk_idEvento, String codigoAsistencia, bool asistenciaObligatoria)
 		{
+			this.idAsistencia = idAsistencia;
 			this.fk_idVoluntario = fk_idVoluntario;
 			this.fk_idEvento = fk_idEvento;
 			this.codigoAsistencia = codigoAsistencia;
@@ -95,7 +96,8 @@ namespace PrimeraValdivia.Models
         public void AgregarAsistencia(Asistencia Asistencia)
 		{
 			query = String.Format(
-				"INSERT INTO Asistencia(fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria) VALUES({0},{1},'{2}',{3})",
+				"INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria) VALUES({0},{1},{2},'{3}',{4})",
+				Asistencia.idAsistencia,
 				Asistencia.fk_idVoluntario,
 				Asistencia.fk_idEvento,
 				Asistencia.codigoAsistencia,
@@ -104,14 +106,16 @@ namespace PrimeraValdivia.Models
 			utils.ExecuteNonQuery(query);
 		}
 
-        public void EditarAsistencia(Asistencia Asistencia)
+        public void EditarAsistencia(Asistencia Asistencia, int idAsistencia)
 		{
 			query = String.Format(
-				"UPDATE Asistencia SET codigoAsistencia = '{0}', asistenciaObligatoria = {1} WHERE fk_idEvento = {2} and fk_idVoluntario = {3}",
+				"UPDATE Asistencia SET idAsistencia = {0}, fk_idVoluntario = {1}, fk_idEvento = {2}, codigoAsistencia = '{3}', asistenciaObligatoria = {4} WHERE idAsistencia = {5}",
+				Asistencia.idAsistencia,
+				Asistencia.fk_idVoluntario,
+				Asistencia.fk_idEvento,
 				Asistencia.codigoAsistencia,
 				(Asistencia.asistenciaObligatoria)? 1 : 0,
-				Asistencia.fk_idEvento,
-                Asistencia.fk_idVoluntario
+				idAsistencia
 				);
 			utils.ExecuteNonQuery(query);
 		}
@@ -132,6 +136,7 @@ namespace PrimeraValdivia.Models
 			foreach (DataRow row in dt.Rows)
 			{
 				Asistencia Asistencia = new Asistencia(
+					int.Parse(row["idAsistencia"].ToString()),
 					int.Parse(row["fk_idVoluntario"].ToString()),
 					int.Parse(row["fk_idEvento"].ToString()),
 					row["codigoAsistencia"].ToString(),
@@ -152,6 +157,7 @@ namespace PrimeraValdivia.Models
 			foreach (DataRow row in dt.Rows)
 			{
 				Asistencia Asistencia = new Asistencia(
+					int.Parse(row["idAsistencia"].ToString()),
 					int.Parse(row["fk_idVoluntario"].ToString()),
 					int.Parse(row["fk_idEvento"].ToString()),
 					row["codigoAsistencia"].ToString(),
@@ -171,69 +177,6 @@ namespace PrimeraValdivia.Models
 				this.idAsistencia = int.Parse(row[0].ToString()) + 1;
 			}
 		}
-
-        public ObservableCollection<Asistencia> ObtenerAsistentesEvento(int idEvento)
-        {
-            ObservableCollection<Asistencia> Asistentes = new ObservableCollection<Asistencia>();
-            query = String.Format(
-                "SELECT * FROM Asistencia WHERE fk_idEvento = {0}",
-                idEvento);
-            DataTable dt = utils.ExecuteQuery(query);
-            foreach (DataRow row in dt.Rows)
-            {
-                Asistencia Asistente = new Asistencia(
-                    int.Parse(row["fk_idVoluntario"].ToString()),
-                    int.Parse(row["fk_idEvento"].ToString()),
-                    row["codigoAsistencia"].ToString(),
-                    bool.Parse(row["asistenciaObligatoria"].ToString())
-                );
-                Asistentes.Add(Asistente);
-            }
-            return Asistentes;
-        }
-
-        public String ObtenerCodigoAsistencia(int idEvento, int idVoluntario)
-        {
-            String codigo = "Error";
-            query = String.Format(
-                "SELECT * FROM Asistencia WHERE fk_idEvento = {0} and fk_idVoluntario = {1}",
-                idEvento,
-                idVoluntario);
-            DataTable dt = utils.ExecuteQuery(query);
-            foreach (DataRow row in dt.Rows)
-            {
-                codigo = row["codigoAsistencia"].ToString();
-            }
-            return codigo;
-        }
-
-        public int ObtenerNumeroLlamados(int idVoluntario)
-        {
-            int numero = 0;
-            query = String.Format(
-                "SELECT COUNT(asistenciaObligatoria) AS result FROM Asistencia WHERE fk_idVoluntario = {0} and asistenciaObligatoria = 1",
-                idVoluntario);
-            DataTable dt = utils.ExecuteQuery(query);
-            foreach (DataRow row in dt.Rows)
-            {
-                numero = int.Parse(row["result"].ToString());
-            }
-            return numero;
-        }
-
-        public int ObtenerNumeroAsistencias(int idVoluntario)
-        {
-            int numero = 0;
-            query = String.Format(
-                "SELECT COUNT(asistenciaObligatoria) AS result FROM Asistencia WHERE fk_idVoluntario = {0} and (codigoAsistencia = 'A' or codigoAsistencia = 'a') ",
-                idVoluntario);
-            DataTable dt = utils.ExecuteQuery(query);
-            foreach (DataRow row in dt.Rows)
-            {
-                numero = int.Parse(row["result"].ToString());
-            }
-            return numero;
-        }
         #endregion
     }
 }

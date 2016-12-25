@@ -18,17 +18,20 @@ namespace PrimeraValdivia.ViewModels
         #region Atributos privados
 
         private Voluntario _Voluntario;
-        private Asistencia _Asistente;
+        private VoluntarioAsistente _Asistente;
         private Voluntario _VoluntarioCargo;
         private Voluntario _VoluntarioInforme;
+        private Evento _Evento;
         private ObservableCollection<Voluntario> _Voluntarios;
         private ObservableCollection<Asistencia> _Asistentes;
         private ObservableCollection<Evento> _Eventos;
-        private Evento _Evento;
+        private ObservableCollection<VoluntarioAsistente> _AsistentesTabla;
         private ICommand _GuardarEventoCommand;
         private ICommand _AvanzarInformeUnoCommand;
         private ICommand _AgregarAsistenciaCommand;
         private ICommand _EditarAsistenciaCommand;
+        private ICommand _MarcarRestantesCommand;
+        private ICommand _MarcarCommand;
         private string _tab2header = "Datos";
         private bool _tab2enabled = false;
         private bool _tab3enabled = false;
@@ -40,6 +43,69 @@ namespace PrimeraValdivia.ViewModels
 
         private Asistencia asistenciaModel = new Asistencia();
         private Voluntario voluntarioModel = new Voluntario();
+        
+        public class VoluntarioAsistente : ViewModelBase
+        {
+            private int _id;
+            public int id
+            {
+                get { return _id; }
+                set
+                {
+                    _id = value;
+                    OnPropertyChanged("id");
+                }
+            }
+
+            private String _rut;
+            public String rut
+            {
+                get { return _rut; }
+                set
+                {
+                    _rut = value;
+                    OnPropertyChanged("rut");
+                }
+            }
+            private String _nombre;
+            public String nombre
+            {
+                get { return _nombre; }
+                set
+                {
+                    _nombre = value;
+                    OnPropertyChanged("nombre");
+                }
+            }
+            private String _cargo;
+            public String cargo
+            {
+                get { return _cargo; }
+                set
+                {
+                    _cargo = value;
+                    OnPropertyChanged("cargo");
+                }
+            }
+            private String _codigo_asistencia;
+            public String codigo_asistencia
+            {
+                get { return _codigo_asistencia; }
+                set
+                {
+                    _codigo_asistencia = value;
+                    OnPropertyChanged("codigo_asistencia");
+                }
+            }
+            public VoluntarioAsistente(int id,String rut, String nombre, String cargo, String codigo_asistencia)
+            {
+                this.id = id;
+                this.rut = rut;
+                this.nombre = nombre;
+                this.cargo = cargo;
+                this.codigo_asistencia = codigo_asistencia;
+            }
+        }
 
         #endregion
 
@@ -66,7 +132,7 @@ namespace PrimeraValdivia.ViewModels
                 OnPropertyChanged("tab2header");
             }
         }
-        
+
 
         public bool tab2enabled
         {
@@ -166,7 +232,7 @@ namespace PrimeraValdivia.ViewModels
                 this.Evento.codigoInforme = VoluntarioInforme.codigoRadial;
             }
         }
-        public Asistencia Asistente
+        public VoluntarioAsistente Asistente
         {
             get { return _Asistente; }
             set
@@ -199,6 +265,19 @@ namespace PrimeraValdivia.ViewModels
             {
                 _Asistentes = value;
                 OnPropertyChanged("Voluntarios");
+            }
+        }
+
+        public ObservableCollection<VoluntarioAsistente> AsistentesTabla
+        {
+            get
+            {
+                return _AsistentesTabla;
+            }
+            set
+            {
+                _AsistentesTabla = value;
+                OnPropertyChanged("AsistentesTabla");
             }
         }
 
@@ -251,11 +330,37 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public ICommand MarcarRestantesCommand
+        {
+            get
+            {
+                _MarcarRestantesCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => MarcarRestantes()
+                };
+                return _MarcarRestantesCommand;
+            }
+        }
+
+        public ICommand MarcarCommand
+        {
+            get
+            {
+                _MarcarCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => MarcarAsistencia()
+                };
+                return _MarcarCommand;
+            }
+        }
+
         #endregion
 
         #region Metodos
 
-        private void AgregarAsistencia()
+        private String obtenerCodigoAsistenciaSeleccionado()
         {
             string codigo = "";
             if (Evento.asistenciaObligatoria)
@@ -270,39 +375,55 @@ namespace PrimeraValdivia.ViewModels
                 if (fChecked) codigo = " ";
                 if (lChecked) codigo = " ";
             }
+            return codigo;
+        }
 
-            Asistencia Asistencia = new Asistencia(Voluntario.rut,Evento.idEvento,codigo,Evento.asistenciaObligatoria);
-            if (asistenciaModel.ExisteAsistencia(Asistencia))
-            {
-                
-            }
-            else
-            {
-                asistenciaModel.AgregarAsistencia(Asistencia);
-                Asistentes.Insert(0, Asistencia);
-            }
-            
+        private void AgregarAsistencia()
+        {
+            String codigo = obtenerCodigoAsistenciaSeleccionado();
+
+            Asistencia Asistencia = new Asistencia(Voluntario.idVoluntario, Evento.idEvento, codigo, Evento.asistenciaObligatoria);
+            asistenciaModel.AgregarAsistencia(Asistencia);
+            VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
+                Voluntario.idVoluntario,
+                Voluntario.rut,
+                voluntarioModel.ObtenerNombreVoluntario(Voluntario.idVoluntario),
+                voluntarioModel.ObtenerCargoVoluntario(Voluntario.idVoluntario),
+                codigo);
+            AsistentesTabla.Insert(0, asistente_tabla);
+            Voluntarios.Remove(Voluntario);
+        }
+
+        private void MarcarAsistencia()
+        {
+
         }
 
         private void EditarAsistencia()
         {
-            string codigo = "";
-            if (Evento.asistenciaObligatoria)
+            String codigo = obtenerCodigoAsistenciaSeleccionado();
+            Asistente.codigo_asistencia = codigo;
+            asistenciaModel.EditarAsistencia(new Asistencia(Asistente.id,Evento.idEvento,codigo,Evento.asistenciaObligatoria));
+        }
+
+        private void MarcarRestantes()
+        {
+            String codigo = obtenerCodigoAsistenciaSeleccionado();
+            Asistencia Asistencia;
+            foreach(Voluntario voluntario in Voluntarios)
             {
-                if (aChecked) codigo = "A";
-                if (fChecked) codigo = "F";
-                if (lChecked) codigo = "L";
+                Asistencia = new Asistencia(voluntario.idVoluntario, Evento.idEvento, codigo, Evento.asistenciaObligatoria);
+                asistenciaModel.AgregarAsistencia(Asistencia);
+
+                VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
+                    Voluntario.idVoluntario,
+                    Voluntario.rut,
+                    voluntarioModel.ObtenerNombreVoluntario(Voluntario.idVoluntario),
+                    voluntarioModel.ObtenerCargoVoluntario(Voluntario.idVoluntario),
+                    codigo);
+                AsistentesTabla.Insert(0, asistente_tabla);
             }
-            else
-            {
-                if (aChecked) codigo = "a";
-                if (fChecked) codigo = " ";
-                if (lChecked) codigo = " ";
-            }
-            Asistente.codigoAsistencia = codigo;
-            Asistente.asistenciaObligatoria = Evento.asistenciaObligatoria;
-            asistenciaModel.EditarAsistencia(Asistente);
-            
+            Voluntarios.Clear();
         }
 
         private bool ValidarCampos()
@@ -322,16 +443,28 @@ namespace PrimeraValdivia.ViewModels
             Evento = new Evento();
             Evento.IniciarId();
             Voluntarios = voluntarioModel.ObtenerVoluntarios();
-            Asistentes = new ObservableCollection<Asistencia>();
+            AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
         }
         public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, Evento Evento)
         {
             this.Evento = Evento;
-            Voluntarios = voluntarioModel.ObtenerVoluntarios();
+            Voluntarios = voluntarioModel.ObtenerVoluntariosSinMarcarAsistencia(Evento.idEvento);
             tab2enabled = true;
             tab3enabled = true;
             DeterminarClaveServicio();
             Asistentes = asistenciaModel.ObtenerAsistentesEvento(Evento.idEvento);
+            AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
+            foreach(Asistencia asistente in Asistentes)
+            {
+                VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
+                    asistente.fk_idVoluntario,
+                    voluntarioModel.ObtenerRutVoluntario(asistente.fk_idVoluntario),
+                    voluntarioModel.ObtenerNombreVoluntario(asistente.fk_idVoluntario), 
+                    voluntarioModel.ObtenerCargoVoluntario(asistente.fk_idVoluntario), 
+                    asistente.codigoAsistencia);
+                
+                AsistentesTabla.Insert(0, asistente_tabla);
+            }
         }
         private void GuardarEvento()
         {

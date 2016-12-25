@@ -331,15 +331,15 @@ CREATE TABLE IF NOT EXISTS "Acompañante"(
 );
 CREATE TABLE IF NOT EXISTS "Asistencia"(
   "idAsistencia" INTEGER PRIMARY KEY AUTOINCREMENT,
-  "fk_rut" VARCHAR(45),
+  "fk_idVoluntario" INTEGER,
   "fk_idEvento" INTEGER,
   "codigoAsistencia" VARCHAR(45),
   "asistenciaObligatoria" BOOLEAN,
   CONSTRAINT "idAsistencia_UNIQUE"
     UNIQUE("idAsistencia"),
-  CONSTRAINT "fk_rut"
-    FOREIGN KEY("fk_rut")
-    REFERENCES "Voluntario"("rut"),
+  CONSTRAINT "fk_idVoluntario"
+    FOREIGN KEY("fk_idVoluntario")
+    REFERENCES "Voluntario"("idVoluntario"),
   CONSTRAINT "fk_idEvento"
     FOREIGN KEY("fk_idEvento")
     REFERENCES "Evento"("idEvento")

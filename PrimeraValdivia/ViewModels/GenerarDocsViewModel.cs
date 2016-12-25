@@ -166,7 +166,7 @@ namespace PrimeraValdivia.ViewModels
                 {
                     header3.AddCell(" ");
 
-                    asistencia = new PdfPCell(new Phrase(AModel.ObtenerCodigoAsistencia(evento.idEvento, voluntario.rut)));
+                    asistencia = new PdfPCell(new Phrase(AModel.ObtenerCodigoAsistencia(evento.idEvento, voluntario.idVoluntario)));
                     asistencia.HorizontalAlignment = Element.ALIGN_CENTER;
                     columna_evento.AddCell(asistencia);
                 }
@@ -227,12 +227,12 @@ namespace PrimeraValdivia.ViewModels
                             columna_resumen.AddCell(" ");
                             break;
                         case 1:
-                            cell_resumen = new PdfPCell(new Phrase(AModel.ObtenerNumeroLlamados(voluntario.rut).ToString()));
+                            cell_resumen = new PdfPCell(new Phrase(AModel.ObtenerNumeroLlamados(voluntario.idVoluntario).ToString()));
                             cell_resumen.HorizontalAlignment = Element.ALIGN_CENTER;
                             columna_resumen.AddCell(cell_resumen);
                             break;
                         case 2:
-                            cell_resumen = new PdfPCell(new Phrase(AModel.ObtenerNumeroAsistencias(voluntario.rut).ToString()));
+                            cell_resumen = new PdfPCell(new Phrase(AModel.ObtenerNumeroAsistencias(voluntario.idVoluntario).ToString()));
                             cell_resumen.HorizontalAlignment = Element.ALIGN_CENTER;
                             columna_resumen.AddCell(cell_resumen);
                             break;

@@ -20,6 +20,7 @@ namespace PrimeraValdivia.ViewModels
         private ObservableCollection<Evento> _Eventos;
         private ICommand _AgregarEventoCommand;
         private ICommand _MostrarFormularioEventoCommand;
+        private ICommand _EliminarEventoCommand;
         private Evento model = new Evento();
 
         #endregion
@@ -75,6 +76,19 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public ICommand EliminarEventoCommand
+        {
+            get
+            {
+                _EliminarEventoCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EliminarEvento()
+                };
+                return _EliminarEventoCommand;
+            }
+        }
+
         #endregion
 
         #region Constructor/Métodos
@@ -91,6 +105,11 @@ namespace PrimeraValdivia.ViewModels
             view.DataContext = viewmodel;
             viewmodel.CloseAction = new Action(view.Close);
             view.Show();
+        }
+        private void EliminarEvento()
+        {
+            model.EliminarEvento(Evento.idEvento);
+            Eventos.Remove(Evento);
         }
 
         private void MostrarEvento()
