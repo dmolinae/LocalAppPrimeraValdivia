@@ -235,6 +235,34 @@ namespace PrimeraValdivia.Models
             return numero;
         }
 
+        public int ObtenerNumeroFaltas(int idVoluntario)
+        {
+            int numero = 0;
+            query = String.Format(
+                "SELECT COUNT(asistenciaObligatoria) AS result FROM Asistencia WHERE fk_idVoluntario = {0} and (codigoAsistencia = 'F') ",
+                idVoluntario);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                numero = int.Parse(row["result"].ToString());
+            }
+            return numero;
+        }
+
+        public int ObtenerNumeroLicencias(int idVoluntario)
+        {
+            int numero = 0;
+            query = String.Format(
+                "SELECT COUNT(asistenciaObligatoria) AS result FROM Asistencia WHERE fk_idVoluntario = {0} and (codigoAsistencia = 'L') ",
+                idVoluntario);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                numero = int.Parse(row["result"].ToString());
+            }
+            return numero;
+        }
+
         #endregion
     }
 }
