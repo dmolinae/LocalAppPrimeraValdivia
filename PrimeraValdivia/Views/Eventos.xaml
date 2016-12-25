@@ -29,18 +29,28 @@
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="idEvento" Binding="{Binding Path=idEvento, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="correlativoLlamado" Binding="{Binding Path=correlativoLlamado, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="correlativoCBV" Binding="{Binding Path=correlativoCBV, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="claveServicio" Binding="{Binding Path=claveServicio, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="fecha" Binding="{Binding Path=fecha, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="calle" Binding="{Binding Path=calle, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="numeroCalle" Binding="{Binding Path=numeroCalle, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="resumen" Width="*" Binding="{Binding Path=resumen, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTemplateColumn Width="70">
+                <DataGridTextColumn Header="C" Binding="{Binding Path=correlativoLlamado, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="C.CBV" Binding="{Binding Path=correlativoCBV, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Clave" Binding="{Binding Path=claveServicio, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding Path=fecha, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Calle" Binding="{Binding Path=calle, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Numero Calle" Binding="{Binding Path=numeroCalle, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Resumen" Width="*" Binding="{Binding Path=resumen, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTemplateColumn Width="90">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>
                                 <Button Content="Informes" Margin="3" Command="{Binding Path=DataContext.MostrarFormularioEventoCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                        CommandParameter="{Binding}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="90">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Button Content="Eliminar" Margin="3" Command="{Binding Path=DataContext.EliminarEventoCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                         CommandParameter="{Binding}"/>
                             </Grid>
                         </DataTemplate>

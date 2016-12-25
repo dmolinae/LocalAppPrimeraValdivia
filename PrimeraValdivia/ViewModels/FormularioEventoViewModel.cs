@@ -1,6 +1,8 @@
-﻿using PrimeraValdivia.Commands;
+﻿using MyToolkit.Collections;
+using PrimeraValdivia.Commands;
 using PrimeraValdivia.Helpers;
 using PrimeraValdivia.Models;
+using PrimeraValdivia.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,28 +20,112 @@ namespace PrimeraValdivia.ViewModels
         #region Atributos privados
 
         private Voluntario _Voluntario;
-        private Asistencia _Asistente;
+        private VoluntarioAsistente _Asistente;
         private Voluntario _VoluntarioCargo;
         private Voluntario _VoluntarioInforme;
+        private Evento _Evento;
+
         private ObservableCollection<Voluntario> _Voluntarios;
+        private ObservableCollection<Voluntario> _VoluntariosSinMarcar;
+        private ObservableCollectionView<Voluntario> _VoluntariosSinMarcarView;
+
+        private MaterialMayor _MaterialMayor;
+        private ObservableCollection<MaterialMayor> _MaterialMayorList;
+
+        private Carro _Carro;
+        private ObservableCollection<Carro> _Carros;
+
         private ObservableCollection<Asistencia> _Asistentes;
         private ObservableCollection<Evento> _Eventos;
-        private Evento _Evento;
+        private ObservableCollection<VoluntarioAsistente> _AsistentesTabla;
         private ICommand _GuardarEventoCommand;
         private ICommand _AvanzarInformeUnoCommand;
         private ICommand _AgregarAsistenciaCommand;
         private ICommand _EditarAsistenciaCommand;
+        private ICommand _MarcarRestantesCommand;
+        private ICommand _MarcarCommand;
+
+        private ICommand _AgregarMaterialMayorCommand;
+        private ICommand _EditarMaterialMayorCommand;
+        private ICommand _EliminarMaterialMayorCommand;
+
         private string _tab2header = "Datos";
+        private string _nameFilter; 
         private bool _tab2enabled = false;
         private bool _tab3enabled = false;
         private bool _aChecked = true;
         private bool _fChecked;
         private bool _lChecked;
         private int _tabIndex;
-        private CollectionViewSource CVS { get; set; }
 
-        private Asistencia asistenciaModel = new Asistencia();
-        private Voluntario voluntarioModel = new Voluntario();
+        private Asistencia AModel = new Asistencia();
+        private Voluntario VModel = new Voluntario();
+        private Evento EModel = new Evento();
+        private Carro CModel = new Carro();
+        private MaterialMayor MMModel = new MaterialMayor();
+        
+        public class VoluntarioAsistente : ViewModelBase
+        {
+            private int _id;
+            public int id
+            {
+                get { return _id; }
+                set
+                {
+                    _id = value;
+                    OnPropertyChanged("id");
+                }
+            }
+
+            private String _rut;
+            public String rut
+            {
+                get { return _rut; }
+                set
+                {
+                    _rut = value;
+                    OnPropertyChanged("rut");
+                }
+            }
+            private String _nombre;
+            public String nombre
+            {
+                get { return _nombre; }
+                set
+                {
+                    _nombre = value;
+                    OnPropertyChanged("nombre");
+                }
+            }
+            private String _cargo;
+            public String cargo
+            {
+                get { return _cargo; }
+                set
+                {
+                    _cargo = value;
+                    OnPropertyChanged("cargo");
+                }
+            }
+            private String _codigo_asistencia;
+            public String codigo_asistencia
+            {
+                get { return _codigo_asistencia; }
+                set
+                {
+                    _codigo_asistencia = value;
+                    OnPropertyChanged("codigo_asistencia");
+                }
+            }
+            public VoluntarioAsistente(int id,String rut, String nombre, String cargo, String codigo_asistencia)
+            {
+                this.id = id;
+                this.rut = rut;
+                this.nombre = nombre;
+                this.cargo = cargo;
+                this.codigo_asistencia = codigo_asistencia;
+            }
+        }
 
         #endregion
 
@@ -57,6 +143,17 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public string nameFilter
+        {
+            get { return _nameFilter; }
+            set
+            {
+                _nameFilter = value;
+                OnPropertyChanged("nameFilter");
+                VoluntariosSinMarcarView.Filter = p => p.nombre.Contains(_nameFilter);
+            }
+        }
+
         public string tab2header
         {
             get { return _tab2header; }
@@ -66,7 +163,7 @@ namespace PrimeraValdivia.ViewModels
                 OnPropertyChanged("tab2header");
             }
         }
-        
+
 
         public bool tab2enabled
         {
@@ -124,6 +221,16 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public Carro Carro
+        {
+            get { return _Carro; }
+            set
+            {
+                _Carro = value;
+                OnPropertyChanged("Carro");
+            }
+        }
+
         public ObservableCollection<Evento> Eventos
         {
             get
@@ -134,6 +241,36 @@ namespace PrimeraValdivia.ViewModels
             {
                 _Eventos = value;
                 OnPropertyChanged("Eventos");
+            }
+        }
+
+        public ObservableCollection<MaterialMayor> MaterialMayorList
+        {
+            get { return _MaterialMayorList; }
+            set
+            {
+                _MaterialMayorList = value;
+                OnPropertyChanged("MateriaMayorList");
+            }
+        }
+
+        public ObservableCollection<Carro> Carros
+        {
+            get { return _Carros; }
+            set
+            {
+                _Carros = value;
+                OnPropertyChanged("Carros");
+            }
+        }
+
+        public MaterialMayor MaterialMayor
+        {
+            get { return _MaterialMayor; }
+            set
+            {
+                _MaterialMayor = value;
+                OnPropertyChanged("MaterialMayor");
             }
         }
 
@@ -166,13 +303,26 @@ namespace PrimeraValdivia.ViewModels
                 this.Evento.codigoInforme = VoluntarioInforme.codigoRadial;
             }
         }
-        public Asistencia Asistente
+        public VoluntarioAsistente Asistente
         {
             get { return _Asistente; }
             set
             {
                 _Asistente = value;
                 OnPropertyChanged("Asistente");
+            }
+        }
+
+        public ObservableCollection<Voluntario> VoluntariosSinMarcar
+        {
+            get
+            {
+                return _VoluntariosSinMarcar;
+            }
+            set
+            {
+                _VoluntariosSinMarcar = value;
+                OnPropertyChanged("VoluntariosSinMarcar");
             }
         }
 
@@ -189,6 +339,16 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public ObservableCollectionView<Voluntario> VoluntariosSinMarcarView
+        {
+            get { return _VoluntariosSinMarcarView; }
+            set
+            {
+                _VoluntariosSinMarcarView = value;
+                OnPropertyChanged("VoluntariosSinMarcarView");
+            }
+        }
+
         public ObservableCollection<Asistencia> Asistentes
         {
             get
@@ -198,7 +358,20 @@ namespace PrimeraValdivia.ViewModels
             set
             {
                 _Asistentes = value;
-                OnPropertyChanged("Voluntarios");
+                OnPropertyChanged("Asistentes");
+            }
+        }
+
+        public ObservableCollection<VoluntarioAsistente> AsistentesTabla
+        {
+            get
+            {
+                return _AsistentesTabla;
+            }
+            set
+            {
+                _AsistentesTabla = value;
+                OnPropertyChanged("AsistentesTabla");
             }
         }
 
@@ -251,11 +424,136 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public ICommand MarcarRestantesCommand
+        {
+            get
+            {
+                _MarcarRestantesCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => MarcarRestantes()
+                };
+                return _MarcarRestantesCommand;
+            }
+        }
+
+        public ICommand MarcarCommand
+        {
+            get
+            {
+                _MarcarCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => MarcarAsistencia()
+                };
+                return _MarcarCommand;
+            }
+        }
+
+        public ICommand AgregarMaterialMayorCommand
+        {
+            get
+            {
+                _AgregarMaterialMayorCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => AgregarMaterialMayor()
+                };
+                return _AgregarMaterialMayorCommand;
+            }
+        }
+
+        public ICommand EditarMaterialMayorCommand
+        {
+            get
+            {
+                _EditarMaterialMayorCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EditarMaterialMayor()
+                };
+                return _EditarMaterialMayorCommand;
+            }
+        }
+
+        public ICommand EliminarMaterialMayorCommand
+        {
+            get
+            {
+                _EliminarMaterialMayorCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EliminarMaterialMayor()
+                };
+                return _EliminarMaterialMayorCommand;
+            }
+        }
+
         #endregion
 
         #region Metodos
 
-        private void AgregarAsistencia()
+        public FormularioEventoViewModel(ObservableCollection<Evento> Eventos)
+        {
+            this.Eventos = Eventos;
+            Evento = new Evento();
+            Evento.IniciarId();
+            VoluntariosSinMarcar = VModel.ObtenerVoluntarios();
+            Voluntarios = VoluntariosSinMarcar;
+            VoluntariosSinMarcarView = new ObservableCollectionView<Voluntario>(VoluntariosSinMarcar);
+            AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
+            Carros = CModel.ObtenerCarros();
+            MaterialMayorList = new ObservableCollection<MaterialMayor>();
+        }
+        public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, Evento Evento)
+        {
+            this.Evento = Evento;
+            Carros = CModel.ObtenerCarros();
+            Voluntarios = VModel.ObtenerVoluntarios();
+            MaterialMayorList = MMModel.ObtenerMaterialMayorEvento(Evento.idEvento);
+            VoluntariosSinMarcar = VModel.ObtenerVoluntariosSinMarcarAsistencia(Evento.idEvento);
+            VoluntariosSinMarcarView = new ObservableCollectionView<Voluntario>(VoluntariosSinMarcar);
+            tab2enabled = true;
+            tab3enabled = true;
+            DeterminarClaveServicio();
+            Asistentes = AModel.ObtenerAsistentesEvento(Evento.idEvento);
+            AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
+            foreach (Asistencia asistente in Asistentes)
+            {
+                VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
+                    asistente.fk_idVoluntario,
+                    VModel.ObtenerRutVoluntario(asistente.fk_idVoluntario),
+                    VModel.ObtenerNombreVoluntario(asistente.fk_idVoluntario),
+                    VModel.ObtenerCargoVoluntario(asistente.fk_idVoluntario),
+                    asistente.codigoAsistencia);
+
+                AsistentesTabla.Insert(0, asistente_tabla);
+            }
+        }
+
+        private void AgregarMaterialMayor()
+        {
+            var viewmodel = new FormularioMaterialMayorViewModel(MaterialMayorList, Evento.idEvento, Carro.idCarro);
+            var view = new FormularioMaterialMayor();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
+        }
+        private void EditarMaterialMayor()
+        {
+            var viewmodel = new FormularioMaterialMayorViewModel(MaterialMayorList, MaterialMayor);
+            var view = new FormularioMaterialMayor();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
+        }
+        private void EliminarMaterialMayor()
+        {
+            MMModel.EliminarMaterialMayor(MaterialMayor.idCarroEvento);
+            MaterialMayorList.Remove(MaterialMayor);
+        }
+
+        private String obtenerCodigoAsistenciaSeleccionado()
         {
             string codigo = "";
             if (Evento.asistenciaObligatoria)
@@ -270,39 +568,55 @@ namespace PrimeraValdivia.ViewModels
                 if (fChecked) codigo = " ";
                 if (lChecked) codigo = " ";
             }
+            return codigo;
+        }
 
-            Asistencia Asistencia = new Asistencia(Voluntario.rut,Evento.idEvento,codigo,Evento.asistenciaObligatoria);
-            if (asistenciaModel.ExisteAsistencia(Asistencia))
-            {
-                
-            }
-            else
-            {
-                asistenciaModel.AgregarAsistencia(Asistencia);
-                Asistentes.Insert(0, Asistencia);
-            }
-            
+        private void AgregarAsistencia()
+        {
+            String codigo = obtenerCodigoAsistenciaSeleccionado();
+
+            Asistencia Asistencia = new Asistencia(Voluntario.idVoluntario, Evento.idEvento, codigo, Evento.asistenciaObligatoria);
+            AModel.AgregarAsistencia(Asistencia);
+            VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
+                Voluntario.idVoluntario,
+                Voluntario.rut,
+                VModel.ObtenerNombreVoluntario(Voluntario.idVoluntario),
+                VModel.ObtenerCargoVoluntario(Voluntario.idVoluntario),
+                codigo);
+            AsistentesTabla.Insert(0, asistente_tabla);
+            VoluntariosSinMarcar.Remove(Voluntario);
+        }
+
+        private void MarcarAsistencia()
+        {
+
         }
 
         private void EditarAsistencia()
         {
-            string codigo = "";
-            if (Evento.asistenciaObligatoria)
+            String codigo = obtenerCodigoAsistenciaSeleccionado();
+            Asistente.codigo_asistencia = codigo;
+            AModel.EditarAsistencia(new Asistencia(Asistente.id,Evento.idEvento,codigo,Evento.asistenciaObligatoria));
+        }
+
+        private void MarcarRestantes()
+        {
+            String codigo = obtenerCodigoAsistenciaSeleccionado();
+            Asistencia Asistencia;
+            foreach(Voluntario voluntario in VoluntariosSinMarcar)
             {
-                if (aChecked) codigo = "A";
-                if (fChecked) codigo = "F";
-                if (lChecked) codigo = "L";
+                Asistencia = new Asistencia(voluntario.idVoluntario, Evento.idEvento, codigo, Evento.asistenciaObligatoria);
+                AModel.AgregarAsistencia(Asistencia);
+
+                VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
+                    voluntario.idVoluntario,
+                    voluntario.rut,
+                    VModel.ObtenerNombreVoluntario(voluntario.idVoluntario),
+                    VModel.ObtenerCargoVoluntario(voluntario.idVoluntario),
+                    codigo);
+                AsistentesTabla.Insert(0, asistente_tabla);
             }
-            else
-            {
-                if (aChecked) codigo = "a";
-                if (fChecked) codigo = " ";
-                if (lChecked) codigo = " ";
-            }
-            Asistente.codigoAsistencia = codigo;
-            Asistente.asistenciaObligatoria = Evento.asistenciaObligatoria;
-            asistenciaModel.EditarAsistencia(Asistente);
-            
+            VoluntariosSinMarcar.Clear();
         }
 
         private bool ValidarCampos()
@@ -311,28 +625,7 @@ namespace PrimeraValdivia.ViewModels
             else return true;
         }
 
-        private void Handle_ViewCollectionViewSourceMessageToken(ViewCollectionViewSourceMessageToken token)
-        {
-            CVS = token.CVS;
-        }
-
-        public FormularioEventoViewModel(ObservableCollection<Evento> Eventos)
-        {
-            this.Eventos = Eventos;
-            Evento = new Evento();
-            Evento.IniciarId();
-            Voluntarios = voluntarioModel.ObtenerVoluntarios();
-            Asistentes = new ObservableCollection<Asistencia>();
-        }
-        public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, Evento Evento)
-        {
-            this.Evento = Evento;
-            Voluntarios = voluntarioModel.ObtenerVoluntarios();
-            tab2enabled = true;
-            tab3enabled = true;
-            DeterminarClaveServicio();
-            Asistentes = asistenciaModel.ObtenerAsistentesEvento(Evento.idEvento);
-        }
+        
         private void GuardarEvento()
         {
             Eventos.Add(Evento);
@@ -353,11 +646,13 @@ namespace PrimeraValdivia.ViewModels
         }
         private void AvanzarInformeUno()
         {
-            var model = new Evento();
-            DeterminarClaveServicio();
-            tabIndex = 3;
-            Eventos.Add(Evento);
-            model.AgregarEvento(Evento);
+            tabIndex = 1;
+            if (!Eventos.Contains(Evento))
+            {
+                DeterminarClaveServicio();
+                Eventos.Add(Evento);
+                EModel.AgregarEvento(Evento);
+            }
         }
 
         #endregion

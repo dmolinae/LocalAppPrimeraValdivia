@@ -1,4 +1,6 @@
-﻿using PrimeraValdivia.ViewModels;
+﻿
+
+using PrimeraValdivia.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,58 +18,62 @@ namespace PrimeraValdivia.Models
         private string query;
 
         #region Atributos
+        
+		private int _idAsistencia;
+		public int idAsistencia
+		{
+			get { return _idAsistencia; }
+			set
+			{
+				_idAsistencia = value;
+				OnPropertyChanged("idAsistencia");
+			}
+		}
 
-        private int _idAsistencia;
-        public int idAsistencia
-        {
-            get { return _idAsistencia; }
-            set
-            {
-                _idAsistencia = value;
-                OnPropertyChanged("idAsistencia");
-            }
-        }
+		private int _fk_idVoluntario;
+		public int fk_idVoluntario
+		{
+			get { return _fk_idVoluntario; }
+			set
+			{
+				_fk_idVoluntario = value;
+				OnPropertyChanged("fk_idVoluntario");
+			}
+		}
 
-        private string _fk_rut;
-        public string fk_rut
-        {
-            get { return _fk_rut; }
-            set
-            {
-                _fk_rut = value;
-                OnPropertyChanged("fk_rut");
-            }
-        }
-        private int _fk_idEvento;
-        public int fk_idEvento
-        {
-            get { return _fk_idEvento; }
-            set
-            {
-                _fk_idEvento = value;
-                OnPropertyChanged("fk_idEvento");
-            }
-        }
-        private string _codigoAsistencia;
-        public string codigoAsistencia
-        {
-            get { return _codigoAsistencia; }
-            set
-            {
-                _codigoAsistencia = value;
-                OnPropertyChanged("codigoAsistencia");
-            }
-        }
-        private bool _asistenciaObligatoria;
-        public bool asistenciaObligatoria
-        {
-            get { return _asistenciaObligatoria; }
-            set
-            {
-                _asistenciaObligatoria = value;
-                OnPropertyChanged("asistenciaObligatoria");
-            }
-        }
+		private int _fk_idEvento;
+		public int fk_idEvento
+		{
+			get { return _fk_idEvento; }
+			set
+			{
+				_fk_idEvento = value;
+				OnPropertyChanged("fk_idEvento");
+			}
+		}
+
+		private String _codigoAsistencia;
+		public String codigoAsistencia
+		{
+			get { return _codigoAsistencia; }
+			set
+			{
+				_codigoAsistencia = value;
+				OnPropertyChanged("codigoAsistencia");
+			}
+		}
+
+		private bool _asistenciaObligatoria;
+		public bool asistenciaObligatoria
+		{
+			get { return _asistenciaObligatoria; }
+			set
+			{
+				_asistenciaObligatoria = value;
+				OnPropertyChanged("asistenciaObligatoria");
+			}
+		}
+
 
         #endregion
 
@@ -78,54 +84,93 @@ namespace PrimeraValdivia.Models
 
         }
 
-        public Asistencia(string rut_voluntario, int id_evento, string codigo, bool obligatoria)
-        {
-            this.fk_rut = rut_voluntario;
-            this.fk_idEvento = id_evento;
-            this.codigoAsistencia = codigo;
-            this.asistenciaObligatoria = obligatoria;
-        }
+        public Asistencia(int fk_idVoluntario, int fk_idEvento, String codigoAsistencia, bool asistenciaObligatoria)
+		{
+			this.fk_idVoluntario = fk_idVoluntario;
+			this.fk_idEvento = fk_idEvento;
+			this.codigoAsistencia = codigoAsistencia;
+			this.asistenciaObligatoria = asistenciaObligatoria;
+		}
 
         public void AgregarAsistencia(Asistencia Asistencia)
-        {
-            query = String.Format(
-                "INSERT INTO Asistencia(fk_rut,fk_idEvento,codigoAsistencia,asistenciaObligatoria) values('{0}',{1},'{2}',{3})",
-                Asistencia.fk_rut,
-                Asistencia.fk_idEvento,
-                Asistencia.codigoAsistencia,
-                (Asistencia.asistenciaObligatoria) ? 1 : 0
-                );
-            utils.ExecuteNonQuery(query);
-        }
+		{
+			query = String.Format(
+				"INSERT INTO Asistencia(fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria) VALUES({0},{1},'{2}',{3})",
+				Asistencia.fk_idVoluntario,
+				Asistencia.fk_idEvento,
+				Asistencia.codigoAsistencia,
+				(Asistencia.asistenciaObligatoria)? 1 : 0
+				);
+			utils.ExecuteNonQuery(query);
+		}
 
-        public bool ExisteAsistencia(Asistencia Asistencia)
-        {
-            Debug.Write(" PARAMS: "+Asistencia.fk_rut + " " + Asistencia.fk_idEvento);
-            bool existe = false;
-            query = String.Format(
-                "SELECT * FROM Asistencia WHERE fk_rut = '{0}' and fk_idEvento = {1}",
-                Asistencia.fk_rut,
-                Asistencia.fk_idEvento
-                );
-            Debug.Write("QUERY: " + query);
-            DataTable dt = utils.ExecuteQuery(query);
-            foreach (DataRow row in dt.Rows)
-            {
-                existe = true;
-            }
-            return existe;
-        }
         public void EditarAsistencia(Asistencia Asistencia)
-        {
-            query = String.Format(
-                "UPDATE Asistencia SET codigoAsistencia = '{0}', asistenciaObligatoria = {1} WHERE fk_rut = '{2}' and fk_idEvento = {3}",
-                Asistencia.codigoAsistencia,
-                (Asistencia.asistenciaObligatoria) ? 1 : 0,
-                Asistencia.fk_rut,
-                Asistencia.fk_idEvento
-                );
-            utils.ExecuteNonQuery(query);
-        }
+		{
+			query = String.Format(
+				"UPDATE Asistencia SET codigoAsistencia = '{0}', asistenciaObligatoria = {1} WHERE fk_idEvento = {2} and fk_idVoluntario = {3}",
+				Asistencia.codigoAsistencia,
+				(Asistencia.asistenciaObligatoria)? 1 : 0,
+				Asistencia.fk_idEvento,
+                Asistencia.fk_idVoluntario
+				);
+			utils.ExecuteNonQuery(query);
+		}
+
+		public void EliminarAsistencia(int idAsistencia)
+		{
+			query = String.Format(
+				"DELETE FROM Asistencia WHERE idAsistencia = {0}",
+				idAsistencia);
+			utils.ExecuteNonQuery(query);
+		}
+
+        public ObservableCollection<Asistencia> ObtenerAsistencias()
+		{
+			ObservableCollection<Asistencia> Asistencias = new ObservableCollection<Asistencia>();
+			query = " SELECT * FROM Asistencia";
+			DataTable dt = utils.ExecuteQuery(query);
+			foreach (DataRow row in dt.Rows)
+			{
+				Asistencia Asistencia = new Asistencia(
+					int.Parse(row["fk_idVoluntario"].ToString()),
+					int.Parse(row["fk_idEvento"].ToString()),
+					row["codigoAsistencia"].ToString(),
+					bool.Parse(row["asistenciaObligatoria"].ToString())
+				);
+				Asistencias.Add(Asistencia);
+			}
+			return Asistencias;
+		}
+
+		public ObservableCollection<Asistencia> ObtenerAsistencia(int idAsistencia)
+		{
+			ObservableCollection<Asistencia> Asistencias = new ObservableCollection<Asistencia>();
+			query = String.Format(
+				"SELECT * FROM Asistencia WHERE idAsistencia = {0}",
+				idAsistencia);
+			DataTable dt = utils.ExecuteQuery(query);
+			foreach (DataRow row in dt.Rows)
+			{
+				Asistencia Asistencia = new Asistencia(
+					int.Parse(row["fk_idVoluntario"].ToString()),
+					int.Parse(row["fk_idEvento"].ToString()),
+					row["codigoAsistencia"].ToString(),
+					bool.Parse(row["asistenciaObligatoria"].ToString())
+				);
+				Asistencias.Add(Asistencia);
+			}
+			return Asistencias;
+		}
+
+        public void IniciarId()
+		{
+			query = "SELECT * FROM Asistencia ORDER BY idAsistencia DESC LIMIT 1";
+			DataTable dt = utils.ExecuteQuery(query);
+			foreach (DataRow row in dt.Rows)
+			{
+				this.idAsistencia = int.Parse(row[0].ToString()) + 1;
+			}
+		}
 
         public ObservableCollection<Asistencia> ObtenerAsistentesEvento(int idEvento)
         {
@@ -137,7 +182,7 @@ namespace PrimeraValdivia.Models
             foreach (DataRow row in dt.Rows)
             {
                 Asistencia Asistente = new Asistencia(
-                    row["fk_rut"].ToString(),
+                    int.Parse(row["fk_idVoluntario"].ToString()),
                     int.Parse(row["fk_idEvento"].ToString()),
                     row["codigoAsistencia"].ToString(),
                     bool.Parse(row["asistenciaObligatoria"].ToString())
@@ -147,13 +192,13 @@ namespace PrimeraValdivia.Models
             return Asistentes;
         }
 
-        public String ObtenerCodigoAsistencia(int idEvento, String fk_rut)
+        public String ObtenerCodigoAsistencia(int idEvento, int idVoluntario)
         {
             String codigo = "Error";
             query = String.Format(
-                "SELECT * FROM Asistencia WHERE fk_idEvento = {0} and fk_rut = '{1}'",
+                "SELECT * FROM Asistencia WHERE fk_idEvento = {0} and fk_idVoluntario = {1}",
                 idEvento,
-                fk_rut);
+                idVoluntario);
             DataTable dt = utils.ExecuteQuery(query);
             foreach (DataRow row in dt.Rows)
             {
@@ -162,26 +207,12 @@ namespace PrimeraValdivia.Models
             return codigo;
         }
 
-        public int ObtenerNumeroLlamados(String fk_rut)
+        public int ObtenerNumeroLlamados(int idVoluntario)
         {
             int numero = 0;
             query = String.Format(
-                "SELECT COUNT(asistenciaObligatoria) AS result FROM Asistencia WHERE fk_rut = '{0}' and asistenciaObligatoria = 1",
-                fk_rut);
-            DataTable dt = utils.ExecuteQuery(query);
-            foreach(DataRow row in dt.Rows)
-            {
-                numero = int.Parse(row["result"].ToString());
-            }
-            return numero;
-        }
-
-        public int ObtenerNumeroAsistencias(String fk_rut)
-        {
-            int numero = 0;
-            query = String.Format(
-                "SELECT COUNT(asistenciaObligatoria) AS result FROM Asistencia WHERE fk_rut = '{0}' and (codigoAsistencia = 'A' or codigoAsistencia = 'a') ",
-                fk_rut);
+                "SELECT COUNT(asistenciaObligatoria) AS result FROM Asistencia WHERE fk_idVoluntario = {0} and asistenciaObligatoria = 1",
+                idVoluntario);
             DataTable dt = utils.ExecuteQuery(query);
             foreach (DataRow row in dt.Rows)
             {
@@ -190,26 +221,12 @@ namespace PrimeraValdivia.Models
             return numero;
         }
 
-        public int ObtenerNumeroFaltas(String fk_rut)
+        public int ObtenerNumeroAsistencias(int idVoluntario)
         {
             int numero = 0;
             query = String.Format(
-                "SELECT COUNT(asistenciaObligatoria) AS result FROM Asistencia WHERE fk_rut = '{0}' and (codigoAsistencia = 'F') ",
-                fk_rut);
-            DataTable dt = utils.ExecuteQuery(query);
-            foreach (DataRow row in dt.Rows)
-            {
-                numero = int.Parse(row["result"].ToString());
-            }
-            return numero;
-        }
-
-        public int ObtenerNumeroLicencias(String fk_rut)
-        {
-            int numero = 0;
-            query = String.Format(
-                "SELECT COUNT(asistenciaObligatoria) AS result FROM Asistencia WHERE fk_rut = '{0}' and (codigoAsistencia = 'L') ",
-                fk_rut);
+                "SELECT COUNT(asistenciaObligatoria) AS result FROM Asistencia WHERE fk_idVoluntario = {0} and (codigoAsistencia = 'A' or codigoAsistencia = 'a') ",
+                idVoluntario);
             DataTable dt = utils.ExecuteQuery(query);
             foreach (DataRow row in dt.Rows)
             {
@@ -221,3 +238,8 @@ namespace PrimeraValdivia.Models
         #endregion
     }
 }
+
+
+
+
+

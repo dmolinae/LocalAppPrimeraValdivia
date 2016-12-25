@@ -18,6 +18,12 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel.Resources>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Margin" Value="2"/>
+                </Style>
+            </StackPanel.Resources>
+            
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="ID" Width="130"/>
                 <TextBox IsEnabled="False" Text="{Binding Voluntario.idVoluntario}" Width="200"/>
@@ -76,53 +82,65 @@
             </StackPanel>
 
         </StackPanel>
-        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel Orientation="Horizontal" Height="60" Margin="5" HorizontalAlignment="Right" Grid.Row="0">
-                <Label Content="Agregar Calificacion" VerticalAlignment="Center"/>
-                <Button x:Name="add_button" Command="{Binding AgregarCalificacionCommand}" RenderTransformOrigin="0.496,0.486" Background="#FFF7F7F7" Width="60" Template="{DynamicResource AddButtonControlTemplate}">
-                    <Button.Effect>
-                        <DropShadowEffect Opacity="0.5" ShadowDepth="1.5"/>
-                    </Button.Effect>
-                </Button>
-            </StackPanel>
-            <DataGrid ItemsSource="{Binding Calificaciones}" SelectedItem="{Binding Calificacion}" AutoGenerateColumns="False"
-                CanUserAddRows="False"
-                CanUserDeleteRows="False"
-                IsReadOnly="True"
-                SelectionMode="Single"
-                CanUserSortColumns="True"
-                Margin="10">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Numero Calificacion" Binding="{Binding Path=numero, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Header="Premio" Binding="{Binding Path=premio, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Header="Años" Binding="{Binding Path=anos, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Header="Fecha" Binding="{Binding Path=fecha, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                    <DataGridTemplateColumn Width="70">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Button Content="Editar" Command="{Binding Path=DataContext.MostrarFormularioCalificacionCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Height="60" Margin="5" HorizontalAlignment="Right" Grid.Row="0">
+                    <Label Content="Agregar Calificacion" VerticalAlignment="Center"/>
+                    <Button x:Name="add_button" Command="{Binding AgregarCalificacionCommand}" RenderTransformOrigin="0.496,0.486" Background="#FFF7F7F7" Width="60" Template="{DynamicResource AddButtonControlTemplate}">
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.5" ShadowDepth="1.5"/>
+                        </Button.Effect>
+                    </Button>
+                </StackPanel>
+                <DataGrid Grid.Row="1"
+                    ItemsSource="{Binding Calificaciones}" 
+                    SelectedItem="{Binding Calificacion}" 
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    CanUserDeleteRows="False"
+                    IsReadOnly="True"
+                    SelectionMode="Single"
+                    CanUserSortColumns="True"
+                    Margin="10">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Numero Calificacion" Binding="{Binding Path=numero, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Premio" Binding="{Binding Path=premio, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Años" Binding="{Binding Path=anos, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Fecha" Binding="{Binding Path=fecha, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                        <DataGridTemplateColumn Width="70">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Button Content="Editar" Command="{Binding Path=DataContext.MostrarFormularioCalificacionCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                             CommandParameter="{Binding}"/>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Width="70">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Button Content="Eliminar" Command="{Binding Path=DataContext.EliminarCalificacionCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="70">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Button Content="Eliminar" Command="{Binding Path=DataContext.EliminarCalificacionCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                             CommandParameter="{Binding}"/>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-                <Button Content="Guardar" Command="{Binding GuardarVoluntarioCommand}"/>
-            </StackPanel>
-        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button Grid.Row="2"  HorizontalAlignment="Right" Content="Guardar" Command="{Binding GuardarVoluntarioCommand}"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Controls:MetroWindow>

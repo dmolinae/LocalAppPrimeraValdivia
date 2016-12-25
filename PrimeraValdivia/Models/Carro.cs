@@ -177,7 +177,7 @@ namespace PrimeraValdivia.Models
 			return Carros;
 		}
 
-		public ObservableCollection<Carro> ObtenerCarro()
+		public ObservableCollection<Carro> ObtenerCarro(int idCarro)
 		{
 			ObservableCollection<Carro> Carros = new ObservableCollection<Carro>();
 			query = String.Format(

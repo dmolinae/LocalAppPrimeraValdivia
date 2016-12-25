@@ -267,12 +267,12 @@ namespace PrimeraValdivia.Models
 			return Voluntarios;
 		}
 
-		public ObservableCollection<Voluntario> ObtenerVoluntario(int idVoluntario)
+		public ObservableCollection<Voluntario> ObtenerVoluntario(String rut)
 		{
 			ObservableCollection<Voluntario> Voluntarios = new ObservableCollection<Voluntario>();
 			query = String.Format(
-				"SELECT * FROM Voluntario WHERE idVoluntario = {0}",
-				idVoluntario);
+				"SELECT * FROM Voluntario WHERE rut = '{0}'",
+				rut);
 			DataTable dt = utils.ExecuteQuery(query);
 			foreach (DataRow row in dt.Rows)
 			{
@@ -295,6 +295,76 @@ namespace PrimeraValdivia.Models
 			}
 			return Voluntarios;
 		}
+        public String ObtenerRutVoluntario(int idVoluntario)
+        {
+            String var = "";
+            query = String.Format(
+                "SELECT rut FROM Voluntario WHERE idVoluntario = {0}",
+                idVoluntario);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                var = row["rut"].ToString();
+            }
+            return var;
+        }
+
+        public String ObtenerNombreVoluntario(int idVoluntario)
+        {
+            String var = "";
+            query = String.Format(
+                "SELECT nombre FROM Voluntario WHERE idVoluntario = {0}",
+                idVoluntario);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                var = row["nombre"].ToString();
+            }
+            return var;
+        }
+
+        public String ObtenerCargoVoluntario(int idVoluntario)
+        {
+            String var = "";
+            query = String.Format(
+                "SELECT cargo FROM Voluntario WHERE idVoluntario = {0}",
+                idVoluntario);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                var = row["cargo"].ToString();
+            }
+            return var;
+        }
+
+        public ObservableCollection<Voluntario> ObtenerVoluntariosSinMarcarAsistencia(int fk_idEvento)
+        {
+            ObservableCollection<Voluntario> Voluntarios = new ObservableCollection<Voluntario>();
+            query = String.Format(
+                "SELECT * FROM Voluntario WHERE Voluntario.idVoluntario NOT IN (SELECT Voluntario.idVoluntario FROM Voluntario INNER JOIN Asistencia ON Voluntario.idVoluntario = Asistencia.fk_idVoluntario WHERE Asistencia.fk_idEvento = {0})",
+                fk_idEvento);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                Voluntario Voluntario = new Voluntario(
+                    int.Parse(row["idVoluntario"].ToString()),
+                    row["nombre"].ToString(),
+                    DateTime.Parse(row["fechaNacimiento"].ToString()),
+                    row["ciudadNacimiento"].ToString(),
+                    row["grupoSanguineo"].ToString(),
+                    row["profesion"].ToString(),
+                    bool.Parse(row["servicioMilitar"].ToString()),
+                    int.Parse(row["insignia"].ToString()),
+                    row["cargo"].ToString(),
+                    int.Parse(row["nRegistroInterno"].ToString()),
+                    int.Parse(row["nRegistroExterno"].ToString()),
+                    row["codigoRadial"].ToString(),
+                    row["rut"].ToString()
+                );
+                Voluntarios.Add(Voluntario);
+            }
+            return Voluntarios;
+        }
 
         public void IniciarId()
 		{

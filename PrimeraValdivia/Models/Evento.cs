@@ -364,6 +364,10 @@ namespace PrimeraValdivia.Models
 				"DELETE FROM Evento WHERE idEvento = {0}",
 				idEvento);
 			utils.ExecuteNonQuery(query);
+            query = String.Format(
+                "DELETE FROM Asistencia WHERE fk_idEvento = {0}",
+                idEvento);
+            utils.ExecuteNonQuery(query);
 		}
 
         public ObservableCollection<Evento> ObtenerEventos()
