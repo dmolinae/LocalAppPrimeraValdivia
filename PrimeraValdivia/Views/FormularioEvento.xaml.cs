@@ -25,8 +25,6 @@ namespace PrimeraValdivia.Views
         public FormularioEvento()
         {
             InitializeComponent();
-
-            Messenger.Default.Send(new ViewCollectionViewSourceMessageToken() { CVS = (CollectionViewSource)(this.Resources["CVS"]) });
         }
     }
 }

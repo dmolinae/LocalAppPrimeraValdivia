@@ -59,7 +59,7 @@
     <classShape Id="efd19259-3b58-4f6d-9dc6-1670f5bd0b6b" absoluteBounds="9.375, 3.625, 1.875, 1.8284605995814003" hideQualifiedName="false" increaseHeight="0.18800345897674561" customColor="181, 193, 223">
       <classMoniker Id="7880f5c2-6c17-44ad-a950-4b1554038195" LastKnownName="Asistencia" />
       <nestedChildShapes>
-        <AttributeElementListCompartment Id="a21f195e-e126-451e-9fde-8ad9b25f1405" absoluteBounds="9.39, 4.14033563931783, 1.8450000000000002, 1.0019530927141507" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <AttributeElementListCompartment Id="a21f195e-e126-451e-9fde-8ad9b25f1405" absoluteBounds="9.39, 4.14033563931783, 1.8450000000000002, 1.0019530927141505" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
         <OperationElementListCompartment Id="7eed87ff-f502-43c5-a899-a9a8f8acb115" absoluteBounds="9.39, 5.1522887320319812, 1.8450000000000002, 0.20117186754941963" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>

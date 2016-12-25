@@ -15,10 +15,6 @@
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized" Height="769">
 
-    <Window.Resources>
-        <CollectionViewSource x:Key="CVS" Source="{Binding Voluntarios}"/>
-    </Window.Resources>
-
     <TabControl SelectedIndex="{Binding tabIndex}">
         <TabItem Header="Datos Comunes">
             <Grid Background="#FFE5E5E5" Margin="10">
@@ -308,7 +304,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Content="Listado de voluntarios sin marcar" FontSize="14" Foreground="#FF272727" HorizontalAlignment="Center"/>
-                    <DataGrid ItemsSource="{Binding Source={StaticResource CVS}}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
+                    <DataGrid ItemsSource="{Binding VoluntariosView}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
                               Grid.Row="1"
                               CanUserAddRows="False"
                               CanUserDeleteRows="False"
@@ -364,7 +360,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Label FontSize="12" Foreground="#FF272727" Content="Cuadro de busqueda"/>
-                    <TextBox Grid.Row="1" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" VerticalAlignment="Top" Text="{Binding nameFilter, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
                 <Grid Grid.Column="1" Grid.Row="0" Margin="8">
                     <Grid.RowDefinitions>

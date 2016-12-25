@@ -1,4 +1,5 @@
-﻿using PrimeraValdivia.Commands;
+﻿using MyToolkit.Collections;
+using PrimeraValdivia.Commands;
 using PrimeraValdivia.Helpers;
 using PrimeraValdivia.Models;
 using System;
@@ -23,6 +24,7 @@ namespace PrimeraValdivia.ViewModels
         private Voluntario _VoluntarioInforme;
         private Evento _Evento;
         private ObservableCollection<Voluntario> _Voluntarios;
+        private ObservableCollectionView<Voluntario> _VoluntariosView;
         private ObservableCollection<Asistencia> _Asistentes;
         private ObservableCollection<Evento> _Eventos;
         private ObservableCollection<VoluntarioAsistente> _AsistentesTabla;
@@ -33,13 +35,13 @@ namespace PrimeraValdivia.ViewModels
         private ICommand _MarcarRestantesCommand;
         private ICommand _MarcarCommand;
         private string _tab2header = "Datos";
+        private string _nameFilter; 
         private bool _tab2enabled = false;
         private bool _tab3enabled = false;
         private bool _aChecked = true;
         private bool _fChecked;
         private bool _lChecked;
         private int _tabIndex;
-        private CollectionViewSource CVS { get; set; }
 
         private Asistencia asistenciaModel = new Asistencia();
         private Voluntario voluntarioModel = new Voluntario();
@@ -120,6 +122,17 @@ namespace PrimeraValdivia.ViewModels
             {
                 _tabIndex = value;
                 OnPropertyChanged("tabIndex");
+            }
+        }
+
+        public string nameFilter
+        {
+            get { return _nameFilter; }
+            set
+            {
+                _nameFilter = value;
+                OnPropertyChanged("nameFilter");
+                VoluntariosView.Filter = p => p.nombre.Contains(_nameFilter);
             }
         }
 
@@ -252,6 +265,16 @@ namespace PrimeraValdivia.ViewModels
             {
                 _Voluntarios = value;
                 OnPropertyChanged("Voluntarios");
+            }
+        }
+
+        public ObservableCollectionView<Voluntario> VoluntariosView
+        {
+            get { return _VoluntariosView; }
+            set
+            {
+                _VoluntariosView = value;
+                OnPropertyChanged("VoluntariosView");
             }
         }
 
@@ -416,10 +439,10 @@ namespace PrimeraValdivia.ViewModels
                 asistenciaModel.AgregarAsistencia(Asistencia);
 
                 VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
-                    Voluntario.idVoluntario,
-                    Voluntario.rut,
-                    voluntarioModel.ObtenerNombreVoluntario(Voluntario.idVoluntario),
-                    voluntarioModel.ObtenerCargoVoluntario(Voluntario.idVoluntario),
+                    voluntario.idVoluntario,
+                    voluntario.rut,
+                    voluntarioModel.ObtenerNombreVoluntario(voluntario.idVoluntario),
+                    voluntarioModel.ObtenerCargoVoluntario(voluntario.idVoluntario),
                     codigo);
                 AsistentesTabla.Insert(0, asistente_tabla);
             }
@@ -432,23 +455,20 @@ namespace PrimeraValdivia.ViewModels
             else return true;
         }
 
-        private void Handle_ViewCollectionViewSourceMessageToken(ViewCollectionViewSourceMessageToken token)
-        {
-            CVS = token.CVS;
-        }
-
         public FormularioEventoViewModel(ObservableCollection<Evento> Eventos)
         {
             this.Eventos = Eventos;
             Evento = new Evento();
             Evento.IniciarId();
             Voluntarios = voluntarioModel.ObtenerVoluntarios();
+            VoluntariosView = new ObservableCollectionView<Voluntario>(Voluntarios);
             AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
         }
         public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, Evento Evento)
         {
             this.Evento = Evento;
             Voluntarios = voluntarioModel.ObtenerVoluntariosSinMarcarAsistencia(Evento.idEvento);
+            VoluntariosView = new ObservableCollectionView<Voluntario>(Voluntarios);
             tab2enabled = true;
             tab3enabled = true;
             DeterminarClaveServicio();
