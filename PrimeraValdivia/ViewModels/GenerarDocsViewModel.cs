@@ -237,10 +237,14 @@ namespace PrimeraValdivia.ViewModels
                             columna_resumen.AddCell(cell_resumen);
                             break;
                         case 3:
-                            columna_resumen.AddCell(" ");
+                            cell_resumen = new PdfPCell(new Phrase(AModel.ObtenerNumeroFaltas(voluntario.rut).ToString()));
+                            cell_resumen.HorizontalAlignment = Element.ALIGN_CENTER;
+                            columna_resumen.AddCell(cell_resumen);
                             break;
                         case 4:
-                            columna_resumen.AddCell(" ");
+                            cell_resumen = new PdfPCell(new Phrase(AModel.ObtenerNumeroLicencias(voluntario.rut).ToString()));
+                            cell_resumen.HorizontalAlignment = Element.ALIGN_CENTER;
+                            columna_resumen.AddCell(cell_resumen);
                             break;
                         case 5:
                             columna_resumen.AddCell(" ");
