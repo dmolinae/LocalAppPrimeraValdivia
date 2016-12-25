@@ -2,6 +2,7 @@
 using PrimeraValdivia.Commands;
 using PrimeraValdivia.Helpers;
 using PrimeraValdivia.Models;
+using PrimeraValdivia.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,8 +24,17 @@ namespace PrimeraValdivia.ViewModels
         private Voluntario _VoluntarioCargo;
         private Voluntario _VoluntarioInforme;
         private Evento _Evento;
+
         private ObservableCollection<Voluntario> _Voluntarios;
-        private ObservableCollectionView<Voluntario> _VoluntariosView;
+        private ObservableCollection<Voluntario> _VoluntariosSinMarcar;
+        private ObservableCollectionView<Voluntario> _VoluntariosSinMarcarView;
+
+        private MaterialMayor _MaterialMayor;
+        private ObservableCollection<MaterialMayor> _MaterialMayorList;
+
+        private Carro _Carro;
+        private ObservableCollection<Carro> _Carros;
+
         private ObservableCollection<Asistencia> _Asistentes;
         private ObservableCollection<Evento> _Eventos;
         private ObservableCollection<VoluntarioAsistente> _AsistentesTabla;
@@ -34,6 +44,11 @@ namespace PrimeraValdivia.ViewModels
         private ICommand _EditarAsistenciaCommand;
         private ICommand _MarcarRestantesCommand;
         private ICommand _MarcarCommand;
+
+        private ICommand _AgregarMaterialMayorCommand;
+        private ICommand _EditarMaterialMayorCommand;
+        private ICommand _EliminarMaterialMayorCommand;
+
         private string _tab2header = "Datos";
         private string _nameFilter; 
         private bool _tab2enabled = false;
@@ -43,8 +58,11 @@ namespace PrimeraValdivia.ViewModels
         private bool _lChecked;
         private int _tabIndex;
 
-        private Asistencia asistenciaModel = new Asistencia();
-        private Voluntario voluntarioModel = new Voluntario();
+        private Asistencia AModel = new Asistencia();
+        private Voluntario VModel = new Voluntario();
+        private Evento EModel = new Evento();
+        private Carro CModel = new Carro();
+        private MaterialMayor MMModel = new MaterialMayor();
         
         public class VoluntarioAsistente : ViewModelBase
         {
@@ -132,7 +150,7 @@ namespace PrimeraValdivia.ViewModels
             {
                 _nameFilter = value;
                 OnPropertyChanged("nameFilter");
-                VoluntariosView.Filter = p => p.nombre.Contains(_nameFilter);
+                VoluntariosSinMarcarView.Filter = p => p.nombre.Contains(_nameFilter);
             }
         }
 
@@ -203,6 +221,16 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public Carro Carro
+        {
+            get { return _Carro; }
+            set
+            {
+                _Carro = value;
+                OnPropertyChanged("Carro");
+            }
+        }
+
         public ObservableCollection<Evento> Eventos
         {
             get
@@ -213,6 +241,36 @@ namespace PrimeraValdivia.ViewModels
             {
                 _Eventos = value;
                 OnPropertyChanged("Eventos");
+            }
+        }
+
+        public ObservableCollection<MaterialMayor> MaterialMayorList
+        {
+            get { return _MaterialMayorList; }
+            set
+            {
+                _MaterialMayorList = value;
+                OnPropertyChanged("MateriaMayorList");
+            }
+        }
+
+        public ObservableCollection<Carro> Carros
+        {
+            get { return _Carros; }
+            set
+            {
+                _Carros = value;
+                OnPropertyChanged("Carros");
+            }
+        }
+
+        public MaterialMayor MaterialMayor
+        {
+            get { return _MaterialMayor; }
+            set
+            {
+                _MaterialMayor = value;
+                OnPropertyChanged("MaterialMayor");
             }
         }
 
@@ -255,6 +313,19 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public ObservableCollection<Voluntario> VoluntariosSinMarcar
+        {
+            get
+            {
+                return _VoluntariosSinMarcar;
+            }
+            set
+            {
+                _VoluntariosSinMarcar = value;
+                OnPropertyChanged("VoluntariosSinMarcar");
+            }
+        }
+
         public ObservableCollection<Voluntario> Voluntarios
         {
             get
@@ -268,13 +339,13 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
-        public ObservableCollectionView<Voluntario> VoluntariosView
+        public ObservableCollectionView<Voluntario> VoluntariosSinMarcarView
         {
-            get { return _VoluntariosView; }
+            get { return _VoluntariosSinMarcarView; }
             set
             {
-                _VoluntariosView = value;
-                OnPropertyChanged("VoluntariosView");
+                _VoluntariosSinMarcarView = value;
+                OnPropertyChanged("VoluntariosSinMarcarView");
             }
         }
 
@@ -287,7 +358,7 @@ namespace PrimeraValdivia.ViewModels
             set
             {
                 _Asistentes = value;
-                OnPropertyChanged("Voluntarios");
+                OnPropertyChanged("Asistentes");
             }
         }
 
@@ -379,9 +450,108 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public ICommand AgregarMaterialMayorCommand
+        {
+            get
+            {
+                _AgregarMaterialMayorCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => AgregarMaterialMayor()
+                };
+                return _AgregarMaterialMayorCommand;
+            }
+        }
+
+        public ICommand EditarMaterialMayorCommand
+        {
+            get
+            {
+                _EditarMaterialMayorCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EditarMaterialMayor()
+                };
+                return _EditarMaterialMayorCommand;
+            }
+        }
+
+        public ICommand EliminarMaterialMayorCommand
+        {
+            get
+            {
+                _EliminarMaterialMayorCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EliminarMaterialMayor()
+                };
+                return _EliminarMaterialMayorCommand;
+            }
+        }
+
         #endregion
 
         #region Metodos
+
+        public FormularioEventoViewModel(ObservableCollection<Evento> Eventos)
+        {
+            this.Eventos = Eventos;
+            Evento = new Evento();
+            Evento.IniciarId();
+            VoluntariosSinMarcar = VModel.ObtenerVoluntarios();
+            Voluntarios = VoluntariosSinMarcar;
+            VoluntariosSinMarcarView = new ObservableCollectionView<Voluntario>(VoluntariosSinMarcar);
+            AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
+            Carros = CModel.ObtenerCarros();
+            MaterialMayorList = new ObservableCollection<MaterialMayor>();
+        }
+        public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, Evento Evento)
+        {
+            this.Evento = Evento;
+            Carros = CModel.ObtenerCarros();
+            Voluntarios = VModel.ObtenerVoluntarios();
+            MaterialMayorList = MMModel.ObtenerMaterialMayorEvento(Evento.idEvento);
+            VoluntariosSinMarcar = VModel.ObtenerVoluntariosSinMarcarAsistencia(Evento.idEvento);
+            VoluntariosSinMarcarView = new ObservableCollectionView<Voluntario>(VoluntariosSinMarcar);
+            tab2enabled = true;
+            tab3enabled = true;
+            DeterminarClaveServicio();
+            Asistentes = AModel.ObtenerAsistentesEvento(Evento.idEvento);
+            AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
+            foreach (Asistencia asistente in Asistentes)
+            {
+                VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
+                    asistente.fk_idVoluntario,
+                    VModel.ObtenerRutVoluntario(asistente.fk_idVoluntario),
+                    VModel.ObtenerNombreVoluntario(asistente.fk_idVoluntario),
+                    VModel.ObtenerCargoVoluntario(asistente.fk_idVoluntario),
+                    asistente.codigoAsistencia);
+
+                AsistentesTabla.Insert(0, asistente_tabla);
+            }
+        }
+
+        private void AgregarMaterialMayor()
+        {
+            var viewmodel = new FormularioMaterialMayorViewModel(MaterialMayorList, Evento.idEvento, Carro.idCarro);
+            var view = new FormularioMaterialMayor();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
+        }
+        private void EditarMaterialMayor()
+        {
+            var viewmodel = new FormularioMaterialMayorViewModel(MaterialMayorList, MaterialMayor);
+            var view = new FormularioMaterialMayor();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
+        }
+        private void EliminarMaterialMayor()
+        {
+            MMModel.EliminarMaterialMayor(MaterialMayor.idCarroEvento);
+            MaterialMayorList.Remove(MaterialMayor);
+        }
 
         private String obtenerCodigoAsistenciaSeleccionado()
         {
@@ -406,15 +576,15 @@ namespace PrimeraValdivia.ViewModels
             String codigo = obtenerCodigoAsistenciaSeleccionado();
 
             Asistencia Asistencia = new Asistencia(Voluntario.idVoluntario, Evento.idEvento, codigo, Evento.asistenciaObligatoria);
-            asistenciaModel.AgregarAsistencia(Asistencia);
+            AModel.AgregarAsistencia(Asistencia);
             VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
                 Voluntario.idVoluntario,
                 Voluntario.rut,
-                voluntarioModel.ObtenerNombreVoluntario(Voluntario.idVoluntario),
-                voluntarioModel.ObtenerCargoVoluntario(Voluntario.idVoluntario),
+                VModel.ObtenerNombreVoluntario(Voluntario.idVoluntario),
+                VModel.ObtenerCargoVoluntario(Voluntario.idVoluntario),
                 codigo);
             AsistentesTabla.Insert(0, asistente_tabla);
-            Voluntarios.Remove(Voluntario);
+            VoluntariosSinMarcar.Remove(Voluntario);
         }
 
         private void MarcarAsistencia()
@@ -426,27 +596,27 @@ namespace PrimeraValdivia.ViewModels
         {
             String codigo = obtenerCodigoAsistenciaSeleccionado();
             Asistente.codigo_asistencia = codigo;
-            asistenciaModel.EditarAsistencia(new Asistencia(Asistente.id,Evento.idEvento,codigo,Evento.asistenciaObligatoria));
+            AModel.EditarAsistencia(new Asistencia(Asistente.id,Evento.idEvento,codigo,Evento.asistenciaObligatoria));
         }
 
         private void MarcarRestantes()
         {
             String codigo = obtenerCodigoAsistenciaSeleccionado();
             Asistencia Asistencia;
-            foreach(Voluntario voluntario in Voluntarios)
+            foreach(Voluntario voluntario in VoluntariosSinMarcar)
             {
                 Asistencia = new Asistencia(voluntario.idVoluntario, Evento.idEvento, codigo, Evento.asistenciaObligatoria);
-                asistenciaModel.AgregarAsistencia(Asistencia);
+                AModel.AgregarAsistencia(Asistencia);
 
                 VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
                     voluntario.idVoluntario,
                     voluntario.rut,
-                    voluntarioModel.ObtenerNombreVoluntario(voluntario.idVoluntario),
-                    voluntarioModel.ObtenerCargoVoluntario(voluntario.idVoluntario),
+                    VModel.ObtenerNombreVoluntario(voluntario.idVoluntario),
+                    VModel.ObtenerCargoVoluntario(voluntario.idVoluntario),
                     codigo);
                 AsistentesTabla.Insert(0, asistente_tabla);
             }
-            Voluntarios.Clear();
+            VoluntariosSinMarcar.Clear();
         }
 
         private bool ValidarCampos()
@@ -455,37 +625,7 @@ namespace PrimeraValdivia.ViewModels
             else return true;
         }
 
-        public FormularioEventoViewModel(ObservableCollection<Evento> Eventos)
-        {
-            this.Eventos = Eventos;
-            Evento = new Evento();
-            Evento.IniciarId();
-            Voluntarios = voluntarioModel.ObtenerVoluntarios();
-            VoluntariosView = new ObservableCollectionView<Voluntario>(Voluntarios);
-            AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
-        }
-        public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, Evento Evento)
-        {
-            this.Evento = Evento;
-            Voluntarios = voluntarioModel.ObtenerVoluntariosSinMarcarAsistencia(Evento.idEvento);
-            VoluntariosView = new ObservableCollectionView<Voluntario>(Voluntarios);
-            tab2enabled = true;
-            tab3enabled = true;
-            DeterminarClaveServicio();
-            Asistentes = asistenciaModel.ObtenerAsistentesEvento(Evento.idEvento);
-            AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
-            foreach(Asistencia asistente in Asistentes)
-            {
-                VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
-                    asistente.fk_idVoluntario,
-                    voluntarioModel.ObtenerRutVoluntario(asistente.fk_idVoluntario),
-                    voluntarioModel.ObtenerNombreVoluntario(asistente.fk_idVoluntario), 
-                    voluntarioModel.ObtenerCargoVoluntario(asistente.fk_idVoluntario), 
-                    asistente.codigoAsistencia);
-                
-                AsistentesTabla.Insert(0, asistente_tabla);
-            }
-        }
+        
         private void GuardarEvento()
         {
             Eventos.Add(Evento);
@@ -506,11 +646,13 @@ namespace PrimeraValdivia.ViewModels
         }
         private void AvanzarInformeUno()
         {
-            var model = new Evento();
-            DeterminarClaveServicio();
-            tabIndex = 3;
-            Eventos.Add(Evento);
-            model.AgregarEvento(Evento);
+            tabIndex = 1;
+            if (!Eventos.Contains(Evento))
+            {
+                DeterminarClaveServicio();
+                Eventos.Add(Evento);
+                EModel.AgregarEvento(Evento);
+            }
         }
 
         #endregion

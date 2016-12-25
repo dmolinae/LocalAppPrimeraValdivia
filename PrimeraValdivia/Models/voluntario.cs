@@ -341,7 +341,7 @@ namespace PrimeraValdivia.Models
         {
             ObservableCollection<Voluntario> Voluntarios = new ObservableCollection<Voluntario>();
             query = String.Format(
-                "SELECT * FROM Voluntario WHERE Voluntario.rut NOT IN (SELECT Voluntario.rut FROM Voluntario INNER JOIN Asistencia ON Voluntario.rut = Asistencia.fk_idVoluntario WHERE Asistencia.fk_idEvento = {0})",
+                "SELECT * FROM Voluntario WHERE Voluntario.idVoluntario NOT IN (SELECT Voluntario.idVoluntario FROM Voluntario INNER JOIN Asistencia ON Voluntario.idVoluntario = Asistencia.fk_idVoluntario WHERE Asistencia.fk_idEvento = {0})",
                 fk_idEvento);
             DataTable dt = utils.ExecuteQuery(query);
             foreach (DataRow row in dt.Rows)

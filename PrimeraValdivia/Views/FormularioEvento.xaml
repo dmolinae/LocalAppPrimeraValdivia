@@ -255,14 +255,77 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <Label FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF1B1B1B">
+                    <!--
                         Formulario sobre atributos de la tabla incendio o rescate
                         Formulario sobre atributos de las tablas: 
                         - ERA 
                         - Motosierra 
                         - Material evento 
                         - Material mayor
-                    </Label>
+                    -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0" Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Seleccione un Carro: " Foreground="Black"/>
+                        <ComboBox Grid.Column="1" 
+                            ItemsSource="{Binding Carros}"
+                            SelectedItem="{Binding Carro}"
+                            DisplayMemberPath="nombre"/>
+                        <Button Grid.Column="2" Content="Agregar Material Mayor" Command="{Binding AgregarMaterialMayorCommand}"/>
+                    </Grid>
+
+                    <DataGrid ItemsSource="{Binding MaterialMayorList}" SelectedItem="{Binding MaterialMayor}" AutoGenerateColumns="False"
+                              Grid.Row="1"
+                              Grid.Column="0"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              CanUserSortColumns="True" 
+                              Margin="10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="id" Binding="{Binding Path=fk_idCarroMaterial, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Conductor" Binding="{Binding Path=conductor, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                            <DataGridTextColumn Header="OficialCargo" Binding="{Binding Path=oficialCargo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                            <DataGridTextColumn Header="6-0" Binding="{Binding Path=horaSalidaCuartel, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="6-3" Binding="{Binding Path=horaLlegadaEvento, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="6-9" Binding="{Binding Path=horaSalidaEvento, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="6-10" Binding="{Binding Path=horaLlegadaCuartel, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTemplateColumn Width="70">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Button Content="Editar" Margin="3" Command="{Binding Path=DataContext.EditarMaterialMayorCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                        CommandParameter="{Binding}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Button Content="Eliminar" Margin="3" Command="{Binding Path=DataContext.EliminarMaterialMayorCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                        CommandParameter="{Binding}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </Grid>
         </TabItem>
@@ -304,7 +367,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Content="Listado de voluntarios sin marcar" FontSize="14" Foreground="#FF272727" HorizontalAlignment="Center"/>
-                    <DataGrid ItemsSource="{Binding VoluntariosView}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
+                    <DataGrid ItemsSource="{Binding VoluntariosSinMarcarView}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
                               Grid.Row="1"
                               CanUserAddRows="False"
                               CanUserDeleteRows="False"

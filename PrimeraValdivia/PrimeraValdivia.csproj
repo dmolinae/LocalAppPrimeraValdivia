@@ -145,6 +145,7 @@
     </ApplicationDefinition>
     <Compile Include="Helpers\DBConnection.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Helpers\TextBoxInputMaskBehavior.cs" />
     <Compile Include="Models\Apoyo.cs" />
     <Compile Include="Models\Asistencia.cs" />
     <Compile Include="Models\Calificacion.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Models\Incendio\Incendio.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Material.cs" />
+    <Compile Include="Models\MaterialMayor.cs" />
     <Compile Include="Models\Rescate\AfectadoRescate.cs" />
     <Compile Include="Models\Rescate\AseguradoraVehiculo.cs" />
     <Compile Include="Models\Rescate\Vehiculo.cs" />
@@ -167,6 +169,7 @@
     <Compile Include="ViewModels\FormularioCarroViewModel.cs" />
     <Compile Include="ViewModels\FormularioEventoViewModel.cs" />
     <Compile Include="ViewModels\FormularioCalificacionViewModel.cs" />
+    <Compile Include="ViewModels\FormularioMaterialMayorViewModel.cs" />
     <Compile Include="ViewModels\FormularioMaterialViewModel.cs" />
     <Compile Include="ViewModels\FormularioVoluntarioViewModel.cs" />
     <Compile Include="ViewModels\GenerarDocsViewModel.cs" />
@@ -174,6 +177,9 @@
     <Compile Include="Helpers\Utils.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\VoluntarioViewModel.cs" />
+    <Compile Include="Views\FormularioMaterialMayor.xaml.cs">
+      <DependentUpon>FormularioMaterialMayor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GenerarDocs.xaml.cs">
       <DependentUpon>GenerarDocs.xaml</DependentUpon>
     </Compile>
@@ -213,6 +219,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\FormularioMaterialMayor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GenerarDocs.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

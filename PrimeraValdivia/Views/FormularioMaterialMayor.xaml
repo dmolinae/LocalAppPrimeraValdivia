@@ -1,0 +1,86 @@
+﻿<Controls:MetroWindow 
+        x:Class="PrimeraValdivia.Views.FormularioMaterialMayor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:local="clr-namespace:PrimeraValdivia.Views"
+        xmlns:helpers="clr-namespace:PrimeraValdivia.Helpers"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:viewModels="clr-namespace:PrimeraValdivia.ViewModels"
+        DataContext="clr-namespace:PrimeraValdivia.ViewModels.FormularioMaterialMayorViewModel"
+        mc:Ignorable="d"
+        GlowBrush="Black"
+        WindowStartupLocation="CenterScreen" 
+             Width="450" Height="500">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel.Resources>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Margin" Value="5"/>
+                </Style>
+            </StackPanel.Resources>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="ID MaterialMayor" Width="130"/>
+                <TextBox IsEnabled="False" Text="{Binding MaterialMayor.idCarroEvento}" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Conductor" Width="130"/>
+                <TextBox Text="{Binding MaterialMayor.conductor}" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Oficial Cargo" Width="130"/>
+                <TextBox Text="{Binding MaterialMayor.oficialCargo}" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Hora Salida Cuartel" Width="130"/>
+                <TextBox Text="{Binding MaterialMayor.horaSalidaCuartel}" Width="200">
+                    <i:Interaction.Behaviors>
+                        <helpers:TextBoxInputMaskBehavior InputMask="00:00" PromptChar="-"/>
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Hora Llegada Evento" Width="130"/>
+                <TextBox Text="{Binding MaterialMayor.horaLlegadaEvento}" Width="200">
+                    <i:Interaction.Behaviors>
+                        <helpers:TextBoxInputMaskBehavior InputMask="00:00" PromptChar="-"/>
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Hora Salida Evento" Width="130"/>
+                <TextBox Text="{Binding MaterialMayor.horaSalidaEvento}" Width="200">
+                    <i:Interaction.Behaviors>
+                        <helpers:TextBoxInputMaskBehavior InputMask="00:00" PromptChar="-"/>
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Hora Llegada Cuartel" Width="130"/>
+                <TextBox Text="{Binding MaterialMayor.horaLlegadaCuartel}" Width="200">
+                    <i:Interaction.Behaviors>
+                        <helpers:TextBoxInputMaskBehavior InputMask="00:00" PromptChar="-"/>
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Kilometraje Salida" Width="130"/>
+                <TextBox Text="{Binding MaterialMayor.kilometrajeSalida}" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Kilometraje Llegada" Width="130"/>
+                <TextBox Text="{Binding MaterialMayor.kilometrajeLlegada}" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                <Button Content="Guardar" Command="{Binding GuardarMaterialMayorCommand}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Controls:MetroWindow>

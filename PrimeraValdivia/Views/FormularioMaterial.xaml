@@ -15,6 +15,12 @@
              Width="400" Height="220">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel.Resources>
+            <Style TargetType="StackPanel">
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+        </StackPanel.Resources>
+        
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="ID Material" Width="130"/>
             <TextBox IsEnabled="False" Text="{Binding Material.idMaterial}" Width="200"/>
