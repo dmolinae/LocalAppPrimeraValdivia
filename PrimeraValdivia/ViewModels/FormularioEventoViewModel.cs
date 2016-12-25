@@ -508,6 +508,8 @@ namespace PrimeraValdivia.ViewModels
         public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, Evento Evento)
         {
             this.Evento = Evento;
+            this.Eventos = Eventos;
+
             Carros = CModel.ObtenerCarros();
             Voluntarios = VModel.ObtenerVoluntarios();
             MaterialMayorList = MMModel.ObtenerMaterialMayorEvento(Evento.idEvento);
