@@ -27,6 +27,8 @@ namespace PrimeraValdivia.ViewModels
         private Voluntario VModel = new Voluntario();
         private Asistencia AModel = new Asistencia();
 
+        private string fechaDoc = ""; 
+
         #endregion
 
         #region Propiedades/Comandos públicos
@@ -43,6 +45,30 @@ namespace PrimeraValdivia.ViewModels
                 return _GenerarAsistenciaCommand;
             }
         }
+
+        public ICommand MostrarFechaCommand
+        {
+            get
+            {
+                _GenerarAsistenciaCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => mostrarFecha()
+                };
+                return _GenerarAsistenciaCommand;
+            }
+        }
+
+        public string fecha
+        {
+            get { return fechaDoc; }
+            set
+            {
+                fechaDoc = value;
+                OnPropertyChanged("fecha");
+            }
+        }
+
         #endregion
 
         #region Constructor/Métodos
@@ -51,7 +77,12 @@ namespace PrimeraValdivia.ViewModels
         {
             
         }
-        
+
+        public string mostrarFecha() {
+            return this.fecha;
+        }
+
+
         private void GenerarAsistencia()
         {
             Document doc = new Document(PageSize.A4.Rotate());
