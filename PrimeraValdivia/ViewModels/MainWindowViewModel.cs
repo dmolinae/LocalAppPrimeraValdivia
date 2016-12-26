@@ -19,6 +19,7 @@ namespace PrimeraValdivia.ViewModels
             _Title = "Primera Valdivia";
             var utils = new Utils();
             utils.crearBD();
+            //utils.cargarBD();
         }
 
         private string _Title;

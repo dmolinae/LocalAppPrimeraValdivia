@@ -30,6 +30,18 @@ namespace PrimeraValdivia.ViewModels
             command.ExecuteNonQuery();
             conn.Close();
         }
+
+        public void cargarBD()
+        {
+            string script = File.ReadAllText(getMainPath() + @"\datosBomberos.sql");
+            SetConnection();
+            conn.Open();
+            command = conn.CreateCommand();
+            command.CommandText = script;
+            command.ExecuteNonQuery();
+            conn.Close();
+        }
+
         private static string getMainPath()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory;
