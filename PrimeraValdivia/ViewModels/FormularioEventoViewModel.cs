@@ -510,7 +510,7 @@ namespace PrimeraValdivia.ViewModels
             Evento = new Evento();
             Evento.IniciarId();
             VoluntariosSinMarcar = VModel.ObtenerVoluntarios();
-            Voluntarios = VoluntariosSinMarcar;
+            Voluntarios = VModel.ObtenerVoluntarios();
             VoluntariosSinMarcarView = new ObservableCollectionView<Voluntario>(VoluntariosSinMarcar);
             AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
             Carros = CModel.ObtenerCarros();

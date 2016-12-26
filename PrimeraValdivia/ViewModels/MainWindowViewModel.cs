@@ -25,7 +25,7 @@ namespace PrimeraValdivia.ViewModels
         private string _Title;
         public string Title
         {
-            get { return _Title + "_"; }
+            get { return _Title; }
 
             set
             {
