@@ -78,69 +78,69 @@ VALUES(5,"Oxicorte","para cortar metal",1);
 INSERT INTO Evento(idEvento,correlativoLlamado,correlativoCBV,claveServicio,fecha,motivo,calle,numeroCalle,calleProxima,sector,poblacion,ruta,kilometroRuta,bomberoCargo,bomberoInforme,codigoCargo,codigoInforme,numeroDepartamento,numeroBlock,resumen,codigoServicio,asistenciaObligatoria)
 VALUES(0,0,0,"10","11-07-2015 16:02:06","Incendio","Santa Maria",999,"Pedro Montt","Regional","","",0,"Sergio Perez","Gonzalo Lavin","02","02","","","inflamacion de chimenea","10",1);
 INSERT INTO Evento(idEvento,correlativoLlamado,correlativoCBV,claveServicio,fecha,motivo,calle,numeroCalle,calleProxima,sector,poblacion,ruta,kilometroRuta,bomberoCargo,bomberoInforme,codigoCargo,codigoInforme,numeroDepartamento,numeroBlock,resumen,codigoServicio,asistenciaObligatoria)
-VALUES(1,0,0,"10","12-08-2015 11:15:30","Incendio","Pedro Montt",1201,"Ramon Picarte","Centro","","",0,"Sergio Perez","Gonzalo Lavin","02","02","","","inflamacion de galon de gas","10",1);
+VALUES(1,0,0,"10","12-08-2015 11:15:30","Incendio","Pedro Montt",1201,"Ramon Picarte","Centro","","",0,"Sergio Perez","Gonzalo Lavin","02","02","","","inflamacion de galon de gas","10",0);
 INSERT INTO Evento(idEvento,correlativoLlamado,correlativoCBV,claveServicio,fecha,motivo,calle,numeroCalle,calleProxima,sector,poblacion,ruta,kilometroRuta,bomberoCargo,bomberoInforme,codigoCargo,codigoInforme,numeroDepartamento,numeroBlock,resumen,codigoServicio,asistenciaObligatoria)
 VALUES(2,0,0,"10","13-09-2015 18:46:43","Rescate","",0,"","Alamos","","S-45",8,"Sergio Perez","Gonzalo Lavin","02","02","","","volcamiento de vehiculo","10",1);
 
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(0,0,0,"10",1);
+VALUES(0,0,0,"L",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(1,1,0,"10",1);
+VALUES(1,1,0,"L",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(2,2,0,"10",1);
+VALUES(2,2,0,"L",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(3,3,0,"10",1);
+VALUES(3,3,0,"L",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(4,4,0,"10",1);
+VALUES(4,4,0,"L",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(5,5,0,"10",1);
+VALUES(5,5,0,"L",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(6,6,0,"10",1);
+VALUES(6,6,0,"L",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(7,7,0,"10",1);
+VALUES(7,7,0,"L",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(8,8,0,"10",1);
+VALUES(8,8,0,"L",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(9,9,0,"10",1);
+VALUES(9,9,0,"L",1);
 
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(10,0,1,"10",1);
+VALUES(10,0,1,"a",0);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(11,1,1,"10",1);
+VALUES(11,1,1,"a",0);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(12,2,1,"10",1);
+VALUES(12,2,1,"a",0);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(13,3,1,"10",1);
+VALUES(13,3,1,"a",0);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(14,4,1,"10",1);
+VALUES(14,4,1,"a",0);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(15,5,1,"10",1);
+VALUES(15,5,1,"a",0);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(16,6,1,"10",1);
+VALUES(16,6,1,"a",0);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(17,7,1,"10",1);
+VALUES(17,7,1,"a",0);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(18,8,1,"10",1);
+VALUES(18,8,1,"a",0);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(19,9,1,"10",1);
+VALUES(19,9,1,"a",0);
 
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(20,0,2,"10",1);
+VALUES(20,0,2,"A",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(21,1,2,"10",1);
+VALUES(21,1,2,"A",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(22,2,2,"10",1);
+VALUES(22,2,2,"A",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(23,3,2,"10",1);
+VALUES(23,3,2,"A",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(24,4,2,"10",1);
+VALUES(24,4,2,"A",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(25,5,2,"10",1);
+VALUES(25,5,2,"A",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(26,6,2,"10",1);
+VALUES(26,6,2,"A",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(27,7,2,"10",1);
+VALUES(27,7,2,"A",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(28,8,2,"10",1);
+VALUES(28,8,2,"A",1);
 INSERT INTO Asistencia(idAsistencia,fk_idVoluntario,fk_idEvento,codigoAsistencia,asistenciaObligatoria)
-VALUES(29,9,2,"10",1);
+VALUES(29,9,2,"A",1);
