@@ -14,9 +14,10 @@
         mc:Ignorable="d"
         GlowBrush="Black"
         WindowStartupLocation="CenterScreen" 
-             Width="450" Height="500">
+             Width="Auto" Height="500">
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -82,5 +83,63 @@
                 <Button Content="Guardar" Command="{Binding GuardarMaterialMayorCommand}"/>
             </StackPanel>
         </StackPanel>
+
+        <Grid Grid.Column="1" Background="#FFE5E5E5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="1" Grid.Column="0" Content="Lista total de materiales" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <DataGrid ItemsSource="{Binding MaterialesCarro}" SelectedItem="{Binding MaterialCarro}" 
+                              AutoGenerateColumns="False"
+                              Grid.Row="2"
+                              Grid.Column="0"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              CanUserSortColumns="True" 
+                              Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="descripcion" Binding="{Binding Path=descripcion, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                    <DataGridTemplateColumn Width="30">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button Content="+" Height="30" Command="{Binding Path=DataContext.AgregarMaterialEventoCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                        CommandParameter="{Binding}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <TextBox Grid.Column="0" Grid.Row="0" Text="{Binding Filter}" Margin="5"/>
+
+            <Label Grid.Row="1" Grid.Column="1" Content="Lista de materiales ocupados" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <DataGrid ItemsSource="{Binding MaterialesEvento}" SelectedItem="{Binding MaterialEvento}" 
+                              AutoGenerateColumns="False"
+                              Grid.Row="2"
+                              Grid.Column="1"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              CanUserSortColumns="True" 
+                              Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="descripcion" Binding="{Binding Path=descripcion, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                    
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </Controls:MetroWindow>

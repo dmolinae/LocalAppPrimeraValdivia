@@ -132,6 +132,25 @@ namespace PrimeraValdivia.Models
 			utils.ExecuteNonQuery(query);
 		}
 
+        public void SumarKilometraje(int idCarro, float km)
+        {
+            float nuevoKm = km;
+            query = String.Format(
+                "SELECT * FROM Carro WHERE idCarro = {0}",
+                idCarro);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                nuevoKm = nuevoKm + float.Parse(row["kilometraje"].ToString());
+            }
+
+            query = String.Format(
+                "UPDATE Carro SET kilometraje = {0} WHERE idCarro = {1}",
+                nuevoKm,
+                idCarro);
+            utils.ExecuteNonQuery(query);
+        }
+
         public void EditarCarro(Carro Carro, int idCarro)
 		{
 			query = String.Format(
@@ -154,6 +173,10 @@ namespace PrimeraValdivia.Models
 				"DELETE FROM Carro WHERE idCarro = {0}",
 				idCarro);
 			utils.ExecuteNonQuery(query);
+            query = String.Format(
+                "DELETE FROM Material WHERE fk_idCarro = {0}",
+                idCarro);
+            utils.ExecuteNonQuery(query);
 		}
 
         public ObservableCollection<Carro> ObtenerCarros()
@@ -177,16 +200,16 @@ namespace PrimeraValdivia.Models
 			return Carros;
 		}
 
-		public ObservableCollection<Carro> ObtenerCarro(int idCarro)
+		public Carro ObtenerCarro(int idCarro)
 		{
-			ObservableCollection<Carro> Carros = new ObservableCollection<Carro>();
+            Carro Carro = new Carro();
 			query = String.Format(
 				"SELECT * FROM Carro WHERE idCarro = {0}",
 				idCarro);
 			DataTable dt = utils.ExecuteQuery(query);
 			foreach (DataRow row in dt.Rows)
 			{
-				Carro Carro = new Carro(
+				Carro = new Carro(
 					int.Parse(row["idCarro"].ToString()),
 					row["nombre"].ToString(),
 					row["tipo"].ToString(),
@@ -195,9 +218,8 @@ namespace PrimeraValdivia.Models
 					float.Parse(row["horas_motor"].ToString()),
 					float.Parse(row["horas_bomba"].ToString())
 				);
-				Carros.Add(Carro);
 			}
-			return Carros;
+			return Carro;
 		}
 
         public void IniciarId()

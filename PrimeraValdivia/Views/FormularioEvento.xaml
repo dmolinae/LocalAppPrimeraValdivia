@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:PrimeraValdivia.Views"
+        xmlns:helpers="clr-namespace:PrimeraValdivia.Helpers"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:viewModels="clr-namespace:PrimeraValdivia.ViewModels"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -14,7 +15,11 @@
         GlowBrush="Black"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized" Height="769">
-
+    <Window.Resources>
+        <helpers:idNombreCarroConverter x:Key="idNombreCarroConverter"/>
+    </Window.Resources>
+    
+    
     <TabControl SelectedIndex="{Binding tabIndex}">
         <TabItem Header="Datos Comunes">
             <Grid Background="#FFE5E5E5" Margin="10">
@@ -264,15 +269,16 @@
                         - Material mayor
                     -->
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+                    
+                    
                     <Grid Grid.Row="0" Grid.Column="0" Margin="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -283,6 +289,7 @@
                         <ComboBox Grid.Column="1" 
                             ItemsSource="{Binding Carros}"
                             SelectedItem="{Binding Carro}"
+                            SelectedIndex="{Binding iCarro}"
                             DisplayMemberPath="nombre"/>
                         <Button Grid.Column="2" Content="Agregar Material Mayor" Command="{Binding AgregarMaterialMayorCommand}"/>
                     </Grid>
@@ -297,7 +304,7 @@
                               CanUserSortColumns="True" 
                               Margin="10">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="id" Binding="{Binding Path=fk_idCarroMaterial, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Carro" Binding="{Binding Path=fk_idCarroMaterial, Converter={StaticResource idNombreCarroConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Conductor" Binding="{Binding Path=conductor, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
                             <DataGridTextColumn Header="OficialCargo" Binding="{Binding Path=oficialCargo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
                             <DataGridTextColumn Header="6-0" Binding="{Binding Path=horaSalidaCuartel, UpdateSourceTrigger=PropertyChanged}"/>
@@ -314,11 +321,11 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Width="100">
+                            <DataGridTemplateColumn Width="40">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <Button Content="Eliminar" Margin="3" Command="{Binding Path=DataContext.EliminarMaterialMayorCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                            <Button Content="X" Margin="3" Command="{Binding Path=DataContext.EliminarMaterialMayorCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                         CommandParameter="{Binding}"/>
                                         </Grid>
                                     </DataTemplate>
