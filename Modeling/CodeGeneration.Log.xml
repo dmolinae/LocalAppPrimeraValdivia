@@ -6,24 +6,24 @@
   <MessageClass Name="Error" Label="Error" Option="Show errors" />
   <MessageClass Name="Property" Label="Property" Option="Show metadata" />
   <MessageClass Name="Diagnostic" Label="Message" Option="Show diagnostic messages" />
-  <Message Timestamp="2016-12-25T05:57:14" Importance="High" Text="Code generation or text transformation started." />
-  <Message Timestamp="2016-12-25T05:57:14" Importance="Diagnostic" Text="Name = ClassTemplate" />
-  <Message Timestamp="2016-12-25T05:57:14" Importance="Diagnostic" Text="Overwrite = True" />
-  <Message Timestamp="2016-12-25T05:57:14" Importance="Diagnostic" Text="ProjectPath = ..\ModelingLib\ModelingLib.csproj" />
-  <Message Timestamp="2016-12-25T05:57:14" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
-  <Message Timestamp="2016-12-25T05:57:14" Importance="Diagnostic" Text="TargetName = {Name}" />
-  <Message Timestamp="2016-12-25T05:57:14" Importance="Diagnostic" Text="TemplateFilePath = ..\ModelingLib\Templates\CrudClassTemplate.t4" />
-  <Message Timestamp="2016-12-25T05:57:14" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\Users\Daniel Molina\Source\Repos\LocalAppPrimeraValdivia\ModelingLib\Templates\CrudClassTemplate.t4" />
-  <Message Timestamp="2016-12-25T05:57:14" Importance="Medium" Text="Modeling's Text Template Binding: 'ClassTemplate' will apply CrudClassTemplate.t4 to: 'Modeling::MaterialMayor' -  (Class) " />
-  <Message Timestamp="2016-12-25T05:57:15" Importance="Medium" Text="'Modeling::MaterialMayor' -  (Class) : success (file created) - C:\Users\Daniel Molina\Source\Repos\LocalAppPrimeraValdivia\ModelingLib\GeneratedCode\MaterialMayor.cs" />
-  <Message Timestamp="2016-12-25T05:57:15" Importance="Diagnostic" Text="Name = StructTemplate" />
-  <Message Timestamp="2016-12-25T05:57:15" Importance="Diagnostic" Text="Overwrite = True" />
-  <Message Timestamp="2016-12-25T05:57:15" Importance="Diagnostic" Text="ProjectPath = ..\ModelingLib\ModelingLib.csproj" />
-  <Message Timestamp="2016-12-25T05:57:15" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
-  <Message Timestamp="2016-12-25T05:57:15" Importance="Diagnostic" Text="TargetName = {Name}" />
-  <Message Timestamp="2016-12-25T05:57:15" Importance="Diagnostic" Text="TemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4" />
-  <Message Timestamp="2016-12-25T05:57:15" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4" />
-  <Message Timestamp="2016-12-25T05:57:15" Importance="Medium" Text="Modeling's Text Template Binding: 'StructTemplate' will apply StructTemplate.t4 to: 'Modeling::MaterialMayor' -  (Class) " />
-  <Message Timestamp="2016-12-25T05:57:15" Importance="Diagnostic" Text="'Modeling::MaterialMayor' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
-  <Message Timestamp="2016-12-25T05:57:15" Importance="High" Text="Code generation complete. Errors: 0. Warnings: 0." />
+  <Message Timestamp="2016-12-25T21:12:08" Importance="High" Text="Code generation or text transformation started." />
+  <Message Timestamp="2016-12-25T21:12:08" Importance="Diagnostic" Text="Name = ClassTemplate" />
+  <Message Timestamp="2016-12-25T21:12:08" Importance="Diagnostic" Text="Overwrite = True" />
+  <Message Timestamp="2016-12-25T21:12:08" Importance="Diagnostic" Text="ProjectPath = ..\ModelingLib\ModelingLib.csproj" />
+  <Message Timestamp="2016-12-25T21:12:08" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
+  <Message Timestamp="2016-12-25T21:12:08" Importance="Diagnostic" Text="TargetName = {Name}" />
+  <Message Timestamp="2016-12-25T21:12:08" Importance="Diagnostic" Text="TemplateFilePath = ..\ModelingLib\Templates\CrudClassTemplate.t4" />
+  <Message Timestamp="2016-12-25T21:12:08" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\Users\Daniel Molina\Source\Repos\LocalAppPrimeraValdivia\ModelingLib\Templates\CrudClassTemplate.t4" />
+  <Message Timestamp="2016-12-25T21:12:08" Importance="Medium" Text="Modeling's Text Template Binding: 'ClassTemplate' will apply CrudClassTemplate.t4 to: 'Modeling::Material_MaterialMayor' -  (Class) " />
+  <Message Timestamp="2016-12-25T21:12:09" Importance="Medium" Text="'Modeling::Material_MaterialMayor' -  (Class) : success (file created) - C:\Users\Daniel Molina\Source\Repos\LocalAppPrimeraValdivia\ModelingLib\GeneratedCode\Material_MaterialMayor.cs" />
+  <Message Timestamp="2016-12-25T21:12:09" Importance="Diagnostic" Text="Name = StructTemplate" />
+  <Message Timestamp="2016-12-25T21:12:09" Importance="Diagnostic" Text="Overwrite = True" />
+  <Message Timestamp="2016-12-25T21:12:09" Importance="Diagnostic" Text="ProjectPath = ..\ModelingLib\ModelingLib.csproj" />
+  <Message Timestamp="2016-12-25T21:12:09" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
+  <Message Timestamp="2016-12-25T21:12:09" Importance="Diagnostic" Text="TargetName = {Name}" />
+  <Message Timestamp="2016-12-25T21:12:09" Importance="Diagnostic" Text="TemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4" />
+  <Message Timestamp="2016-12-25T21:12:09" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4" />
+  <Message Timestamp="2016-12-25T21:12:09" Importance="Medium" Text="Modeling's Text Template Binding: 'StructTemplate' will apply StructTemplate.t4 to: 'Modeling::Material_MaterialMayor' -  (Class) " />
+  <Message Timestamp="2016-12-25T21:12:09" Importance="Diagnostic" Text="'Modeling::Material_MaterialMayor' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2016-12-25T21:12:09" Importance="High" Text="Code generation complete. Errors: 0. Warnings: 0." />
 </Log>

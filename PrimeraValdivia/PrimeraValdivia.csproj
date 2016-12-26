@@ -145,6 +145,7 @@
     </ApplicationDefinition>
     <Compile Include="Helpers\DBConnection.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Helpers\idNombreCarroConverter.cs" />
     <Compile Include="Helpers\TextBoxInputMaskBehavior.cs" />
     <Compile Include="Models\Apoyo.cs" />
     <Compile Include="Models\Asistencia.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Material.cs" />
     <Compile Include="Models\MaterialMayor.cs" />
+    <Compile Include="Models\Material_MaterialMayor.cs" />
     <Compile Include="Models\Rescate\AfectadoRescate.cs" />
     <Compile Include="Models\Rescate\AseguradoraVehiculo.cs" />
     <Compile Include="Models\Rescate\Vehiculo.cs" />

@@ -281,20 +281,18 @@ CREATE TABLE IF NOT EXISTS "Aseguradora_Vehiculo"(
     FOREIGN KEY("fk_idAseguradoraVehiculo")
     REFERENCES "Vehiculo"("idVehiculo")
 );
-CREATE TABLE IF NOT EXISTS "Material_evento"(
-  "idMaterialEvento" INTEGER PRIMARY KEY NOT NULL,
-  "nombre" VARCHAR(45),
-  "descripcion" VARCHAR(45),
+CREATE TABLE IF NOT EXISTS "Material_MaterialMayor"(
+  "idMaterialEvento" INTEGER PRIMARY KEY AUTOINCREMENT,
   "fk_idMaterial" INTEGER,
-  "fk_idEventoMaterial" INTEGER,
+  "fk_idMaterialMayor" INTEGER,
   CONSTRAINT "idMaterialEvento_UNIQUE"
     UNIQUE("idMaterialEvento"),
   CONSTRAINT "fk_idMaterial"
     FOREIGN KEY("fk_idMaterial")
     REFERENCES "Material"("idMaterial"),
-  CONSTRAINT "fk_idEventoMaterial"
-    FOREIGN KEY("fk_idEventoMaterial")
-    REFERENCES "Evento"("idEvento")
+  CONSTRAINT "fk_idMaterialMayor"
+    FOREIGN KEY("fk_idMaterialMayor")
+    REFERENCES "MaterialMayor"("idCarroEvento")
 );
 CREATE TABLE IF NOT EXISTS "MaterialMayor"(
   "idCarroEvento" INTEGER PRIMARY KEY NOT NULL,

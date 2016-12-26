@@ -210,7 +210,11 @@ namespace PrimeraValdivia.Models
 				"DELETE FROM MaterialMayor WHERE idCarroEvento = {0}",
 				idCarroEvento);
 			utils.ExecuteNonQuery(query);
-		}
+            query = String.Format(
+                "DELETE FROM Material_MaterialMayor WHERE fk_idMaterialMayor = {0}",
+                idCarroEvento);
+            utils.ExecuteNonQuery(query);
+        }
 
         public ObservableCollection<MaterialMayor> ObtenerMaterialMayors()
 		{
@@ -290,7 +294,20 @@ namespace PrimeraValdivia.Models
             }
             return MaterialMayors;
         }
-
+        public bool ExisteMaterialMayor(int idCarro, int idEvento)
+        {
+            bool var = false;
+            query = String.Format(
+                "SELECT * FROM MaterialMayor WHERE fk_idEventoMaterial = {0} and fk_idCarroMaterial = {1}",
+                idEvento,
+                idCarro);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                var = true;
+            }
+            return var;
+        }
         public void IniciarId()
 		{
 			query = "SELECT * FROM MaterialMayor ORDER BY idCarroEvento DESC LIMIT 1";

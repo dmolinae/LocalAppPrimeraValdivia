@@ -56,7 +56,9 @@ namespace PrimeraValdivia.ViewModels
         private bool _aChecked = true;
         private bool _fChecked;
         private bool _lChecked;
+
         private int _tabIndex;
+        private int _iCarro;
 
         private Asistencia AModel = new Asistencia();
         private Voluntario VModel = new Voluntario();
@@ -133,6 +135,15 @@ namespace PrimeraValdivia.ViewModels
 
         public Action CloseAction { get; set; }
 
+        public int iCarro
+        {
+            get { return _iCarro; }
+            set
+            {
+                _iCarro = value;
+                OnPropertyChanged("iCarro");
+            }
+        }
         public int tabIndex
         {
             get { return _tabIndex; }
@@ -535,11 +546,14 @@ namespace PrimeraValdivia.ViewModels
 
         private void AgregarMaterialMayor()
         {
-            var viewmodel = new FormularioMaterialMayorViewModel(MaterialMayorList, Evento.idEvento, Carro.idCarro);
-            var view = new FormularioMaterialMayor();
-            view.DataContext = viewmodel;
-            viewmodel.CloseAction = new Action(view.Close);
-            view.Show();
+            if(!MMModel.ExisteMaterialMayor(Carro.idCarro, Evento.idEvento))
+            {
+                var viewmodel = new FormularioMaterialMayorViewModel(MaterialMayorList, Evento.idEvento, Carro.idCarro);
+                var view = new FormularioMaterialMayor();
+                view.DataContext = viewmodel;
+                viewmodel.CloseAction = new Action(view.Close);
+                view.Show();
+            }
         }
         private void EditarMaterialMayor()
         {
