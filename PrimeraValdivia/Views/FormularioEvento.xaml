@@ -17,451 +17,647 @@
         WindowState="Maximized" Height="769">
     <Window.Resources>
         <helpers:idNombreCarroConverter x:Key="idNombreCarroConverter"/>
+        <helpers:DateTimeToStringConverter x:Key="dateTimeToStringConverter"/>
     </Window.Resources>
-    
-    
-    <TabControl SelectedIndex="{Binding tabIndex}">
-        <TabItem Header="Datos Comunes">
-            <Grid Background="#FFE5E5E5" Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <ScrollViewer>
-                    <StackPanel Grid.Row="0" 
-                                Orientation="Vertical" 
-                                HorizontalAlignment="Center" 
-                                Background="#FF2C2C2C" 
-                                Margin="10">
-                        <StackPanel.Resources>
-                            <Style TargetType="Grid">
-                                <Setter Property="Margin" Value="10"/>
-                            </Style>
-                        </StackPanel.Resources>
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" FrameworkElement.FlowDirection="RightToLeft"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0" SelectedIndex="{Binding tabIndex}">
+            <TabItem Header="Datos Comunes">
+                <Grid Background="#FFE5E5E5" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer>
+                        <StackPanel Grid.Row="0" 
+                                    Orientation="Vertical" 
+                                    HorizontalAlignment="Center" 
+                                    Background="#FF2C2C2C" 
+                                    Margin="10">
+                            <StackPanel.Resources>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Margin" Value="10"/>
+                                </Style>
+                            </StackPanel.Resources>
 
-                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Correlativo Llamado" Width="130"/>
-                                <TextBox Text="{Binding Evento.correlativoLlamado}" Width="30"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Correlativo CBV" Width="130"/>
-                                <TextBox Text="{Binding Evento.correlativoCBV}" Width="30"/>
-                            </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" FrameworkElement.FlowDirection="RightToLeft"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                        </Grid>
+                                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="Correlativo Llamado" Width="130"/>
+                                    <TextBox Text="{Binding Evento.correlativoLlamado}" Width="30"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="Correlativo CBV" Width="130"/>
+                                    <TextBox Text="{Binding Evento.correlativoCBV}" Width="30"/>
+                                </StackPanel>
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+                            </Grid>
 
-                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Fecha:" Width="130"/>
-                                <toolkit:DateTimePicker 
-                                    Format="Custom" 
-                                    FormatString="dd/MM/yyyy HH:mm:ss" 
-                                    Value="{Binding Evento.fecha}"
-                                    Foreground="White"
-                                    Width="200"/>
-                            </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Controls:ToggleSwitch OnLabel="Si" OffLabel="No" IsChecked="{Binding Evento.asistenciaObligatoria}" Width="100" Height="40"/>
-                            </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <Label Content="Fecha y hora:" Width="130"/>
+                                    <TextBox Text="{Binding Evento.fecha, Converter={StaticResource dateTimeToStringConverter}}" Width="120" Height="30">
+                                        <i:Interaction.Behaviors>
+                                            <helpers:TextBoxInputMaskBehavior InputMask="00/00/0000 00:00" PromptChar="-"/>
+                                        </i:Interaction.Behaviors>
+                                    </TextBox>
+                                </StackPanel>
 
-                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Label Content="Asistencia Obligatoria" Width="130"/>
-                            </StackPanel>
-                        </Grid>
+                                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Controls:ToggleSwitch OnLabel="Si" OffLabel="No" IsChecked="{Binding Evento.asistenciaObligatoria}" Width="100" Height="40"/>
+                                </StackPanel>
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="3*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Clave:" Width="130"/>
-                                <TextBox Text="{Binding Evento.claveServicio}" Width="70"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Motivo:" Width="130" HorizontalContentAlignment="Center"/>
-                                <TextBox Text="{Binding Evento.motivo}" Width="330"/>
-                            </StackPanel>
-                        </Grid>
+                                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Asistencia Obligatoria" Width="130"/>
+                                </StackPanel>
+                            </Grid>
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="3*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Codigo:" Width="130"/>
-                                <TextBox Text="{Binding Evento.codigoServicio}" Width="70"/>
-                            </StackPanel>
-                        </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="Clave:" Width="130"/>
+                                    <TextBox Text="{Binding Evento.claveServicio}" Width="70">
+                                        <i:Interaction.Behaviors>
+                                            <helpers:TextBoxInputMaskBehavior InputMask="00-0-0" PromptChar="0"/>
+                                        </i:Interaction.Behaviors>
+                                    </TextBox>
+                                </StackPanel>
+                                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="Motivo:" Width="130" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Evento.motivo}" Width="330"/>
+                                </StackPanel>
+                            </Grid>
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="8*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="Codigo:" Width="130"/>
+                                    <TextBox Text="{Binding Evento.codigoServicio}" Width="70">
+                                        <i:Interaction.Behaviors>
+                                            <helpers:TextBoxInputMaskBehavior InputMask="00" PromptChar="0"/>
+                                        </i:Interaction.Behaviors>
+                                    </TextBox>
+                                </StackPanel>
+                            </Grid>
 
-                            <Label Grid.Row="0" Grid.Column="0" Content="Calle" HorizontalContentAlignment="Center" Margin="130,0,0,0"/>
-                            <Label Grid.Row="0" Grid.Column="1" Content="Numero" HorizontalContentAlignment="Center" Margin="20,0,0,0"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="8*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Direccion" Width="130" Margin="0,0,0,10"/>
-                                <TextBox Text="{Binding Evento.calle}" Width="470" Margin="0,0,0,10"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content=" "/>
-                                <TextBox Text="{Binding Evento.numeroCalle}" Width="50" Margin="0,0,0,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                            </StackPanel>
+                                <Label Grid.Row="0" Grid.Column="0" Content="Calle" HorizontalContentAlignment="Center" Margin="130,0,0,0"/>
+                                <Label Grid.Row="0" Grid.Column="1" Content="Numero" HorizontalContentAlignment="Center" Margin="20,0,0,0"/>
 
-                            <Label Grid.Row="2" Grid.Column="0" Content="Ruta" HorizontalContentAlignment="Center" Margin="130,0,0,0"/>
-                            <Label Grid.Row="2" Grid.Column="1" Content="Km" HorizontalContentAlignment="Center" Margin="20,0,0,0"/>
+                                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="Direccion" Width="130" Margin="0,0,0,10"/>
+                                    <TextBox Text="{Binding Evento.calle}" Width="470" Margin="0,0,0,10"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content=" "/>
+                                    <TextBox Text="{Binding Evento.numeroCalle}" Width="50" Margin="0,0,0,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                </StackPanel>
 
-                            <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Ruta" Width="130" Margin="0,0,0,10"/>
-                                <TextBox Text="{Binding Evento.ruta}" Width="470" Margin="0,0,0,10"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content=" "/>
-                                <TextBox Text="{Binding Evento.kilometroRuta}" Width="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,0,10"/>
-                            </StackPanel>
+                                <Label Grid.Row="2" Grid.Column="0" Content="Ruta" HorizontalContentAlignment="Center" Margin="130,0,0,0"/>
+                                <Label Grid.Row="2" Grid.Column="1" Content="Km" HorizontalContentAlignment="Center" Margin="20,0,0,0"/>
 
-                            <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Calle Proxima" Width="130"/>
-                                <TextBox Text="{Binding Evento.calleProxima}" Width="470"/>
-                            </StackPanel>
+                                <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="Ruta" Width="130" Margin="0,0,0,10"/>
+                                    <TextBox IsEnabled="{Binding RescateEnabled}" Text="{Binding Evento.ruta}" Width="470" Margin="0,0,0,10"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content=" "/>
+                                    <TextBox IsEnabled="{Binding RescateEnabled}" Text="{Binding Evento.kilometroRuta}" Width="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,0,10"/>
+                                </StackPanel>
 
-
-                        </Grid>
-
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Sector" Width="130"/>
-                                <TextBox Text="{Binding Evento.sector}" Width="200"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Poblacion" Width="130" HorizontalContentAlignment="Center"/>
-                                <TextBox Text="{Binding Evento.poblacion}" Width="200"/>
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="8*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <Label Grid.Row="0" Grid.Column="0" Content="Nombre Bombero" HorizontalContentAlignment="Center" Margin="220,0,0,0"/>
-                            <Label Grid.Row="0" Grid.Column="1" Content="Codigo" HorizontalContentAlignment="Center" Margin="15,0,0,0"/>
-
-                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Bombero a cargo de la emergencia" Width="220"/>
-                                <ComboBox ItemsSource="{Binding Voluntarios}" SelectedItem="{Binding VoluntarioCargo}" DisplayMemberPath="nombre" Width="390" Text="{Binding Evento.bomberoCargo}"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Bombero que tomo informe de servicio" Width="220"/>
-                                <ComboBox ItemsSource="{Binding Voluntarios}" SelectedItem="{Binding VoluntarioInforme}" DisplayMemberPath="nombre" Width="390" Text="{Binding Evento.bomberoInforme}"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content=" "/>
-                                <TextBox IsEnabled="False" Text="{Binding VoluntarioCargo.codigoRadial}" Width="50"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content=" "/>
-                                <TextBox IsEnabled="False" Text="{Binding VoluntarioInforme.codigoRadial}" Width="50"/>
-                            </StackPanel>
-                        </Grid>
-                        <!--
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="numeroDepartamento" Width="130"/>
-                                <TextBox Text="{Binding Evento.numeroDepartamento}" Width="200"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="numeroBlock" Width="130"/>
-                                <TextBox Text="{Binding Evento.numeroBlock}" Width="200"/>
-                            </StackPanel>
-                            -->
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="Resumen" Width="130"/>
-                                <TextBox AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Evento.resumen}" Width="540" Height="70"/>
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Content="Siguiente" Command="{Binding AvanzarInformeUnoCommand}"/>
-                            </StackPanel>
-                        </Grid>
-                    </StackPanel>
+                                <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="Calle Proxima" Width="130"/>
+                                    <TextBox Text="{Binding Evento.calleProxima}" Width="470"/>
+                                </StackPanel>
 
 
-                </ScrollViewer>
-            </Grid>
-        </TabItem>
-        <TabItem Header="{Binding tab2header}" IsEnabled="{Binding tab2enabled}">
-            <Grid Background="#FFE5E5E5" Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="Sector" Width="130"/>
+                                    <TextBox Text="{Binding Evento.sector}" Width="200"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="Poblacion" Width="130" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Evento.poblacion}" Width="200"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="8*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" Content="Nombre Bombero" HorizontalContentAlignment="Center" Margin="220,0,0,0"/>
+                                <Label Grid.Row="0" Grid.Column="1" Content="Codigo" HorizontalContentAlignment="Center" Margin="15,0,0,0"/>
+
+                                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="Bombero a cargo de la emergencia" Width="220"/>
+                                    <ComboBox ItemsSource="{Binding Voluntarios}" SelectedItem="{Binding VoluntarioCargo}" DisplayMemberPath="nombre" Width="390" Text="{Binding Evento.bomberoCargo}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="Bombero que tomo informe de servicio" Width="220"/>
+                                    <ComboBox ItemsSource="{Binding Voluntarios}" SelectedItem="{Binding VoluntarioInforme}" DisplayMemberPath="nombre" Width="390" Text="{Binding Evento.bomberoInforme}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content=" "/>
+                                    <TextBox IsEnabled="False" Text="{Binding VoluntarioCargo.codigoRadial}" Width="50"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content=" "/>
+                                    <TextBox IsEnabled="False" Text="{Binding VoluntarioInforme.codigoRadial}" Width="50"/>
+                                </StackPanel>
+                            </Grid>
+                            <!--
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="numeroDepartamento" Width="130"/>
+                                    <TextBox Text="{Binding Evento.numeroDepartamento}" Width="200"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="numeroBlock" Width="130"/>
+                                    <TextBox Text="{Binding Evento.numeroBlock}" Width="200"/>
+                                </StackPanel>
+                                -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="Resumen" Width="130"/>
+                                    <TextBox AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Evento.resumen}" Width="540" Height="70"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Datos" IsEnabled="{Binding tab2enabled}">
+                <Grid Background="#FFE5E5E5" Margin="10">
                     <!--
-                        Formulario sobre atributos de la tabla incendio o rescate
-                        Formulario sobre atributos de las tablas: 
-                        - ERA 
-                        - Motosierra 
-                        - Material evento 
-                        - Material mayor
+                        Incendio: Formulario sobre atributos de las tablas:
+                        - Afectado incendio
+                        - Apoyo
+                        - Datos Incendio
+                        Rescate: Formulario de atributos de las tablas: 
+                        - Afectado Rescate
+                        - Apoyo
                     -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="0">
+                            <!-- Apoyos -->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Button Grid.Row="0" HorizontalAlignment="Right" Content="Agregar apoyo" Command="{Binding AgregarApoyoCommand}" Margin="5"/>
+                            <DataGrid ItemsSource="{Binding Apoyos}" SelectedItem="{Binding Apoyo}" AutoGenerateColumns="False"
+                                    Grid.Row="1"
+                                    CanUserAddRows="False"
+                                    CanUserDeleteRows="False"
+                                    IsReadOnly="True"
+                                    SelectionMode="Single"
+                                    CanUserSortColumns="True" 
+                                    Margin="10">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Tipo" Binding="{Binding Path=tipo}"/>
+                                    <DataGridTemplateColumn Width="70">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Button Content="Editar" Margin="3" Command="{Binding Path=DataContext.EditarApoyoCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding}"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Width="40">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Button Content="X" Margin="3" Command="{Binding Path=DataContext.EliminarApoyoCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding}"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                        <TabControl Grid.Column="1" Visibility="{Binding IncendioVisible}" Background="#383838" Margin="10">
+                            <TabItem Header="Datos Incendio" IsEnabled="False">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <StackPanel.Resources>
+                                            <Style TargetType="StackPanel">
+                                                <Setter Property="Margin" Value="5"/>
+                                            </Style>
+                                        </StackPanel.Resources>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Label Content="ID Incendio" Width="130"/>
+                                            <TextBox IsEnabled="False" Text="{Binding Incendio.idIncendio}" Width="200"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Label Content="Tipo Incendio" Width="130"/>
+                                            <ComboBox IsEditable="True" Text="{Binding Incendio.tipoIncendio}" Width="200"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Label Content="Fase Incendio" Width="130"/>
+                                            <ComboBox IsEditable="True" Text="{Binding Incendio.faseIncendio}" Width="200"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Label Content="Requiere DET" Width="130"/>
+                                            <Controls:ToggleSwitch OnLabel="Si" OffLabel="No" IsChecked="{Binding Incendio.det}" Width="200" Height="40"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Label Content="Bombero DET" Width="130"/>
+                                            <ComboBox IsEditable="True" IsEnabled="{Binding Incendio.det}" ItemsSource="{Binding Voluntarios}" DisplayMemberPath="nombre" Text="{Binding Incendio.bomberoDet}" Width="200"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <StackPanel.Resources>
+                                            <Style TargetType="StackPanel">
+                                                <Setter Property="Margin" Value="5"/>
+                                            </Style>
+                                        </StackPanel.Resources>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Label Content="Origen" Width="130"/>
+                                            <TextBox Text="{Binding Incendio.origen}" Width="200"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Label Content="Causa" Width="130"/>
+                                            <TextBox Text="{Binding Incendio.causa}" Width="200"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Label Content="Fuente de Calor" Width="130"/>
+                                            <TextBox Text="{Binding Incendio.fuenteCalor}" Width="200"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Label Content="Tipo Lugar" Width="130"/>
+                                            <ComboBox IsEditable="True" Text="{Binding Incendio.tipoLugar}" Width="200"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Label Content="Fase Construccion" Width="130"/>
+                                            <ComboBox IsEditable="True" Text="{Binding Incendio.tipoConstruccion}" Width="200"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                    <Grid Grid.Row="1" Visibility="{Binding IncendioVisible}">
+                        <!-- Afectado incendio -->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="0" HorizontalAlignment="Right" Content="Agregar afectado I" Command="{Binding AgregarAfectadoIncendioCommand}" Margin="5"/>
+                        <DataGrid ItemsSource="{Binding AfectadosIncendio}" SelectedItem="{Binding AfectadoIncendio}" AutoGenerateColumns="False"
+                                    Grid.Row="1"
+                                    CanUserAddRows="False"
+                                    CanUserDeleteRows="False"
+                                    IsReadOnly="True"
+                                    SelectionMode="Single"
+                                    CanUserSortColumns="True" 
+                                    Margin="10">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding Path=nombre}"/>
+                                <DataGridTemplateColumn Width="70">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Button Content="Editar" Margin="3" Command="{Binding Path=DataContext.EditarAfectadoIncendioCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Width="40">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Button Content="X" Margin="3" Command="{Binding Path=DataContext.EliminarAfectadoIncendioCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <Grid Grid.Row="1" Visibility="{Binding RescateVisible}">
+                        <!-- Afectado rescate -->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="0" HorizontalAlignment="Right" Content="Agregar afectado R" Command="{Binding AgregarAfectadoRescateCommand}" Margin="5"/>
+                        <DataGrid ItemsSource="{Binding AfectadosRescate}" SelectedItem="{Binding AfectadoRescate}"
+                                    AutoGenerateColumns="False"
+                                    Grid.Row="1"
+                                    CanUserAddRows="False"
+                                    CanUserDeleteRows="False"
+                                    IsReadOnly="True"
+                                    SelectionMode="Single"
+                                    CanUserSortColumns="True" 
+                                    Margin="10">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding Path=nombre}"/>
+                                <DataGridTemplateColumn Width="70">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Button Content="Editar" Margin="3" Command="{Binding Path=DataContext.EditarAfectadoRescateCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Width="40">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Button Content="X" Margin="3" Command="{Binding Path=DataContext.EliminarAfectadoRescateCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Material Mayor" IsEnabled="{Binding tab3enabled}">
+                <Grid Background="#FFE5E5E5" Margin="10">
+                    <!--
+                        Formulario sobre atributos de las tablas: 
+                        - Material Mayor
+                        - Era, Motosierra, Material Hospital
+                        - Gas
+                        - Material Peligroso
+                    -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <!-- Material Mayor y Material Evento -->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Grid.Column="0" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="Seleccione un Carro: " Foreground="Black"/>
+                            <ComboBox Grid.Column="1" 
+                                ItemsSource="{Binding Carros}"
+                                SelectedItem="{Binding Carro}"
+                                SelectedIndex="{Binding iCarro}"
+                                DisplayMemberPath="nombre"/>
+                            <Button Grid.Column="2" Content="Agregar Material Mayor" Command="{Binding AgregarMaterialMayorCommand}"/>
+                        </Grid>
+
+                        <DataGrid ItemsSource="{Binding MaterialMayorList}" SelectedItem="{Binding MaterialMayor}" AutoGenerateColumns="False"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    CanUserAddRows="False"
+                                    CanUserDeleteRows="False"
+                                    IsReadOnly="True"
+                                    SelectionMode="Single"
+                                    CanUserSortColumns="True" 
+                                    Margin="10">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Carro" Binding="{Binding Path=fk_idCarroMaterial, Converter={StaticResource idNombreCarroConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Conductor" Binding="{Binding Path=conductor, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                                <DataGridTextColumn Header="OficialCargo" Binding="{Binding Path=oficialCargo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                                <DataGridTextColumn Header="6-0" Binding="{Binding Path=horaSalidaCuartel, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="6-3" Binding="{Binding Path=horaLlegadaEvento, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="6-9" Binding="{Binding Path=horaSalidaEvento, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="6-10" Binding="{Binding Path=horaLlegadaCuartel, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTemplateColumn Width="70">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Button Content="Editar" Margin="3" Command="{Binding Path=DataContext.EditarMaterialMayorCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Width="40">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Button Content="X" Margin="3" Command="{Binding Path=DataContext.EliminarMaterialMayorCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Asistencia">
+                <Grid Background="#FFE5E5E5" Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="120"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    
-                    
-                    <Grid Grid.Row="0" Grid.Column="0" Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Content="Seleccione un Carro: " Foreground="Black"/>
-                        <ComboBox Grid.Column="1" 
-                            ItemsSource="{Binding Carros}"
-                            SelectedItem="{Binding Carro}"
-                            SelectedIndex="{Binding iCarro}"
-                            DisplayMemberPath="nombre"/>
-                        <Button Grid.Column="2" Content="Agregar Material Mayor" Command="{Binding AgregarMaterialMayorCommand}"/>
+                    <Grid Grid.Column="0" Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Listado de voluntarios sin marcar" FontSize="14" Foreground="#FF272727" HorizontalAlignment="Center"/>
+                        <DataGrid ItemsSource="{Binding VoluntariosSinMarcarView}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
+                                    Grid.Row="1"
+                                    CanUserAddRows="False"
+                                    CanUserDeleteRows="False"
+                                    IsReadOnly="True"
+                                    SelectionMode="Single"
+                                    CanUserSortColumns="True" 
+                                    Margin="10">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="rut" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                                <DataGridTextColumn Header="cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                            </DataGrid.Columns>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDoubleClick">
+                                    <i:InvokeCommandAction Command="{Binding AgregarAsistenciaCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <DataGrid.InputBindings>
+                                <KeyBinding Key="Enter" Command="{Binding AgregarAsistenciaCommand}"/>
+                            </DataGrid.InputBindings>
+                        </DataGrid>
                     </Grid>
-
-                    <DataGrid ItemsSource="{Binding MaterialMayorList}" SelectedItem="{Binding MaterialMayor}" AutoGenerateColumns="False"
-                              Grid.Row="1"
-                              Grid.Column="0"
-                              CanUserAddRows="False"
-                              CanUserDeleteRows="False"
-                              IsReadOnly="True"
-                              SelectionMode="Single"
-                              CanUserSortColumns="True" 
-                              Margin="10">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Carro" Binding="{Binding Path=fk_idCarroMaterial, Converter={StaticResource idNombreCarroConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Conductor" Binding="{Binding Path=conductor, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                            <DataGridTextColumn Header="OficialCargo" Binding="{Binding Path=oficialCargo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                            <DataGridTextColumn Header="6-0" Binding="{Binding Path=horaSalidaCuartel, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="6-3" Binding="{Binding Path=horaLlegadaEvento, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="6-9" Binding="{Binding Path=horaSalidaEvento, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="6-10" Binding="{Binding Path=horaLlegadaCuartel, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTemplateColumn Width="70">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Button Content="Editar" Margin="3" Command="{Binding Path=DataContext.EditarMaterialMayorCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
-                                        CommandParameter="{Binding}"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Width="40">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Button Content="X" Margin="3" Command="{Binding Path=DataContext.EliminarMaterialMayorCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
-                                        CommandParameter="{Binding}"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Detalles" IsEnabled="{Binding tab3enabled}">
-            <Grid Background="#FFE5E5E5" Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF1B1B1B">
-                        Incendio: Formulario sobre atributos de las tablas: 
-                        - Material peligroso 
-                        - Gas 
-                        - Apoyo 
-                        - Afectado incendio 
-                        - Aseguradora vivienda afectado 
-                        Rescate: Formulario de atributos de las tablas: 
-                        - Afectado rescate 
-                        - Vehiculo 
-                        - Aseguradora vehiculo 
-                        - Acompañante
-                    </Label>
-                </Grid>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Asistencia">
-            <Grid Background="#FFE5E5E5" Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="120"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Column="0" Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Listado de voluntarios sin marcar" FontSize="14" Foreground="#FF272727" HorizontalAlignment="Center"/>
-                    <DataGrid ItemsSource="{Binding VoluntariosSinMarcarView}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
-                              Grid.Row="1"
-                              CanUserAddRows="False"
-                              CanUserDeleteRows="False"
-                              IsReadOnly="True"
-                              SelectionMode="Single"
-                              CanUserSortColumns="True" 
-                              Margin="10">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="rut" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                            <DataGridTextColumn Header="cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        </DataGrid.Columns>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseDoubleClick">
-                                <i:InvokeCommandAction Command="{Binding AgregarAsistenciaCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <DataGrid.InputBindings>
-                            <KeyBinding Key="Enter" Command="{Binding AgregarAsistenciaCommand}"/>
-                        </DataGrid.InputBindings>
-                    </DataGrid>
-                </Grid>
-                <Grid Grid.Column="1" Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Listado de voluntarios marcados" FontSize="14" Foreground="#FF272727" HorizontalAlignment="Center"/>
-                    <DataGrid ItemsSource="{Binding AsistentesTabla}" SelectedItem="{Binding Asistente}" AutoGenerateColumns="False"
-                              Grid.Row="1"
-                              CanUserAddRows="False"
-                              CanUserDeleteRows="False"
-                              IsReadOnly="True"
-                              SelectionMode="Single"
-                              CanUserSortColumns="True" 
-                              Margin="10">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Rut" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                            <DataGridTextColumn Header="Cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Asistencia" Binding="{Binding Path=codigo_asistencia, UpdateSourceTrigger=PropertyChanged}"/>
-                        </DataGrid.Columns>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseDoubleClick">
-                                <i:InvokeCommandAction Command="{Binding EditarAsistenciaCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </DataGrid>
-                </Grid>
-                <Grid Grid.Column="0" Grid.Row="0" Margin="8">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="28"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Label FontSize="12" Foreground="#FF272727" Content="Cuadro de busqueda"/>
-                    <TextBox Grid.Row="1" VerticalAlignment="Top" Text="{Binding nameFilter, UpdateSourceTrigger=PropertyChanged}"/>
-                </Grid>
-                <Grid Grid.Column="1" Grid.Row="0" Margin="8">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="40"/>
-                    </Grid.RowDefinitions>
-                    <Label Content="Marcar voluntario seleccionado como:" Foreground="Black"/>
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="2" Content="Agregar Restantes" Command="{Binding MarcarRestantesCommand}" Margin="0,10,0,0"/>
-                        <Button Grid.Column="0" Content="Agregar" Command="{Binding AgregarAsistenciaCommand}" Margin="0,10,0,0"/>
+                    <Grid Grid.Column="1" Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Listado de voluntarios marcados" FontSize="14" Foreground="#FF272727" HorizontalAlignment="Center"/>
+                        <DataGrid ItemsSource="{Binding AsistentesTabla}" SelectedItem="{Binding Asistente}" AutoGenerateColumns="False"
+                                    Grid.Row="1"
+                                    CanUserAddRows="False"
+                                    CanUserDeleteRows="False"
+                                    IsReadOnly="True"
+                                    SelectionMode="Single"
+                                    CanUserSortColumns="True" 
+                                    Margin="10">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Rut" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                                <DataGridTextColumn Header="Cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Asistencia" Binding="{Binding Path=codigo_asistencia, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataGrid.Columns>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDoubleClick">
+                                    <i:InvokeCommandAction Command="{Binding EditarAsistenciaCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </DataGrid>
                     </Grid>
-                    <Grid Grid.Row="1" Margin="100,0" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <RadioButton Grid.Column="0" Content="Asistente" Foreground="#FF252525" IsChecked="{Binding aChecked}"/>
-                        <RadioButton Grid.Column="1" Content="Faltante" Foreground="#FF252525" IsChecked="{Binding fChecked}"/>
-                        <RadioButton Grid.Column="2" Content="Con licencia" Foreground="#FF252525" IsChecked="{Binding lChecked}"/>
+                    <Grid Grid.Column="0" Grid.Row="0" Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="28"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label FontSize="12" Foreground="#FF272727" Content="Cuadro de busqueda"/>
+                        <TextBox Grid.Row="1" VerticalAlignment="Top" Text="{Binding nameFilter, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Grid.Row="0" Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Marcar voluntario seleccionado como:" Foreground="Black"/>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="2" Content="Agregar Restantes" Command="{Binding MarcarRestantesCommand}" Margin="0,10,0,0"/>
+                            <Button Grid.Column="0" Content="Agregar" Command="{Binding AgregarAsistenciaCommand}" Margin="0,10,0,0"/>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="100,0" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton Grid.Column="0" Content="Asistente" Foreground="#FF252525" IsChecked="{Binding aChecked}"/>
+                            <RadioButton Grid.Column="1" Content="Faltante" Foreground="#FF252525" IsChecked="{Binding fChecked}"/>
+                            <RadioButton Grid.Column="2" Content="Con licencia" Foreground="#FF252525" IsChecked="{Binding lChecked}"/>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </TabItem>
-
-    </TabControl>
+            </TabItem>
+        </TabControl>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,100,20">
+            <Button Content="Atras" Command="{Binding ButtonAtrasCommand}"/>
+            <Button Content="{Binding SiguienteButtonContent}" Command="{Binding ButtonSiguienteCommand}"/>
+        </StackPanel>
+    </Grid>
 </Controls:MetroWindow>
 

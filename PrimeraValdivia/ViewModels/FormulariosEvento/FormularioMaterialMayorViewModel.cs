@@ -10,6 +10,7 @@ using PrimeraValdivia.Commands;
 using PrimeraValdivia.Views;
 using System.Diagnostics;
 using System.Windows;
+using MyToolkit.Collections;
 
 namespace PrimeraValdivia.ViewModels
 {
@@ -21,6 +22,7 @@ namespace PrimeraValdivia.ViewModels
         private MaterialMayor _MaterialMayor;
 
         private ObservableCollection<Material> _MaterialesCarro;
+        private ObservableCollectionView<Material> _MaterialesCarroView;
         private Material _MaterialCarro;
 
         private ObservableCollection<MaterialEventoClass> _MaterialesEvento;
@@ -28,7 +30,9 @@ namespace PrimeraValdivia.ViewModels
 
         private ICommand _GuardarMaterialMayorCommand;
         private ICommand _AgregarMaterialEventoCommand;
+        private ICommand _EliminarMaterialEventoCommand;
 
+        private string _Filter;
         private string modo;
         private int idMaterialMayorActual;
         private float kms;
@@ -85,6 +89,17 @@ namespace PrimeraValdivia.ViewModels
 
         #region Atributos Publicos
 
+        public string Filter
+        {
+            get { return _Filter; }
+            set
+            {
+                _Filter = value;
+                OnPropertyChanged("Filter");
+                MaterialesCarroView.Filter = p => p.nombre.IndexOf(_Filter, StringComparison.OrdinalIgnoreCase) >= 0;
+            }
+        }
+
         public Action CloseAction { get; set; }
 
         public MaterialMayor MaterialMayor
@@ -127,6 +142,16 @@ namespace PrimeraValdivia.ViewModels
             {
                 _MaterialesCarro = value;
                 OnPropertyChanged("MaterialesCarro");
+            }
+        }
+
+        public ObservableCollectionView<Material> MaterialesCarroView
+        {
+            get { return _MaterialesCarroView; }
+            set
+            {
+                _MaterialesCarroView = value;
+                OnPropertyChanged("MaterialesCarroView");
             }
         }
 
@@ -176,6 +201,19 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public ICommand EliminarMaterialEventoCommand
+        {
+            get
+            {
+                _EliminarMaterialEventoCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EliminarMaterialEvento()
+                };
+                return _EliminarMaterialEventoCommand;
+            }
+        }
+
         #endregion
 
         #region Metodos
@@ -190,6 +228,7 @@ namespace PrimeraValdivia.ViewModels
             MaterialMayor.fk_idEventoMaterial = idEvento;
 
             MaterialesCarro = MModel.ObtenerMaterials(idCarro);
+            MaterialesCarroView = new ObservableCollectionView<Material>(MaterialesCarro);
             MaterialesEvento = new ObservableCollection<MaterialEventoClass>();
         }
         public FormularioMaterialMayorViewModel(ObservableCollection<MaterialMayor> MaterialMayorList, MaterialMayor MaterialMayor)
@@ -201,6 +240,7 @@ namespace PrimeraValdivia.ViewModels
             this.MaterialMayor = MaterialMayor;
 
             MaterialesCarro = MModel.ObtenerMaterialsSinOcupar(MaterialMayor.idCarroEvento,MaterialMayor.fk_idCarroMaterial);
+            MaterialesCarroView = new ObservableCollectionView<Material>(MaterialesCarro);
 
             var MaterialesMatMayor = MMMModel.ObtenerMateriales(MaterialMayor.idCarroEvento);
             MaterialesEvento = new ObservableCollection<MaterialEventoClass>();
@@ -239,6 +279,7 @@ namespace PrimeraValdivia.ViewModels
             Material_MaterialMayor materialCarro = new Material_MaterialMayor();
             materialCarro.fk_idMaterialMayor = MaterialMayor.idCarroEvento;
             materialCarro.fk_idMaterial = MaterialCarro.idMaterial;
+            materialCarro.IniciarId();
 
             MMMModel.AgregarMaterial_MaterialMayor(materialCarro);
 
@@ -249,6 +290,25 @@ namespace PrimeraValdivia.ViewModels
             MaterialesEvento.Insert(0, MaterialEvento_tabla);
 
             MaterialesCarro.Remove(MaterialCarro);
+        }
+
+        private void EliminarMaterialEvento()
+        {
+            Material_MaterialMayor materialCarro = new Material_MaterialMayor();
+            materialCarro.fk_idMaterialMayor = MaterialMayor.idCarroEvento;
+            materialCarro.fk_idMaterial = MaterialEvento.id;
+
+            MMMModel.EliminarMaterial_MaterialMayor(materialCarro);
+
+            Material MaterialCarro_tabla = new Material();
+            MaterialCarro_tabla.fk_idCarro = MaterialMayor.fk_idCarroMaterial;
+            MaterialCarro_tabla.idMaterial = MaterialEvento.id;
+            MaterialCarro_tabla.nombre = MModel.ObtenerNombreMaterial(MaterialEvento.id);
+
+            MaterialesCarro.Insert(0, MaterialCarro_tabla);
+
+            MaterialesEvento.Remove(MaterialEvento);
+
         }
 
         #endregion

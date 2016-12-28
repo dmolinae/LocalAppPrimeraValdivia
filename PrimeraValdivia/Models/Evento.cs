@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,7 +64,7 @@ namespace PrimeraValdivia.Models
 			}
 		}
 
-		private DateTime _fecha;
+        private DateTime _fecha = DateTime.Now;
 		public DateTime fecha
 		{
 			get { return _fecha; }
