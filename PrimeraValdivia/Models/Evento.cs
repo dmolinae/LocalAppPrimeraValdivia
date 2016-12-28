@@ -444,6 +444,44 @@ namespace PrimeraValdivia.Models
 			return Eventos;
 		}
 
+        public ObservableCollection<Evento> ObtenerEventoPorFecha(string fecha,string fecha2)
+        {
+            ObservableCollection<Evento> Eventos = new ObservableCollection<Evento>();
+            query = String.Format(
+                "SELECT * FROM Evento WHERE date(substr(fecha,7,4)||substr(fecha,4,2)||substr(fecha,1,2)) between DATE('{0}') and DATE('{1}')",
+                fecha,fecha2);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                Evento Evento = new Evento(
+                    int.Parse(row["idEvento"].ToString()),
+                    int.Parse(row["correlativoLlamado"].ToString()),
+                    int.Parse(row["correlativoCBV"].ToString()),
+                    row["claveServicio"].ToString(),
+                    DateTime.Parse(row["fecha"].ToString()),
+                    row["motivo"].ToString(),
+                    row["calle"].ToString(),
+                    int.Parse(row["numeroCalle"].ToString()),
+                    row["calleProxima"].ToString(),
+                    row["sector"].ToString(),
+                    row["poblacion"].ToString(),
+                    row["ruta"].ToString(),
+                    int.Parse(row["kilometroRuta"].ToString()),
+                    row["bomberoCargo"].ToString(),
+                    row["bomberoInforme"].ToString(),
+                    row["codigoCargo"].ToString(),
+                    row["codigoInforme"].ToString(),
+                    row["numeroDepartamento"].ToString(),
+                    row["numeroBlock"].ToString(),
+                    row["resumen"].ToString(),
+                    row["codigoServicio"].ToString(),
+                    bool.Parse(row["asistenciaObligatoria"].ToString())
+                );
+                Eventos.Add(Evento);
+            }
+            return Eventos;
+        }
+
         public void IniciarId()
 		{
 			query = "SELECT * FROM Evento ORDER BY idEvento DESC LIMIT 1";
