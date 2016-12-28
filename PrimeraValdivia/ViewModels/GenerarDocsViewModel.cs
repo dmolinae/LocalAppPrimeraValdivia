@@ -153,7 +153,6 @@ namespace PrimeraValdivia.ViewModels
             saveFileDialog1.ShowDialog();
 
             if (saveFileDialog1.FileName != "") {
-                //System.IO.FileStream fs = (System.IO.FileStream)saveFileDialog1.OpenFile();
                 Document doc = new Document(PageSize.A4.Rotate());
                 PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(saveFileDialog1.FileName, FileMode.Create));
 

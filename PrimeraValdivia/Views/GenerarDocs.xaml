@@ -17,11 +17,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Height="60" Margin="5" HorizontalAlignment="Left" Grid.Row="0">
-            <Label Content="Fecha de Asistencia"  Width="130" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-            <Label Content="{Binding Path=fecha}"   Width="130" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+            <Label Content="Fecha de Asistencias a eventos"  Width="180" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
             <DatePicker SelectedDate="{Binding Path=fecha}" Width="200" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Button Content="Generar Asistencia" Command="{Binding GenerarAsistenciaCommand}" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
-            <Button Content="Mostrar Fecha" Command="{Binding MostrarFechaCommand}" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
         </StackPanel>
     </Grid>
 </UserControl>
