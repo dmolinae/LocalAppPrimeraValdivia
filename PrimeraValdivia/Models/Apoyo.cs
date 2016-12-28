@@ -176,6 +176,14 @@ namespace PrimeraValdivia.Models
 			utils.ExecuteNonQuery(query);
 		}
 
+		public void EliminarApoyo(int idApoyo)
+		{
+			query = String.Format(
+				"DELETE FROM Apoyo WHERE idApoyo = {0}",
+				idApoyo);
+			utils.ExecuteNonQuery(query);
+		}
+
         public ObservableCollection<Apoyo> ObtenerApoyos()
 		{
 			ObservableCollection<Apoyo> Apoyos = new ObservableCollection<Apoyo>();
@@ -199,15 +207,40 @@ namespace PrimeraValdivia.Models
 			return Apoyos;
 		}
 
+		public ObservableCollection<Apoyo> ObtenerApoyo(int idApoyo)
+		{
+			ObservableCollection<Apoyo> Apoyos = new ObservableCollection<Apoyo>();
+			query = String.Format(
+				"SELECT * FROM Apoyo WHERE idApoyo = {0}",
+				idApoyo);
+			DataTable dt = utils.ExecuteQuery(query);
+			foreach (DataRow row in dt.Rows)
+			{
+				Apoyo Apoyo = new Apoyo(
+					int.Parse(row["idApoyo"].ToString()),
+					row["tipo"].ToString(),
+					row["procedencia"].ToString(),
+					row["personaCargo"].ToString(),
+					row["rango"].ToString(),
+					row["patente"].ToString(),
+					row["compania"].ToString(),
+					row["municipalidad"].ToString(),
+					int.Parse(row["fk_idEventoApoyo"].ToString())
+				);
+				Apoyos.Add(Apoyo);
+			}
+			return Apoyos;
+		}
+
         public void IniciarId()
-        {
-            query = "SELECT * FROM Apoyo ORDER BY idApoyo DESC LIMIT 1";
-            DataTable dt = utils.ExecuteQuery(query);
-            foreach (DataRow row in dt.Rows)
-            {
-                this.idApoyo = int.Parse(row[0].ToString()) + 1;
-            }
-        }
+		{
+			query = "SELECT * FROM Apoyo ORDER BY idApoyo DESC LIMIT 1";
+			DataTable dt = utils.ExecuteQuery(query);
+			foreach (DataRow row in dt.Rows)
+			{
+				this.idApoyo = int.Parse(row[0].ToString()) + 1;
+			}
+		}
         #endregion
     }
 }

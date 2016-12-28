@@ -26,7 +26,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TabControl Grid.Row="0" SelectedIndex="{Binding tabIndex}">
-            <TabItem Header="Datos Comunes">
+            <TabItem Header="Datos Comunes" IsEnabled="False">
                 <Grid Background="#FFE5E5E5" Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -550,7 +550,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Asistencia">
+            <TabItem Header="Asistencia" IsEnabled="False">
                 <Grid Background="#FFE5E5E5" Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

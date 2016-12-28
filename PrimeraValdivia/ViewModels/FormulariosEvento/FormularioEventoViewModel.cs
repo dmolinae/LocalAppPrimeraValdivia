@@ -54,6 +54,7 @@ namespace PrimeraValdivia.ViewModels
         private ICommand _EliminarMaterialMayorCommand;
 
         private string _nameFilter;
+        private string modo;
         private string _SiguienteButtonContent = "Siguiente";
 
         private string _incendioVisible;
@@ -576,6 +577,8 @@ namespace PrimeraValdivia.ViewModels
 
         public FormularioEventoViewModel(ObservableCollection<Evento> Eventos)
         {
+            modo = "agregar";
+
             this.Eventos = Eventos;
             Evento = new Evento();
             Evento.IniciarId();
@@ -589,6 +592,8 @@ namespace PrimeraValdivia.ViewModels
         }
         public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, Evento Evento)
         {
+            modo = "editar";
+
             this.Evento = Evento;
             this.Eventos = Eventos;
 
@@ -610,8 +615,6 @@ namespace PrimeraValdivia.ViewModels
             MaterialMayorList = MMModel.ObtenerMaterialMayorEvento(Evento.idEvento);
             VoluntariosSinMarcar = VModel.ObtenerVoluntariosSinMarcarAsistencia(Evento.idEvento);
             VoluntariosSinMarcarView = new ObservableCollectionView<Voluntario>(VoluntariosSinMarcar);
-            tab2enabled = true;
-            tab3enabled = true;
             Asistentes = AModel.ObtenerAsistentesEvento(Evento.idEvento);
             AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
             foreach (Asistencia asistente in Asistentes)
@@ -795,8 +798,16 @@ namespace PrimeraValdivia.ViewModels
                     SiguienteButtonContent = "Guardar";
                     break;
                 case 3:
-                    GuardarEvento();
-                    if (Evento.codigoServicio == "02") GuardarIncendio();
+                    if(modo == "agregar")
+                    {
+                        GuardarEvento();
+                        if (Evento.codigoServicio == "02") GuardarIncendio();
+                    }
+                    else
+                    {
+                        EModel.EditarEvento(Evento, Evento.idEvento);
+                        if (Evento.codigoServicio == "02") IModel.EditarIncendio(Incendio, Incendio.idIncendio);
+                    }
                     CloseAction();
                     break;
             }
