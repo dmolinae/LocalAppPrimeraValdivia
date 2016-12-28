@@ -72,7 +72,8 @@ namespace PrimeraValdivia.Models
         public void AgregarMaterial_MaterialMayor(Material_MaterialMayor Material_MaterialMayor)
 		{
 			query = String.Format(
-				"INSERT INTO Material_MaterialMayor(fk_idMaterial,fk_idMaterialMayor) VALUES({0},{1})",
+                "INSERT INTO Material_MaterialMayor(idMaterialEvento,fk_idMaterial,fk_idMaterialMayor) VALUES({0},{1},{2})",
+                Material_MaterialMayor.idMaterialEvento,
 				Material_MaterialMayor.fk_idMaterial,
 				Material_MaterialMayor.fk_idMaterialMayor
 				);
@@ -98,6 +99,14 @@ namespace PrimeraValdivia.Models
 				idMaterialEvento);
 			utils.ExecuteNonQuery(query);
 		}
+        public void EliminarMaterial_MaterialMayor(Material_MaterialMayor material)
+        {
+            query = String.Format(
+                "DELETE FROM Material_MaterialMayor WHERE fk_idMaterial = {0} and fk_idMaterialMayor = {1}",
+                material.fk_idMaterial,
+                material.fk_idMaterialMayor);
+            utils.ExecuteNonQuery(query);
+        }
 
         public ObservableCollection<Material_MaterialMayor> ObtenerMateriales(int idMaterialMayor)
 		{

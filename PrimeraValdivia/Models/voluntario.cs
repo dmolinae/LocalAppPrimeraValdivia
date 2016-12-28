@@ -41,8 +41,8 @@ namespace PrimeraValdivia.Models
 			}
 		}
 
-		private DateTime _fechaNacimiento;
-		public DateTime fechaNacimiento
+		private DateTime _fechaNacimiento = DateTime.Now;
+        public DateTime fechaNacimiento
 		{
 			get { return _fechaNacimiento; }
 			set

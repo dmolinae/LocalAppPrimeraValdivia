@@ -30,8 +30,8 @@ namespace PrimeraValdivia.Models
 			}
 		}
 
-		private DateTime _fechaIngreso;
-		public DateTime fechaIngreso
+		private DateTime _fechaIngreso = DateTime.Now;
+        public DateTime fechaIngreso
 		{
 			get { return _fechaIngreso; }
 			set
@@ -41,8 +41,8 @@ namespace PrimeraValdivia.Models
 			}
 		}
 
-		private DateTime _fechaSalida;
-		public DateTime fechaSalida
+		private DateTime _fechaSalida = DateTime.Now;
+        public DateTime fechaSalida
 		{
 			get { return _fechaSalida; }
 			set

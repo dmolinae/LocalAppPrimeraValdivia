@@ -24,6 +24,7 @@ namespace PrimeraValdivia.ViewModels
         private Voluntario _VoluntarioCargo;
         private Voluntario _VoluntarioInforme;
         private Evento _Evento;
+        private Incendio _Incendio;
 
         private ObservableCollection<Voluntario> _Voluntarios;
         private ObservableCollection<Voluntario> _VoluntariosSinMarcar;
@@ -39,7 +40,10 @@ namespace PrimeraValdivia.ViewModels
         private ObservableCollection<Evento> _Eventos;
         private ObservableCollection<VoluntarioAsistente> _AsistentesTabla;
         private ICommand _GuardarEventoCommand;
-        private ICommand _AvanzarInformeUnoCommand;
+
+        private ICommand _ButtonSiguienteCommand;
+        private ICommand _ButtonAtrasCommand;
+
         private ICommand _AgregarAsistenciaCommand;
         private ICommand _EditarAsistenciaCommand;
         private ICommand _MarcarRestantesCommand;
@@ -49,13 +53,23 @@ namespace PrimeraValdivia.ViewModels
         private ICommand _EditarMaterialMayorCommand;
         private ICommand _EliminarMaterialMayorCommand;
 
-        private string _tab2header = "Datos";
-        private string _nameFilter; 
+        private string _nameFilter;
+        private string modo;
+        private string _SiguienteButtonContent = "Siguiente";
+
+        private string _incendioVisible;
+        private string _rescateVisible;
+
+        private bool _incendioEnabled;
+        private bool _rescateEnabled;
+
         private bool _tab2enabled = false;
         private bool _tab3enabled = false;
         private bool _aChecked = true;
         private bool _fChecked;
         private bool _lChecked;
+
+        private bool buttonAtrasEnabled = false;
 
         private int _tabIndex;
         private int _iCarro;
@@ -65,6 +79,7 @@ namespace PrimeraValdivia.ViewModels
         private Evento EModel = new Evento();
         private Carro CModel = new Carro();
         private MaterialMayor MMModel = new MaterialMayor();
+        private Incendio IModel = new Incendio();
         
         public class VoluntarioAsistente : ViewModelBase
         {
@@ -135,6 +150,34 @@ namespace PrimeraValdivia.ViewModels
 
         public Action CloseAction { get; set; }
 
+        public string IncendioVisible
+        {
+            get { return _incendioVisible; }
+            set
+            {
+                _incendioVisible = value;
+                OnPropertyChanged("IncendioVisible");
+            }
+        }
+        public string RescateVisible
+        {
+            get { return _rescateVisible; }
+            set
+            {
+                _rescateVisible = value;
+                OnPropertyChanged("RescateVisible");
+            }
+        }
+
+        public string SiguienteButtonContent
+        {
+            get { return _SiguienteButtonContent; }
+            set
+            {
+                _SiguienteButtonContent = value;
+                OnPropertyChanged("SiguienteButtonContent");
+            }
+        }
         public int iCarro
         {
             get { return _iCarro; }
@@ -161,20 +204,28 @@ namespace PrimeraValdivia.ViewModels
             {
                 _nameFilter = value;
                 OnPropertyChanged("nameFilter");
-                VoluntariosSinMarcarView.Filter = p => p.nombre.Contains(_nameFilter);
+                VoluntariosSinMarcarView.Filter = p => p.nombre.IndexOf(_nameFilter, StringComparison.OrdinalIgnoreCase) >= 0;
             }
         }
 
-        public string tab2header
+        public bool IncendioEnabled
         {
-            get { return _tab2header; }
+            get { return _incendioEnabled; }
             set
             {
-                _tab2header = value;
-                OnPropertyChanged("tab2header");
+                _incendioEnabled = value;
+                OnPropertyChanged("IncendioEnabled");
             }
         }
-
+        public bool RescateEnabled
+        {
+            get { return _rescateEnabled; }
+            set
+            {
+                _rescateEnabled = value;
+                OnPropertyChanged("RescateEnabled");
+            }
+        }
 
         public bool tab2enabled
         {
@@ -241,7 +292,15 @@ namespace PrimeraValdivia.ViewModels
                 OnPropertyChanged("Carro");
             }
         }
-
+        public Incendio Incendio
+        {
+            get { return _Incendio; }
+            set
+            {
+                _Incendio = value;
+                OnPropertyChanged("Incendio");
+            }
+        }
         public ObservableCollection<Evento> Eventos
         {
             get
@@ -398,16 +457,28 @@ namespace PrimeraValdivia.ViewModels
                 return _GuardarEventoCommand;
             }
         }
-        public ICommand AvanzarInformeUnoCommand
+        public ICommand ButtonSiguienteCommand
         {
             get
             {
-                _AvanzarInformeUnoCommand = new RelayCommand()
+                _ButtonSiguienteCommand = new RelayCommand()
                 {
                     CanExecuteDelegate = c => ValidarCampos(),
-                    ExecuteDelegate = c => AvanzarInformeUno()
+                    ExecuteDelegate = c => ActionButtonSiguiente()
                 };
-                return _AvanzarInformeUnoCommand;
+                return _ButtonSiguienteCommand;
+            }
+        }
+        public ICommand ButtonAtrasCommand
+        {
+            get
+            {
+                _ButtonAtrasCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => buttonAtrasEnabled,
+                    ExecuteDelegate = c => ActionButtonAtras()
+                };
+                return _ButtonAtrasCommand;
             }
         }
         public ICommand AgregarAsistenciaCommand
@@ -506,9 +577,12 @@ namespace PrimeraValdivia.ViewModels
 
         public FormularioEventoViewModel(ObservableCollection<Evento> Eventos)
         {
+            modo = "agregar";
+
             this.Eventos = Eventos;
             Evento = new Evento();
             Evento.IniciarId();
+
             VoluntariosSinMarcar = VModel.ObtenerVoluntarios();
             Voluntarios = VModel.ObtenerVoluntarios();
             VoluntariosSinMarcarView = new ObservableCollectionView<Voluntario>(VoluntariosSinMarcar);
@@ -518,17 +592,29 @@ namespace PrimeraValdivia.ViewModels
         }
         public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, Evento Evento)
         {
+            modo = "editar";
+
             this.Evento = Evento;
             this.Eventos = Eventos;
+
+            if (Evento.codigoServicio == "02")
+            {
+                IncendioVisible = "Visible";
+                RescateVisible = "Hidden";
+
+                Incendio = IModel.ObtenerIncendioEvento(Evento.idEvento);
+            }
+            else if (Evento.codigoServicio == "03")
+            {
+                IncendioVisible = "Hidden";
+                RescateVisible = "Visible";
+            }
 
             Carros = CModel.ObtenerCarros();
             Voluntarios = VModel.ObtenerVoluntarios();
             MaterialMayorList = MMModel.ObtenerMaterialMayorEvento(Evento.idEvento);
             VoluntariosSinMarcar = VModel.ObtenerVoluntariosSinMarcarAsistencia(Evento.idEvento);
             VoluntariosSinMarcarView = new ObservableCollectionView<Voluntario>(VoluntariosSinMarcar);
-            tab2enabled = true;
-            tab3enabled = true;
-            DeterminarClaveServicio();
             Asistentes = AModel.ObtenerAsistentesEvento(Evento.idEvento);
             AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
             foreach (Asistencia asistente in Asistentes)
@@ -637,40 +723,114 @@ namespace PrimeraValdivia.ViewModels
 
         private bool ValidarCampos()
         {
-            if (Evento.claveServicio == null || Evento.claveServicio.Length == 0) return false;
-            else return true;
+            if (Evento.claveServicio == null || Evento.claveServicio.Length == 0)
+            {
+                if (Evento.codigoServicio == "02")
+                {
+                    IncendioVisible = "Visible";
+                    IncendioEnabled = true;
+                    RescateVisible = "Hidden";
+                    RescateEnabled = false;
+                }
+                else if (Evento.codigoServicio == "03")
+                {
+                    IncendioVisible = "Hidden";
+                    IncendioEnabled = false;
+                    RescateVisible = "Visible";
+                    RescateEnabled = true;
+                }
+                return false;
+            }
+            else
+            {
+                if (Evento.codigoServicio == "02")
+                {
+                    IncendioVisible = "Visible";
+                    IncendioEnabled = true;
+                    RescateVisible = "Hidden";
+                    RescateEnabled = false;
+                }
+                else if (Evento.codigoServicio == "03")
+                {
+                    IncendioVisible = "Hidden";
+                    IncendioEnabled = false;
+                    RescateVisible = "Visible";
+                    RescateEnabled = true;
+                }
+                return true;
+            }
         }
 
         
         private void GuardarEvento()
         {
             Eventos.Add(Evento);
-            CloseAction();
-        }
-        private void DeterminarClaveServicio()
-        {
-            if (Evento.codigoServicio.Equals("02"))
-            {
-                tab2header = "Datos Incendio";
-                tab2enabled = true;
-            }
-            else if (Evento.codigoServicio.Equals("03"))
-            {
-                tab2header = "Datos Rescate";
-                tab2enabled = true;
-            }
-        }
-        private void AvanzarInformeUno()
-        {
-            tabIndex = 1;
-            if (!Eventos.Contains(Evento))
-            {
-                DeterminarClaveServicio();
-                Eventos.Add(Evento);
-                EModel.AgregarEvento(Evento);
-            }
+            EModel.AgregarEvento(Evento);
         }
 
+        private void GuardarIncendio()
+        {
+            IModel.AgregarIncendio(Incendio);
+        }
+
+        private void ActionButtonSiguiente()
+        {
+            switch (tabIndex)
+            {
+                case 0:
+                    if (Evento.codigoServicio == "02")
+                    {
+                        Incendio = new Incendio();
+                        Incendio.fk_idEventoInc = Evento.idEvento;
+                        Incendio.IniciarId();
+                    }
+                    else if (Evento.codigoServicio == "03")
+                    {
+                        
+                    }
+                    buttonAtrasEnabled = true;
+                    tab2enabled = true;   
+                    break;
+                case 1:
+                    tab3enabled = true;
+                    break;
+                case 2:
+                    SiguienteButtonContent = "Guardar";
+                    break;
+                case 3:
+                    if(modo == "agregar")
+                    {
+                        GuardarEvento();
+                        if (Evento.codigoServicio == "02") GuardarIncendio();
+                    }
+                    else
+                    {
+                        EModel.EditarEvento(Evento, Evento.idEvento);
+                        if (Evento.codigoServicio == "02") IModel.EditarIncendio(Incendio, Incendio.idIncendio);
+                    }
+                    CloseAction();
+                    break;
+            }
+            if (tabIndex < 3) tabIndex++;
+        }
+
+        private void ActionButtonAtras()
+        {
+            switch (tabIndex)
+            {
+                case 0:
+                    break;
+                case 1:
+                    buttonAtrasEnabled = false;
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    SiguienteButtonContent = "Siguiente";
+                    break;
+            }
+            if (tabIndex > 0) tabIndex--;
+        }
         #endregion
 
     }

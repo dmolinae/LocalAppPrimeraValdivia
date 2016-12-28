@@ -5,11 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:views="clr-namespace:PrimeraValdivia.Views"
              xmlns:viewModels="clr-namespace:PrimeraValdivia.ViewModels"
+             xmlns:helpers="clr-namespace:PrimeraValdivia.Helpers"
              mc:Ignorable="d">
     
     <UserControl.DataContext>
         <viewModels:VoluntarioViewModel/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <helpers:DateTimeToDateStringConverter x:Key="dateTimeToDateStringConverter"/>
+    </UserControl.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -25,20 +29,20 @@
         </StackPanel>
         <DataGrid CanUserAddRows="False" ItemsSource="{Binding Voluntarios}" SelectedItem="{Binding Voluntario}" AutoGenerateColumns="False"
                   CanUserDeleteRows="True" CanUserReorderColumns="True" Grid.Row="1"
-                  CanUserSortColumns="True" Margin="10">
+                  CanUserSortColumns="True" Margin="10" HorizontalContentAlignment="Center">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="rut" Width="*" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="fechaNacimiento" Binding="{Binding Path=fechaNacimiento, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="ciudadNacimiento" Binding="{Binding Path=ciudadNacimiento, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="grupoSanguineo" Binding="{Binding Path=grupoSanguineo, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="profesion" Binding="{Binding Path=profesion, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="servicioMilitar" Binding="{Binding Path=servicioMilitar, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="insignia" Binding="{Binding Path=insignia, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="nRegistroInterno" Binding="{Binding Path=nRegistroInterno, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="nRegistroExterno" Binding="{Binding Path=nRegistroExterno, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="N°" Binding="{Binding Path=nRegistroInterno, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="N°Reg" Binding="{Binding Path=nRegistroExterno, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Rut" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Nombre" Width="*" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Fecha Nac." Binding="{Binding Path=fechaNacimiento, Converter={StaticResource dateTimeToDateStringConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Nacido en" Binding="{Binding Path=ciudadNacimiento, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="G.Sanguineo" Binding="{Binding Path=grupoSanguineo, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Profesion" Binding="{Binding Path=profesion, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Serv.Militar" Binding="{Binding Path=servicioMilitar, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Insignia N°" Binding="{Binding Path=insignia, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Cargo" Binding="{Binding Path=cargo, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTemplateColumn Width="70">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
