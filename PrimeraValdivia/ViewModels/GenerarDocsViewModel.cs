@@ -150,6 +150,7 @@ namespace PrimeraValdivia.ViewModels
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "Archivo PDF|*.pdf";
             saveFileDialog1.Title = "Guardar un archivo PDF";
+            saveFileDialog1.FileName = "Asistencia " + mes + " " + y;
             saveFileDialog1.ShowDialog();
 
             if (saveFileDialog1.FileName != "") {

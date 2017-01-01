@@ -101,7 +101,10 @@
                                 </Grid.RowDefinitions>
                                 <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Label Content="Clave:" Width="130"/>
-                                    <TextBox Text="{Binding Evento.claveServicio}" Width="70">
+                                    <TextBox MouseDoubleClick="SelectAddress"
+                                             GotKeyboardFocus="SelectAddress"
+                                             PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"
+                                             Text="{Binding Evento.claveServicio}" Width="70">
                                         <i:Interaction.Behaviors>
                                             <helpers:TextBoxInputMaskBehavior InputMask="00-0-0" PromptChar="0"/>
                                         </i:Interaction.Behaviors>
@@ -123,7 +126,10 @@
                                 </Grid.RowDefinitions>
                                 <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Label Content="Codigo:" Width="130"/>
-                                    <TextBox Text="{Binding Evento.codigoServicio}" Width="70">
+                                    <TextBox MouseDoubleClick="SelectAddress"
+                                             GotKeyboardFocus="SelectAddress"
+                                             PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"
+                                             Text="{Binding Evento.codigoServicio}" Width="70">
                                         <i:Interaction.Behaviors>
                                             <helpers:TextBoxInputMaskBehavior InputMask="00" PromptChar="0"/>
                                         </i:Interaction.Behaviors>
@@ -154,7 +160,10 @@
                                 </StackPanel>
                                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Label Content=" "/>
-                                    <TextBox Text="{Binding Evento.numeroCalle}" Width="50" Margin="0,0,0,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                    <TextBox MouseDoubleClick="SelectAddress"
+                                             GotKeyboardFocus="SelectAddress"
+                                             PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" 
+                                        Text="{Binding Evento.numeroCalle}" Width="50" Margin="0,0,0,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                                 </StackPanel>
 
                                 <Label Grid.Row="2" Grid.Column="0" Content="Ruta" HorizontalContentAlignment="Center" Margin="130,0,0,0"/>
@@ -166,7 +175,10 @@
                                 </StackPanel>
                                 <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Label Content=" "/>
-                                    <TextBox IsEnabled="{Binding RescateEnabled}" Text="{Binding Evento.kilometroRuta}" Width="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,0,10"/>
+                                    <TextBox MouseDoubleClick="SelectAddress"
+                                             GotKeyboardFocus="SelectAddress"
+                                             PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" 
+                                             IsEnabled="{Binding RescateEnabled}" Text="{Binding Evento.kilometroRuta}" Width="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,0,10"/>
                                 </StackPanel>
 
                                 <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
