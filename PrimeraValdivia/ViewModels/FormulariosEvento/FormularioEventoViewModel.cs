@@ -39,6 +39,12 @@ namespace PrimeraValdivia.ViewModels
         private ObservableCollection<Asistencia> _Asistentes;
         private ObservableCollection<Evento> _Eventos;
         private ObservableCollection<VoluntarioAsistente> _AsistentesTabla;
+
+        private ObservableCollection<Item> _TiposIncendio;
+        private ObservableCollection<Item> _FasesIncendio;
+        private ObservableCollection<Item> _TiposLugar;
+        private ObservableCollection<Item> _TiposConstruccion;
+
         private ICommand _GuardarEventoCommand;
 
         private ICommand _ButtonSiguienteCommand;
@@ -80,6 +86,7 @@ namespace PrimeraValdivia.ViewModels
         private Carro CModel = new Carro();
         private MaterialMayor MMModel = new MaterialMayor();
         private Incendio IModel = new Incendio();
+        private Item ItModel = new Item();
         
         public class VoluntarioAsistente : ViewModelBase
         {
@@ -331,6 +338,43 @@ namespace PrimeraValdivia.ViewModels
             {
                 _Carros = value;
                 OnPropertyChanged("Carros");
+            }
+        }
+
+        public ObservableCollection<Item> TiposIncendio
+        {
+            get { return _TiposIncendio; }
+            set
+            {
+                _TiposIncendio = value;
+                OnPropertyChanged("TiposIncendio");
+            }
+        }
+        public ObservableCollection<Item> FasesIncendio
+        {
+            get { return _FasesIncendio; }
+            set
+            {
+                _FasesIncendio = value;
+                OnPropertyChanged("FasesIncendio");
+            }
+        }
+        public ObservableCollection<Item> TiposLugar
+        {
+            get { return _TiposLugar; }
+            set
+            {
+                _TiposLugar = value;
+                OnPropertyChanged("TiposLugar");
+            }
+        }
+        public ObservableCollection<Item> TiposConstruccion
+        {
+            get { return _TiposConstruccion; }
+            set
+            {
+                _TiposConstruccion = value;
+                OnPropertyChanged("TiposConstruccion");
             }
         }
 
@@ -589,6 +633,11 @@ namespace PrimeraValdivia.ViewModels
             AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
             Carros = CModel.ObtenerCarros();
             MaterialMayorList = new ObservableCollection<MaterialMayor>();
+
+            TiposIncendio = ItModel.ObtenerItemsCategoria(2);
+            FasesIncendio = ItModel.ObtenerItemsCategoria(3);
+            TiposLugar = ItModel.ObtenerItemsCategoria(4);
+            TiposConstruccion = ItModel.ObtenerItemsCategoria(5);
         }
         public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, Evento Evento)
         {
@@ -600,14 +649,18 @@ namespace PrimeraValdivia.ViewModels
             if (Evento.codigoServicio == "02")
             {
                 IncendioVisible = "Visible";
+                IncendioEnabled = true;
                 RescateVisible = "Hidden";
+                RescateEnabled = false;
 
                 Incendio = IModel.ObtenerIncendioEvento(Evento.idEvento);
             }
             else if (Evento.codigoServicio == "03")
             {
                 IncendioVisible = "Hidden";
+                IncendioEnabled = false;
                 RescateVisible = "Visible";
+                RescateEnabled = true;
             }
 
             Carros = CModel.ObtenerCarros();
@@ -628,6 +681,11 @@ namespace PrimeraValdivia.ViewModels
 
                 AsistentesTabla.Insert(0, asistente_tabla);
             }
+
+            TiposIncendio = ItModel.ObtenerItemsCategoria(2);
+            FasesIncendio = ItModel.ObtenerItemsCategoria(3);
+            TiposLugar = ItModel.ObtenerItemsCategoria(4);
+            TiposConstruccion = ItModel.ObtenerItemsCategoria(5);
         }
 
         private void AgregarMaterialMayor()
@@ -723,42 +781,23 @@ namespace PrimeraValdivia.ViewModels
 
         private bool ValidarCampos()
         {
-            if (Evento.claveServicio == null || Evento.claveServicio.Length == 0)
+            if (Evento.codigoServicio == "02")
             {
-                if (Evento.codigoServicio == "02")
-                {
-                    IncendioVisible = "Visible";
-                    IncendioEnabled = true;
-                    RescateVisible = "Hidden";
-                    RescateEnabled = false;
-                }
-                else if (Evento.codigoServicio == "03")
-                {
-                    IncendioVisible = "Hidden";
-                    IncendioEnabled = false;
-                    RescateVisible = "Visible";
-                    RescateEnabled = true;
-                }
-                return false;
+                IncendioVisible = "Visible";
+                IncendioEnabled = true;
+                RescateVisible = "Hidden";
+                RescateEnabled = false;
             }
-            else
+            else if (Evento.codigoServicio == "03")
             {
-                if (Evento.codigoServicio == "02")
-                {
-                    IncendioVisible = "Visible";
-                    IncendioEnabled = true;
-                    RescateVisible = "Hidden";
-                    RescateEnabled = false;
-                }
-                else if (Evento.codigoServicio == "03")
-                {
-                    IncendioVisible = "Hidden";
-                    IncendioEnabled = false;
-                    RescateVisible = "Visible";
-                    RescateEnabled = true;
-                }
-                return true;
+                IncendioVisible = "Hidden";
+                IncendioEnabled = false;
+                RescateVisible = "Visible";
+                RescateEnabled = true;
             }
+
+            if (Evento.claveServicio == null || Evento.claveServicio.Length == 0) return false;
+            else return true;
         }
 
         
@@ -780,9 +819,12 @@ namespace PrimeraValdivia.ViewModels
                 case 0:
                     if (Evento.codigoServicio == "02")
                     {
-                        Incendio = new Incendio();
-                        Incendio.fk_idEventoInc = Evento.idEvento;
-                        Incendio.IniciarId();
+                        if (modo == "agregar")
+                        {
+                            Incendio = new Incendio();
+                            Incendio.fk_idEventoInc = Evento.idEvento;
+                            Incendio.IniciarId();
+                        }
                     }
                     else if (Evento.codigoServicio == "03")
                     {

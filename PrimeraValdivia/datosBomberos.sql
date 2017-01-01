@@ -1,57 +1,90 @@
 INSERT INTO Voluntario(idVoluntario,nombre,fechaNacimiento,ciudadNacimiento,grupoSanguineo,profesion,servicioMilitar,insignia,cargo,nRegistroInterno,nRegistroExterno,codigoRadial,rut)
-VALUES(0,"Sergio Perez","16-07-1968 0:00:00","iquique","rh+","profesor",1,10,"voluntario",1,100,"02","12767237k");
+VALUES(0,"Sergio Perez","16-07-1968 0:00:00","iquique","rh+","profesor",1,10,"Voluntario",1,100,"02","12767237k");
 INSERT INTO Voluntario(idVoluntario,nombre,fechaNacimiento,ciudadNacimiento,grupoSanguineo,profesion,servicioMilitar,insignia,cargo,nRegistroInterno,nRegistroExterno,codigoRadial,rut)
-VALUES(1,"Gonzalo Lavin","02-11-1940 0:00:00","Puerto Montt","rh-","jubilado",1,10,"voluntario",2,101,"02","4212925k");
+VALUES(1,"Gonzalo Lavin","02-11-1940 0:00:00","Puerto Montt","rh-","jubilado",1,10,"Voluntario",2,101,"02","4212925k");
 INSERT INTO Voluntario(idVoluntario,nombre,fechaNacimiento,ciudadNacimiento,grupoSanguineo,profesion,servicioMilitar,insignia,cargo,nRegistroInterno,nRegistroExterno,codigoRadial,rut)
-VALUES(2,"Manuel Lavin","12-05-1993 0:00:00","Puerto Montt","rh+","Estudiante",1,10,"voluntario",3,102,"02","184721910");
+VALUES(2,"Manuel Lavin","12-05-1993 0:00:00","Puerto Montt","rh+","Estudiante",1,10,"Voluntario",3,102,"02","184721910");
 INSERT INTO Voluntario(idVoluntario,nombre,fechaNacimiento,ciudadNacimiento,grupoSanguineo,profesion,servicioMilitar,insignia,cargo,nRegistroInterno,nRegistroExterno,codigoRadial,rut)
-VALUES(3,"Felipe Lavin","08-04-1997 0:00:00","Puerto Montt","rh+","Estudiante",1,10,"voluntario",4,103,"02","19673824k");
+VALUES(3,"Felipe Lavin","08-04-1997 0:00:00","Puerto Montt","rh+","Estudiante",1,10,"Voluntario",4,103,"02","19673824k");
 INSERT INTO Voluntario(idVoluntario,nombre,fechaNacimiento,ciudadNacimiento,grupoSanguineo,profesion,servicioMilitar,insignia,cargo,nRegistroInterno,nRegistroExterno,codigoRadial,rut)
-VALUES(4,"Camila Lavin","16-12-1999 0:00:00","Villarrica","rh+","Estudiante",1,10,"voluntario",5,104,"02","190124769");
+VALUES(4,"Camila Lavin","16-12-1999 0:00:00","Villarrica","rh+","Estudiante",1,10,"Voluntario",5,104,"02","190124769");
 INSERT INTO Voluntario(idVoluntario,nombre,fechaNacimiento,ciudadNacimiento,grupoSanguineo,profesion,servicioMilitar,insignia,cargo,nRegistroInterno,nRegistroExterno,codigoRadial,rut)
-VALUES(5,"Juan Contreras","23-08-1991 0:00:00","La Union","rh+","Estudiante",1,10,"voluntario",6,105,"02","174371298");
+VALUES(5,"Juan Contreras","23-08-1991 0:00:00","La Union","rh+","Estudiante",1,10,"Voluntario",6,105,"02","174371298");
 INSERT INTO Voluntario(idVoluntario,nombre,fechaNacimiento,ciudadNacimiento,grupoSanguineo,profesion,servicioMilitar,insignia,cargo,nRegistroInterno,nRegistroExterno,codigoRadial,rut)
-VALUES(6,"Maricela Diaz","04-09-1994 0:00:00","Puerto Natales","rh+","Estudiante",1,10,"tesorera",7,106,"02","188123457");
+VALUES(6,"Maricela Diaz","04-09-1994 0:00:00","Puerto Natales","rh+","Estudiante",1,10,"Tesorera",7,106,"02","188123457");
 INSERT INTO Voluntario(idVoluntario,nombre,fechaNacimiento,ciudadNacimiento,grupoSanguineo,profesion,servicioMilitar,insignia,cargo,nRegistroInterno,nRegistroExterno,codigoRadial,rut)
-VALUES(7,"Daniel Molina","17-11-1993 0:00:00","Osorno","rh+","Estudiante",1,10,"voluntario",8,107,"02","185780708");
+VALUES(7,"Daniel Molina","17-11-1993 0:00:00","Osorno","rh+","Estudiante",1,10,"Voluntario",8,107,"02","185780708");
 INSERT INTO Voluntario(idVoluntario,nombre,fechaNacimiento,ciudadNacimiento,grupoSanguineo,profesion,servicioMilitar,insignia,cargo,nRegistroInterno,nRegistroExterno,codigoRadial,rut)
-VALUES(8,"Felipe Prambs","22-02-1993 0:00:00","Osorno","rh+","Estudiante",1,10,"voluntario",9,108,"02","184274760");
+VALUES(8,"Felipe Prambs","22-02-1993 0:00:00","Osorno","rh+","Estudiante",1,10,"Voluntario",9,108,"02","184274760");
 INSERT INTO Voluntario(idVoluntario,nombre,fechaNacimiento,ciudadNacimiento,grupoSanguineo,profesion,servicioMilitar,insignia,cargo,nRegistroInterno,nRegistroExterno,codigoRadial,rut)
-VALUES(9,"Marcelo Torres","09-08-1993 0:00:00","Valdivia","rh+","Estudiante",1,10,"voluntario",10,109,"02","185895866");
+VALUES(9,"Marcelo Torres","09-08-1993 0:00:00","Valdivia","rh+","Estudiante",1,10,"Voluntario",10,109,"02","185895866");
 
 INSERT INTO "Categoria" VALUES(0,"Cargos","Todos los cargos disponibles");
-INSERT INTO "Item" VALUES(0,"Director Honorario",0,"");
-INSERT INTO "Item" VALUES(1,"Director",0,"");
-INSERT INTO "Item" VALUES(2,"Secretario",0,"");
-INSERT INTO "Item" VALUES(3,"Tesorero",0,"");
-INSERT INTO "Item" VALUES(4,"Medico",0,"");
-INSERT INTO "Item" VALUES(5,"Abogado",0,"");
-INSERT INTO "Item" VALUES(6,"Capitan",0,"");
-INSERT INTO "Item" VALUES(7,"Teniente 1°",0,"");
-INSERT INTO "Item" VALUES(8,"Teniente 2°",0,"");
-INSERT INTO "Item" VALUES(9,"Teniente 3°",0,"");
-INSERT INTO "Item" VALUES(10,"Teniente 4°",0,"");
-INSERT INTO "Item" VALUES(11,"Odontologo",0,"");
-INSERT INTO "Item" VALUES(12,"Intendente",0,"");
-INSERT INTO "Item" VALUES(13,"Ingeniero Compañia",0,"");
-INSERT INTO "Item" VALUES(14,"Teniente de Maquinas",0,"");
-INSERT INTO "Item" VALUES(15,"Ayudante 1°",0,"");
-INSERT INTO "Item" VALUES(16,"Ayudante 2°",0,"");
-INSERT INTO "Item" VALUES(17,"Voluntario",0,"");
-INSERT INTO "Item" VALUES(18,"Aspirante",0,"");
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Director Honorario",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Director",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Secretario",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Tesorero",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Medico",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Abogado",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Capitan",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Teniente 1°",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Teniente 2°",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Teniente 3°",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Teniente 4°",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Odontologo",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Intendente",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Ingeniero Compañia",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Teniente de Maquinas",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Ayudante 1°",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Ayudante 2°",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Voluntario",0);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Aspirante",0);
 
 INSERT INTO "Categoria" VALUES(1,"Años Calificacion","Todos las calificaciones disponibles");
-INSERT INTO "Item" VALUES(19,"5 Años",1,"");
-INSERT INTO "Item" VALUES(20,"10 Años",1,"");
-INSERT INTO "Item" VALUES(21,"15 Años",1,"");
-INSERT INTO "Item" VALUES(22,"20 Años",1,"");
-INSERT INTO "Item" VALUES(23,"25 Años",1,"");
-INSERT INTO "Item" VALUES(24,"30 Años",1,"");
-INSERT INTO "Item" VALUES(25,"35 Años",1,"");
-INSERT INTO "Item" VALUES(26,"40 Años",1,"");
-INSERT INTO "Item" VALUES(27,"45 Años",1,"");
-INSERT INTO "Item" VALUES(28,"50 Años",1,"");
-INSERT INTO "Item" VALUES(29,"55 Años",1,"");
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("5 Años",1);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("10 Años",1);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("15 Años",1);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("20 Años",1);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("25 Años",1);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("30 Años",1);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("35 Años",1);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("40 Años",1);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("45 Años",1);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("50 Años",1);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("55 Años",1);
+
+INSERT INTO "Categoria" VALUES(2,"Tipo Incendio","Datos del incendio");
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Compartimentalizado",2);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Estructural",2);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Multicompartimental",2);
+
+INSERT INTO "Categoria" VALUES(3,"Fase Incendio","Datos del incendio");
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Ignición",3);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Incremento de temperatura",3);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Libre combustión",3);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Decaimiento de combustión",3);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Latente de combustión",3);
+
+INSERT INTO "Categoria" VALUES(4,"Tipo Lugar","Datos del lugar");
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Vivienda",4);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Negocio",4);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Industria",4);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Colegio",4);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Vehículo",4);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Sitio eriazo",4);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Via pública",4);
+
+INSERT INTO "Categoria" VALUES(5,"Tipo Construccion","Datos del lugar");
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Adobe",5);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Bloques de cemento",5);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Estructura metálica",5);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Hormigon armado",5);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Ladrillo",5);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Madera",5);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Mixta ladrillo y adobe",5);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Mixta ladrillo y estructura metálica",5);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Mixta ladrillo y madera",5);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Mixta madera y estructura metálica",5);
 
 INSERT INTO Carro(idCarro,nombre,tipo,descripcion,kilometraje,horas_motor,horas_bomba)
 VALUES(0,"B1","Incendio","Carro para Incendio",0,0,0);

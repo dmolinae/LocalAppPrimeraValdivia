@@ -140,6 +140,17 @@ namespace PrimeraValdivia.Models
 			}
 		}
 
+		private int _numeroPisos;
+		public int numeroPisos
+		{
+			get { return _numeroPisos; }
+			set
+			{
+				_numeroPisos = value;
+				OnPropertyChanged("numeroPisos");
+			}
+		}
+
 
         #endregion
 
@@ -150,7 +161,7 @@ namespace PrimeraValdivia.Models
 
         }
 
-        public Incendio(int idIncendio, String tipoIncendio, String faseIncendio, bool det, String bomberoDet, String origen, String causa, String fuenteCalor, String tipoLugar, String tipoConstruccion, int fk_idEventoInc)
+        public Incendio(int idIncendio, String tipoIncendio, String faseIncendio, bool det, String bomberoDet, String origen, String causa, String fuenteCalor, String tipoLugar, String tipoConstruccion, int fk_idEventoInc, int numeroPisos)
 		{
 			this.idIncendio = idIncendio;
 			this.tipoIncendio = tipoIncendio;
@@ -163,31 +174,13 @@ namespace PrimeraValdivia.Models
 			this.tipoLugar = tipoLugar;
 			this.tipoConstruccion = tipoConstruccion;
 			this.fk_idEventoInc = fk_idEventoInc;
+			this.numeroPisos = numeroPisos;
 		}
 
         public void AgregarIncendio(Incendio Incendio)
 		{
 			query = String.Format(
-				"INSERT INTO Incendio(idIncendio,tipoIncendio,faseIncendio,det,bomberoDet,origen,causa,fuenteCalor,tipoLugar,tipoConstruccion,fk_idEventoInc) VALUES({0},'{1}','{2}',{3},'{4}','{5}','{6}','{7}','{8}','{9}',{10})",
-				Incendio.idIncendio,
-				Incendio.tipoIncendio,
-				Incendio.faseIncendio,
-				(Incendio.det)? 1 : 0,
-				Incendio.bomberoDet,
-				Incendio.origen,
-				Incendio.causa,
-				Incendio.fuenteCalor,
-				Incendio.tipoLugar,
-				Incendio.tipoConstruccion,
-				Incendio.fk_idEventoInc
-				);
-			utils.ExecuteNonQuery(query);
-		}
-
-        public void EditarIncendio(Incendio Incendio, int idIncendio)
-		{
-			query = String.Format(
-				"UPDATE Incendio SET idIncendio = {0}, tipoIncendio = '{1}', faseIncendio = '{2}', det = {3}, bomberoDet = '{4}', origen = '{5}', causa = '{6}', fuenteCalor = '{7}', tipoLugar = '{8}', tipoConstruccion = '{9}', fk_idEventoInc = {10} WHERE idIncendio = {11}",
+				"INSERT INTO Incendio(idIncendio,tipoIncendio,faseIncendio,det,bomberoDet,origen,causa,fuenteCalor,tipoLugar,tipoConstruccion,fk_idEventoInc,numeroPisos) VALUES({0},'{1}','{2}',{3},'{4}','{5}','{6}','{7}','{8}','{9}',{10},{11})",
 				Incendio.idIncendio,
 				Incendio.tipoIncendio,
 				Incendio.faseIncendio,
@@ -199,6 +192,27 @@ namespace PrimeraValdivia.Models
 				Incendio.tipoLugar,
 				Incendio.tipoConstruccion,
 				Incendio.fk_idEventoInc,
+				Incendio.numeroPisos
+				);
+			utils.ExecuteNonQuery(query);
+		}
+
+        public void EditarIncendio(Incendio Incendio, int idIncendio)
+		{
+			query = String.Format(
+				"UPDATE Incendio SET idIncendio = {0}, tipoIncendio = '{1}', faseIncendio = '{2}', det = {3}, bomberoDet = '{4}', origen = '{5}', causa = '{6}', fuenteCalor = '{7}', tipoLugar = '{8}', tipoConstruccion = '{9}', fk_idEventoInc = {10}, numeroPisos = {11} WHERE idIncendio = {12}",
+				Incendio.idIncendio,
+				Incendio.tipoIncendio,
+				Incendio.faseIncendio,
+				(Incendio.det)? 1 : 0,
+				Incendio.bomberoDet,
+				Incendio.origen,
+				Incendio.causa,
+				Incendio.fuenteCalor,
+				Incendio.tipoLugar,
+				Incendio.tipoConstruccion,
+				Incendio.fk_idEventoInc,
+				Incendio.numeroPisos,
 				idIncendio
 				);
 			utils.ExecuteNonQuery(query);
@@ -230,7 +244,8 @@ namespace PrimeraValdivia.Models
 					row["fuenteCalor"].ToString(),
 					row["tipoLugar"].ToString(),
 					row["tipoConstruccion"].ToString(),
-					int.Parse(row["fk_idEventoInc"].ToString())
+					int.Parse(row["fk_idEventoInc"].ToString()),
+					int.Parse(row["numeroPisos"].ToString())
 				);
 				Incendios.Add(Incendio);
 			}
@@ -257,7 +272,8 @@ namespace PrimeraValdivia.Models
 					row["fuenteCalor"].ToString(),
 					row["tipoLugar"].ToString(),
 					row["tipoConstruccion"].ToString(),
-					int.Parse(row["fk_idEventoInc"].ToString())
+					int.Parse(row["fk_idEventoInc"].ToString()),
+					int.Parse(row["numeroPisos"].ToString())
 				);
 				Incendios.Add(Incendio);
 			}
@@ -284,7 +300,8 @@ namespace PrimeraValdivia.Models
                     row["fuenteCalor"].ToString(),
                     row["tipoLugar"].ToString(),
                     row["tipoConstruccion"].ToString(),
-                    int.Parse(row["fk_idEventoInc"].ToString())
+                    int.Parse(row["fk_idEventoInc"].ToString()),
+                    int.Parse(row["numeroPisos"].ToString())
                 );
             }
             return Incendio;

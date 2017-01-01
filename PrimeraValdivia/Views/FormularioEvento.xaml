@@ -347,11 +347,11 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="Tipo Incendio" Width="130"/>
-                                            <ComboBox IsEditable="True" Text="{Binding Incendio.tipoIncendio}" Width="200"/>
+                                            <ComboBox IsEditable="True" ItemsSource="{Binding TiposIncendio}" DisplayMemberPath="nombre" Text="{Binding Incendio.tipoIncendio}" Width="200"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="Fase Incendio" Width="130"/>
-                                            <ComboBox IsEditable="True" Text="{Binding Incendio.faseIncendio}" Width="200"/>
+                                            <ComboBox IsEditable="True" ItemsSource="{Binding FasesIncendio}" DisplayMemberPath="nombre" Text="{Binding Incendio.faseIncendio}" Width="200"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="Requiere DET" Width="130"/>
@@ -383,11 +383,15 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="Tipo Lugar" Width="130"/>
-                                            <ComboBox IsEditable="True" Text="{Binding Incendio.tipoLugar}" Width="200"/>
+                                            <ComboBox IsEditable="True" ItemsSource="{Binding TiposLugar}" DisplayMemberPath="nombre" Text="{Binding Incendio.tipoLugar}" Width="200"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Label Content="Fase Construccion" Width="130"/>
-                                            <ComboBox IsEditable="True" Text="{Binding Incendio.tipoConstruccion}" Width="200"/>
+                                            <Label Content="Tipo Construccion" Width="130"/>
+                                            <ComboBox IsEditable="True" ItemsSource="{Binding TiposConstruccion}" DisplayMemberPath="nombre" Text="{Binding Incendio.tipoConstruccion}" Width="200"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Label Content="Número de pisos" Width="130"/>
+                                            <TextBox Text="{Binding Incendio.numeroPisos}" Width="200"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </Grid>
@@ -403,7 +407,7 @@
                             <RowDefinition Height="50"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Button Grid.Row="0" HorizontalAlignment="Right" Content="Agregar afectado I" Command="{Binding AgregarAfectadoIncendioCommand}" Margin="5"/>
+                        <Button Grid.Row="0" HorizontalAlignment="Right" Content="Agregar afectado" Command="{Binding AgregarAfectadoIncendioCommand}" Margin="5"/>
                         <DataGrid ItemsSource="{Binding AfectadosIncendio}" SelectedItem="{Binding AfectadoIncendio}" AutoGenerateColumns="False"
                                     Grid.Row="1"
                                     CanUserAddRows="False"
@@ -446,7 +450,7 @@
                             <RowDefinition Height="50"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Button Grid.Row="0" HorizontalAlignment="Right" Content="Agregar afectado R" Command="{Binding AgregarAfectadoRescateCommand}" Margin="5"/>
+                        <Button Grid.Row="0" HorizontalAlignment="Right" Content="Agregar afectado" Command="{Binding AgregarAfectadoRescateCommand}" Margin="5"/>
                         <DataGrid ItemsSource="{Binding AfectadosRescate}" SelectedItem="{Binding AfectadoRescate}"
                                     AutoGenerateColumns="False"
                                     Grid.Row="1"

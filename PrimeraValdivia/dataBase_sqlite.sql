@@ -85,6 +85,7 @@ CREATE TABLE IF NOT EXISTS "Incendio"(
   "fuenteCalor" VARCHAR(45),
   "tipoLugar" VARCHAR(45),
   "tipoConstruccion" VARCHAR(45),
+  "numeroPisos" INTEGER,
   "fk_idEventoInc" INTEGER,
   CONSTRAINT "idIncendio_UNIQUE"
     UNIQUE("idIncendio"),
@@ -169,7 +170,7 @@ CREATE TABLE IF NOT EXISTS "Era"(
     REFERENCES "Evento"("idEvento")
 );
 CREATE TABLE IF NOT EXISTS "Item"(
-  "idItem" INTEGER PRIMARY KEY NOT NULL,
+  "idItem" INTEGER PRIMARY KEY AUTOINCREMENT,
   "nombre" VARCHAR(45),
   "fk_idCategoria" INTEGER,
   "descripcion" VARCHAR(45),
@@ -354,38 +355,3 @@ CREATE TABLE IF NOT EXISTS "Aseguradora_Vivienda_Afectado"(
     FOREIGN KEY("fk_idAfectado")
     REFERENCES "Afectado_Incendio"("idAfectado")
 );
-/*
-INSERT INTO "Categoria" VALUES(0,"Cargos","Todos los cargos disponibles");
-INSERT INTO "Item" VALUES(0,"Director Honorario",0,"");
-INSERT INTO "Item" VALUES(1,"Director",0,"");
-INSERT INTO "Item" VALUES(2,"Secretario",0,"");
-INSERT INTO "Item" VALUES(3,"Tesorero",0,"");
-INSERT INTO "Item" VALUES(4,"Medico",0,"");
-INSERT INTO "Item" VALUES(5,"Abogado",0,"");
-INSERT INTO "Item" VALUES(6,"Capitan",0,"");
-INSERT INTO "Item" VALUES(7,"Teniente 1°",0,"");
-INSERT INTO "Item" VALUES(8,"Teniente 2°",0,"");
-INSERT INTO "Item" VALUES(9,"Teniente 3°",0,"");
-INSERT INTO "Item" VALUES(10,"Teniente 4°",0,"");
-INSERT INTO "Item" VALUES(11,"Odontologo",0,"");
-INSERT INTO "Item" VALUES(12,"Intendente",0,"");
-INSERT INTO "Item" VALUES(13,"Ingeniero Compañia",0,"");
-INSERT INTO "Item" VALUES(14,"Teniente de Maquinas",0,"");
-INSERT INTO "Item" VALUES(15,"Ayudante 1°",0,"");
-INSERT INTO "Item" VALUES(16,"Ayudante 2°",0,"");
-INSERT INTO "Item" VALUES(17,"Voluntario",0,"");
-INSERT INTO "Item" VALUES(18,"Aspirante",0,"");
-
-INSERT INTO "Categoria" VALUES(1,"Años Calificacion","Todos las calificaciones disponibles");
-INSERT INTO "Item" VALUES(19,"5 Años",1,"");
-INSERT INTO "Item" VALUES(20,"10 Años",1,"");
-INSERT INTO "Item" VALUES(21,"15 Años",1,"");
-INSERT INTO "Item" VALUES(22,"20 Años",1,"");
-INSERT INTO "Item" VALUES(23,"25 Años",1,"");
-INSERT INTO "Item" VALUES(24,"30 Años",1,"");
-INSERT INTO "Item" VALUES(25,"35 Años",1,"");
-INSERT INTO "Item" VALUES(26,"40 Años",1,"");
-INSERT INTO "Item" VALUES(27,"45 Años",1,"");
-INSERT INTO "Item" VALUES(28,"50 Años",1,"");
-INSERT INTO "Item" VALUES(29,"55 Años",1,"");
-*/
