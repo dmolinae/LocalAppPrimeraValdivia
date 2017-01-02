@@ -1,6 +1,7 @@
 ﻿
 
 using PrimeraValdivia.ViewModels;
+using PrimeraValdivia.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

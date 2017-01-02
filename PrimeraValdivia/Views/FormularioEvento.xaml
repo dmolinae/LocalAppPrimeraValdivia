@@ -331,76 +331,74 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
-                        <TabControl Grid.Column="1" Visibility="{Binding IncendioVisible}" Background="#383838" Margin="10">
-                            <TabItem Header="Datos Incendio" IsEnabled="False">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <StackPanel.Resources>
-                                            <Style TargetType="StackPanel">
-                                                <Setter Property="Margin" Value="5"/>
-                                            </Style>
-                                        </StackPanel.Resources>
+                        <GroupBox Header="Datos Incendio" Grid.Column="1" Visibility="{Binding IncendioVisible}" Margin="10">
+                            <Grid Background="#383838">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <StackPanel.Resources>
+                                        <Style TargetType="StackPanel">
+                                            <Setter Property="Margin" Value="5"/>
+                                        </Style>
+                                    </StackPanel.Resources>
 
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Label Content="ID Incendio" Width="130"/>
-                                            <TextBox IsEnabled="False" Text="{Binding Incendio.idIncendio}" Width="200"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Label Content="Tipo Incendio" Width="130"/>
-                                            <ComboBox IsEditable="True" ItemsSource="{Binding TiposIncendio}" DisplayMemberPath="nombre" Text="{Binding Incendio.tipoIncendio}" Width="200"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Label Content="Fase Incendio" Width="130"/>
-                                            <ComboBox IsEditable="True" ItemsSource="{Binding FasesIncendio}" DisplayMemberPath="nombre" Text="{Binding Incendio.faseIncendio}" Width="200"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Label Content="Requiere DET" Width="130"/>
-                                            <Controls:ToggleSwitch OnLabel="Si" OffLabel="No" IsChecked="{Binding Incendio.det}" Width="200" Height="40"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Label Content="Bombero DET" Width="130"/>
-                                            <ComboBox IsEditable="True" IsEnabled="{Binding Incendio.det}" ItemsSource="{Binding Voluntarios}" DisplayMemberPath="nombre" Text="{Binding Incendio.bomberoDet}" Width="200"/>
-                                        </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label Content="ID Incendio" Width="130"/>
+                                        <TextBox IsEnabled="False" Text="{Binding Incendio.idIncendio}" Width="200"/>
                                     </StackPanel>
-                                    <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <StackPanel.Resources>
-                                            <Style TargetType="StackPanel">
-                                                <Setter Property="Margin" Value="5"/>
-                                            </Style>
-                                        </StackPanel.Resources>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label Content="Tipo Incendio" Width="130"/>
+                                        <ComboBox IsEditable="True" ItemsSource="{Binding TiposIncendio}" DisplayMemberPath="nombre" Text="{Binding Incendio.tipoIncendio}" Width="200"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label Content="Fase Incendio" Width="130"/>
+                                        <ComboBox IsEditable="True" ItemsSource="{Binding FasesIncendio}" DisplayMemberPath="nombre" Text="{Binding Incendio.faseIncendio}" Width="200"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label Content="Requiere DET" Width="130"/>
+                                        <Controls:ToggleSwitch OnLabel="Si" OffLabel="No" IsChecked="{Binding Incendio.det}" Width="200" Height="40"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label Content="Bombero DET" Width="130"/>
+                                        <ComboBox IsEditable="True" IsEnabled="{Binding Incendio.det}" ItemsSource="{Binding Voluntarios}" DisplayMemberPath="nombre" Text="{Binding Incendio.bomberoDet}" Width="200"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <StackPanel.Resources>
+                                        <Style TargetType="StackPanel">
+                                            <Setter Property="Margin" Value="5"/>
+                                        </Style>
+                                    </StackPanel.Resources>
 
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Label Content="Origen" Width="130"/>
-                                            <TextBox Text="{Binding Incendio.origen}" Width="200"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Label Content="Causa" Width="130"/>
-                                            <TextBox Text="{Binding Incendio.causa}" Width="200"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Label Content="Fuente de Calor" Width="130"/>
-                                            <TextBox Text="{Binding Incendio.fuenteCalor}" Width="200"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Label Content="Tipo Lugar" Width="130"/>
-                                            <ComboBox IsEditable="True" ItemsSource="{Binding TiposLugar}" DisplayMemberPath="nombre" Text="{Binding Incendio.tipoLugar}" Width="200"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Label Content="Tipo Construccion" Width="130"/>
-                                            <ComboBox IsEditable="True" ItemsSource="{Binding TiposConstruccion}" DisplayMemberPath="nombre" Text="{Binding Incendio.tipoConstruccion}" Width="200"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Label Content="Número de pisos" Width="130"/>
-                                            <TextBox Text="{Binding Incendio.numeroPisos}" Width="200"/>
-                                        </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label Content="Origen" Width="130"/>
+                                        <TextBox Text="{Binding Incendio.origen}" Width="200"/>
                                     </StackPanel>
-                                </Grid>
-                            </TabItem>
-                        </TabControl>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label Content="Causa" Width="130"/>
+                                        <TextBox Text="{Binding Incendio.causa}" Width="200"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label Content="Fuente de Calor" Width="130"/>
+                                        <TextBox Text="{Binding Incendio.fuenteCalor}" Width="200"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label Content="Tipo Lugar" Width="130"/>
+                                        <ComboBox IsEditable="True" ItemsSource="{Binding TiposLugar}" DisplayMemberPath="nombre" Text="{Binding Incendio.tipoLugar}" Width="200"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label Content="Tipo Construccion" Width="130"/>
+                                        <ComboBox IsEditable="True" ItemsSource="{Binding TiposConstruccion}" DisplayMemberPath="nombre" Text="{Binding Incendio.tipoConstruccion}" Width="200"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label Content="Número de pisos" Width="130"/>
+                                        <TextBox Text="{Binding Incendio.numeroPisos}" Width="200"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </GroupBox>
                     </Grid>
                     <Grid Grid.Row="1" Visibility="{Binding IncendioVisible}">
                         <!-- Afectado incendio -->

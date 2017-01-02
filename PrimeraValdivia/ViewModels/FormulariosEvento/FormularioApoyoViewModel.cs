@@ -1,5 +1,5 @@
 ﻿using PrimeraValdivia.Models;
-using PrimeraValdivia.Commands;
+using PrimeraValdivia.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace PrimeraValdivia.ViewModels.FormulariosEvento
+namespace PrimeraValdivia.ViewModels
 {
     class FormularioApoyoViewModel : ViewModelBase
     {

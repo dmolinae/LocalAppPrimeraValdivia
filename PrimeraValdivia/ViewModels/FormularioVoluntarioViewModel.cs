@@ -7,7 +7,7 @@ using PrimeraValdivia.Models;
 using PrimeraValdivia.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using PrimeraValdivia.Commands;
+using PrimeraValdivia.Helpers;
 using System.Diagnostics;
 using System.Windows;
 

@@ -10,7 +10,7 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.Diagnostics;
 
-namespace PrimeraValdivia.ViewModels
+namespace PrimeraValdivia.Helpers
 {
     public class Utils
     {

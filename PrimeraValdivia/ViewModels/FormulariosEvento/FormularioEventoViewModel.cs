@@ -1,5 +1,4 @@
 ﻿using MyToolkit.Collections;
-using PrimeraValdivia.Commands;
 using PrimeraValdivia.Helpers;
 using PrimeraValdivia.Models;
 using PrimeraValdivia.Views;
@@ -784,7 +783,7 @@ namespace PrimeraValdivia.ViewModels
 
         private void AgregarApoyo()
         {
-            var viewmodel = new FormulariosEvento.FormularioApoyoViewModel(Apoyos,Evento.idEvento);
+            var viewmodel = new FormularioApoyoViewModel(Apoyos,Evento.idEvento);
             var view = new FormularioApoyo();
             view.DataContext = viewmodel;
             viewmodel.CloseAction = new Action(view.Close);
@@ -792,7 +791,7 @@ namespace PrimeraValdivia.ViewModels
         }
         private void EditarApoyo()
         {
-            var viewmodel = new FormulariosEvento.FormularioApoyoViewModel(Apoyos, Apoyo);
+            var viewmodel = new FormularioApoyoViewModel(Apoyos, Apoyo);
             var view = new FormularioApoyo();
             view.DataContext = viewmodel;
             viewmodel.CloseAction = new Action(view.Close);

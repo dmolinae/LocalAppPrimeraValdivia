@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PrimeraValdivia.Models;
 using PrimeraValdivia.Views;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows.Input;
-using PrimeraValdivia.Commands;
+using PrimeraValdivia.Helpers;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using PrimeraValdivia.Helpers;
-using MySql.Data.MySqlClient;
 
 namespace PrimeraValdivia.ViewModels
 {

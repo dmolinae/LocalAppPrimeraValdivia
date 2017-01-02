@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using PrimeraValdivia.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using PrimeraValdivia.Commands;
+using PrimeraValdivia.Helpers;
 using PrimeraValdivia.Views;
 using System.Diagnostics;
 using System.Windows;
