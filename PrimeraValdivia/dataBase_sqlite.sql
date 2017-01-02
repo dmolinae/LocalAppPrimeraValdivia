@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS "Apoyo"(
   "personaCargo" VARCHAR(45),
   "rango" VARCHAR(45),
   "patente" VARCHAR(45),
-  "compañia" VARCHAR(45),
+  "compania" VARCHAR(45),
   "municipalidad" VARCHAR(45),
   "fk_idEventoApoyo" INTEGER,
   CONSTRAINT "idVehiculo_UNIQUE"

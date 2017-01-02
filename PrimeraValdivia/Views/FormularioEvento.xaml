@@ -303,7 +303,11 @@
                                     CanUserSortColumns="True" 
                                     Margin="10">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Tipo" Binding="{Binding Path=tipo}"/>
+                                    <DataGridTextColumn Header="Tipo" Binding="{Binding Path=tipo, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <DataGridTextColumn Header="Procedencia" Binding="{Binding Path=procedencia, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <DataGridTextColumn Header="a cargo" Width="*" Binding="{Binding Path=personaCargo, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <DataGridTextColumn Header="Rango" Binding="{Binding Path=rango, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <DataGridTextColumn Header="Patente" Binding="{Binding Path=patente, UpdateSourceTrigger=PropertyChanged}"/>
                                     <DataGridTemplateColumn Width="70">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>

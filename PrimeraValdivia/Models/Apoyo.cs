@@ -207,7 +207,32 @@ namespace PrimeraValdivia.Models
 			return Apoyos;
 		}
 
-		public ObservableCollection<Apoyo> ObtenerApoyo(int idApoyo)
+        public ObservableCollection<Apoyo> ObtenerApoyosEvento(int idEvento)
+        {
+            ObservableCollection<Apoyo> Apoyos = new ObservableCollection<Apoyo>();
+            query = String.Format(
+                "SELECT * FROM Apoyo WHERE fk_idEventoApoyo = {0}",
+                idEvento);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                Apoyo Apoyo = new Apoyo(
+                    int.Parse(row["idApoyo"].ToString()),
+                    row["tipo"].ToString(),
+                    row["procedencia"].ToString(),
+                    row["personaCargo"].ToString(),
+                    row["rango"].ToString(),
+                    row["patente"].ToString(),
+                    row["compania"].ToString(),
+                    row["municipalidad"].ToString(),
+                    int.Parse(row["fk_idEventoApoyo"].ToString())
+                );
+                Apoyos.Add(Apoyo);
+            }
+            return Apoyos;
+        }
+
+        public ObservableCollection<Apoyo> ObtenerApoyo(int idApoyo)
 		{
 			ObservableCollection<Apoyo> Apoyos = new ObservableCollection<Apoyo>();
 			query = String.Format(

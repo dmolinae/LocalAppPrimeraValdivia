@@ -33,6 +33,9 @@ namespace PrimeraValdivia.ViewModels
         private MaterialMayor _MaterialMayor;
         private ObservableCollection<MaterialMayor> _MaterialMayorList;
 
+        private Apoyo _Apoyo;
+        private ObservableCollection<Apoyo> _Apoyos;
+
         private Carro _Carro;
         private ObservableCollection<Carro> _Carros;
 
@@ -58,6 +61,10 @@ namespace PrimeraValdivia.ViewModels
         private ICommand _AgregarMaterialMayorCommand;
         private ICommand _EditarMaterialMayorCommand;
         private ICommand _EliminarMaterialMayorCommand;
+
+        private ICommand _AgregarApoyoCommand;
+        private ICommand _EditarApoyoCommand;
+        private ICommand _EliminarApoyoCommand;
 
         private string _nameFilter;
         private string modo;
@@ -87,6 +94,7 @@ namespace PrimeraValdivia.ViewModels
         private MaterialMayor MMModel = new MaterialMayor();
         private Incendio IModel = new Incendio();
         private Item ItModel = new Item();
+        private Apoyo ApModel = new Apoyo();
         
         public class VoluntarioAsistente : ViewModelBase
         {
@@ -279,17 +287,6 @@ namespace PrimeraValdivia.ViewModels
                 OnPropertyChanged("lChecked");
             }
         }
-
-        public Evento Evento
-        {
-            get { return _Evento; }
-            set
-            {
-                _Evento = value;
-                OnPropertyChanged("Evento");
-            }
-        }
-
         public Carro Carro
         {
             get { return _Carro; }
@@ -308,6 +305,15 @@ namespace PrimeraValdivia.ViewModels
                 OnPropertyChanged("Incendio");
             }
         }
+        public Evento Evento
+        {
+            get { return _Evento; }
+            set
+            {
+                _Evento = value;
+                OnPropertyChanged("Evento");
+            }
+        }
         public ObservableCollection<Evento> Eventos
         {
             get
@@ -318,6 +324,28 @@ namespace PrimeraValdivia.ViewModels
             {
                 _Eventos = value;
                 OnPropertyChanged("Eventos");
+            }
+        }
+
+        public Apoyo Apoyo
+        {
+            get { return _Apoyo; }
+            set
+            {
+                _Apoyo = value;
+                OnPropertyChanged("Apoyo");
+            }
+        }
+        public ObservableCollection<Apoyo> Apoyos
+        {
+            get
+            {
+                return _Apoyos;
+            }
+            set
+            {
+                _Apoyos = value;
+                OnPropertyChanged("Apoyos");
             }
         }
 
@@ -615,6 +643,45 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public ICommand AgregarApoyoCommand
+        {
+            get
+            {
+                _AgregarApoyoCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => AgregarApoyo()
+                };
+                return _AgregarApoyoCommand;
+            }
+        }
+
+        public ICommand EditarApoyoCommand
+        {
+            get
+            {
+                _EditarApoyoCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EditarApoyo()
+                };
+                return _EditarApoyoCommand;
+            }
+        }
+
+        public ICommand EliminarApoyoCommand
+        {
+            get
+            {
+                _EliminarApoyoCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EliminarApoyo()
+                };
+                return _EliminarApoyoCommand;
+            }
+        }
+
         #endregion
 
         #region Metodos
@@ -633,6 +700,7 @@ namespace PrimeraValdivia.ViewModels
             AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
             Carros = CModel.ObtenerCarros();
             MaterialMayorList = new ObservableCollection<MaterialMayor>();
+            Apoyos = new ObservableCollection<Apoyo>();
 
             TiposIncendio = ItModel.ObtenerItemsCategoria(2);
             FasesIncendio = ItModel.ObtenerItemsCategoria(3);
@@ -667,6 +735,7 @@ namespace PrimeraValdivia.ViewModels
             Voluntarios = VModel.ObtenerVoluntarios();
             MaterialMayorList = MMModel.ObtenerMaterialMayorEvento(Evento.idEvento);
             VoluntariosSinMarcar = VModel.ObtenerVoluntariosSinMarcarAsistencia(Evento.idEvento);
+            Apoyos = ApModel.ObtenerApoyosEvento(Evento.idEvento);
             VoluntariosSinMarcarView = new ObservableCollectionView<Voluntario>(VoluntariosSinMarcar);
             Asistentes = AModel.ObtenerAsistentesEvento(Evento.idEvento);
             AsistentesTabla = new ObservableCollection<VoluntarioAsistente>();
@@ -711,6 +780,28 @@ namespace PrimeraValdivia.ViewModels
         {
             MMModel.EliminarMaterialMayor(MaterialMayor.idCarroEvento);
             MaterialMayorList.Remove(MaterialMayor);
+        }
+
+        private void AgregarApoyo()
+        {
+            var viewmodel = new FormulariosEvento.FormularioApoyoViewModel(Apoyos,Evento.idEvento);
+            var view = new FormularioApoyo();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
+        }
+        private void EditarApoyo()
+        {
+            var viewmodel = new FormulariosEvento.FormularioApoyoViewModel(Apoyos, Apoyo);
+            var view = new FormularioApoyo();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
+        }
+        private void EliminarApoyo()
+        {
+            ApModel.EliminarApoyo(Apoyo.idApoyo);
+            Apoyos.Remove(Apoyo);
         }
 
         private String obtenerCodigoAsistenciaSeleccionado()

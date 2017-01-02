@@ -86,6 +86,12 @@ INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Mixta ladrillo y estructur
 INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Mixta ladrillo y madera",5);
 INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Mixta madera y estructura metálica",5);
 
+INSERT INTO "Categoria" VALUES(6,"Tipo Apoyo","Tipo de apoyo");
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Ambulancia",6);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Carabinero",6);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("ONEMI",6);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Servicio Medico Legal",6);
+
 INSERT INTO Carro(idCarro,nombre,tipo,descripcion,kilometraje,horas_motor,horas_bomba)
 VALUES(0,"B1","Incendio","Carro para Incendio",0,0,0);
 INSERT INTO Carro(idCarro,nombre,tipo,descripcion,kilometraje,horas_motor,horas_bomba)
