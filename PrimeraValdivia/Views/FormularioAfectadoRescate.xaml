@@ -6,13 +6,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:PrimeraValdivia.Views"
+        xmlns:helpers="clr-namespace:PrimeraValdivia.Helpers"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:viewModels="clr-namespace:PrimeraValdivia.ViewModels"
         DataContext="clr-namespace:PrimeraValdivia.ViewModels.FormularioAfectadoRescateViewModel"
         mc:Ignorable="d"
         GlowBrush="Black"
         WindowStartupLocation="CenterScreen" 
-             Width="400" Height="220">
+             Width="400" Height="Auto">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel.Resources>
@@ -20,22 +21,61 @@
                 <Setter Property="Margin" Value="5"/>
             </Style>
         </StackPanel.Resources>
-
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="ID Material" Width="130"/>
-            <TextBox IsEnabled="False" Text="{Binding Material.idMaterial}" Width="200"/>
+            <Label Content="ID Afectado" Width="130"/>
+            <TextBox IsEnabled="False" Text="{Binding AfectadoRescate.idAfectado}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Prioridad" Width="130"/>
+            <ComboBox IsEditable="False" ItemsSource="{Binding Prioridades}" DisplayMemberPath="nombre" Text="{Binding AfectadoRescate.prioridad}" Width="200"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Nombre" Width="130"/>
-            <TextBox Text="{Binding Material.nombre}" Width="200"/>
+            <TextBox Text="{Binding AfectadoRescate.nombre}" Width="200"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Descripcion" Width="130"/>
-            <TextBox AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Material.descripcion}" Height="60" Width="200"/>
+            <Label Content="Rut" Width="130"/>
+            <TextBox Text="{Binding AfectadoRescate.rut}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Tipo de Afectado" Width="130"/>
+            <ComboBox IsEditable="False" ItemsSource="{Binding TiposAfectadoRescate}" DisplayMemberPath="nombre" Text="{Binding AfectadoRescate.tipoAfectado}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Número Adultos" Width="130"/>
+            <TextBox Text="{Binding AfectadoRescate.numeroAdultos}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Número Niños" Width="130"/>
+            <TextBox Text="{Binding AfectadoRescate.numeroNinos}" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Daño Vivienda" Width="130"/>
+            <TextBox Text="{Binding AfectadoRescate.danoVivienda}" Width="200">
+                <i:Interaction.Behaviors>
+                    <helpers:TextBoxInputMaskBehavior InputMask="00 %" PromptChar="0"/>
+                </i:Interaction.Behaviors>
+            </TextBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Daño Enseres" Width="130"/>
+            <TextBox Text="{Binding AfectadoRescate.danoEnseres}" Width="200">
+                <i:Interaction.Behaviors>
+                    <helpers:TextBoxInputMaskBehavior InputMask="00 %" PromptChar="0"/>
+                </i:Interaction.Behaviors>
+            </TextBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Superficie" Width="130"/>
+            <TextBox Text="{Binding AfectadoRescate.superficie}" Width="200">
+                <i:Interaction.Behaviors>
+                    <helpers:TextBoxInputMaskBehavior InputMask="999 m2" PromptChar="0"/>
+                </i:Interaction.Behaviors>
+            </TextBox>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-            <Button Content="Guardar" Command="{Binding GuardarMaterialCommand}"/>
+            <Button Content="Guardar" Command="{Binding GuardarAfectadoRescateCommand}"/>
         </StackPanel>
     </StackPanel>
 </Controls:MetroWindow>

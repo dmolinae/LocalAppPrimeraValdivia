@@ -42,6 +42,12 @@ namespace PrimeraValdivia.ViewModels
         private ObservableCollection<Evento> _Eventos;
         private ObservableCollection<VoluntarioAsistente> _AsistentesTabla;
 
+        private ObservableCollection<AfectadoIncendio> _AfectadosIncendio;
+        private ObservableCollection<AfectadoRescate> _AfectadosRescate;
+
+        private AfectadoIncendio _AfectadoIncendio;
+        private AfectadoRescate _AfectadoRescate;
+
         private ObservableCollection<Item> _TiposIncendio;
         private ObservableCollection<Item> _FasesIncendio;
         private ObservableCollection<Item> _TiposLugar;
@@ -64,6 +70,14 @@ namespace PrimeraValdivia.ViewModels
         private ICommand _AgregarApoyoCommand;
         private ICommand _EditarApoyoCommand;
         private ICommand _EliminarApoyoCommand;
+
+        private ICommand _AgregarAfectadoIncendioCommand;
+        private ICommand _EditarAfectadoIncendioCommand;
+        private ICommand _EliminarAfectadoIncendioCommand;
+
+        private ICommand _AgregarAfectadoRescateCommand;
+        private ICommand _EditarAfectadoRescateCommand;
+        private ICommand _EliminarAfectadoRescateCommand;
 
         private string _nameFilter;
         private string modo;
@@ -94,6 +108,8 @@ namespace PrimeraValdivia.ViewModels
         private Incendio IModel = new Incendio();
         private Item ItModel = new Item();
         private Apoyo ApModel = new Apoyo();
+        private AfectadoIncendio AIModel = new AfectadoIncendio();
+        private AfectadoRescate ARModel = new AfectadoRescate();
         
         public class VoluntarioAsistente : ViewModelBase
         {
@@ -347,7 +363,48 @@ namespace PrimeraValdivia.ViewModels
                 OnPropertyChanged("Apoyos");
             }
         }
-
+        public AfectadoIncendio AfectadoIncendio
+        {
+            get { return _AfectadoIncendio; }
+            set
+            {
+                _AfectadoIncendio = value;
+                OnPropertyChanged("AfectadoIncendio");
+            }
+        }
+        public ObservableCollection<AfectadoIncendio> AfectadosIncendio
+        {
+            get
+            {
+                return _AfectadosIncendio;
+            }
+            set
+            {
+                _AfectadosIncendio = value;
+                OnPropertyChanged("AfectadosIncendios");
+            }
+        }
+        public AfectadoRescate AfectadoRescate
+        {
+            get { return _AfectadoRescate; }
+            set
+            {
+                _AfectadoRescate = value;
+                OnPropertyChanged("AfectadoRescate");
+            }
+        }
+        public ObservableCollection<AfectadoRescate> AfectadosRescate
+        {
+            get
+            {
+                return _AfectadosRescate;
+            }
+            set
+            {
+                _AfectadosRescate = value;
+                OnPropertyChanged("AfectadosRescate");
+            }
+        }
         public ObservableCollection<MaterialMayor> MaterialMayorList
         {
             get { return _MaterialMayorList; }
@@ -680,6 +737,82 @@ namespace PrimeraValdivia.ViewModels
                 return _EliminarApoyoCommand;
             }
         }
+        public ICommand AgregarAfectadoIncendioCommand
+        {
+            get
+            {
+                _AgregarAfectadoIncendioCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => AgregarAfectadoIncendio()
+                };
+                return _AgregarAfectadoIncendioCommand;
+            }
+        }
+
+        public ICommand EditarAfectadoIncendioCommand
+        {
+            get
+            {
+                _EditarAfectadoIncendioCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EditarAfectadoIncendio()
+                };
+                return _EditarAfectadoIncendioCommand;
+            }
+        }
+
+        public ICommand EliminarAfectadoIncendioCommand
+        {
+            get
+            {
+                _EliminarAfectadoIncendioCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EliminarAfectadoIncendio()
+                };
+                return _EliminarAfectadoIncendioCommand;
+            }
+        }
+        public ICommand AgregarAfectadoRescateCommand
+        {
+            get
+            {
+                _AgregarAfectadoRescateCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => AgregarAfectadoRescate()
+                };
+                return _AgregarAfectadoRescateCommand;
+            }
+        }
+
+        public ICommand EditarAfectadoRescateCommand
+        {
+            get
+            {
+                _EditarAfectadoRescateCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EditarAfectadoRescate()
+                };
+                return _EditarAfectadoRescateCommand;
+            }
+        }
+
+        public ICommand EliminarAfectadoRescateCommand
+        {
+            get
+            {
+                _EliminarAfectadoRescateCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EliminarAfectadoRescate()
+                };
+                return _EliminarAfectadoRescateCommand;
+            }
+        }
 
         #endregion
 
@@ -700,6 +833,8 @@ namespace PrimeraValdivia.ViewModels
             Carros = CModel.ObtenerCarros();
             MaterialMayorList = new ObservableCollection<MaterialMayor>();
             Apoyos = new ObservableCollection<Apoyo>();
+            AfectadosIncendio = new ObservableCollection<AfectadoIncendio>();
+            AfectadosRescate = new ObservableCollection<AfectadoRescate>();
 
             TiposIncendio = ItModel.ObtenerItemsCategoria(2);
             FasesIncendio = ItModel.ObtenerItemsCategoria(3);
@@ -721,6 +856,7 @@ namespace PrimeraValdivia.ViewModels
                 RescateEnabled = false;
 
                 Incendio = IModel.ObtenerIncendioEvento(Evento.idEvento);
+                AfectadosIncendio = AIModel.ObtenerAfectadosIncendio(Incendio.idIncendio);
             }
             else if (Evento.codigoServicio == "03")
             {
@@ -801,6 +937,50 @@ namespace PrimeraValdivia.ViewModels
         {
             ApModel.EliminarApoyo(Apoyo.idApoyo);
             Apoyos.Remove(Apoyo);
+        }
+
+        private void AgregarAfectadoIncendio()
+        {
+            var viewmodel = new FormularioAfectadoIncendioViewModel(AfectadosIncendio, Incendio.idIncendio);
+            var view = new FormularioAfectadoIncendio();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
+        }
+        private void EditarAfectadoIncendio()
+        {
+            var viewmodel = new FormularioAfectadoIncendioViewModel(AfectadosIncendio, AfectadoIncendio);
+            var view = new FormularioAfectadoIncendio();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
+        }
+        private void EliminarAfectadoIncendio()
+        {
+            AIModel.EliminarAfectadoIncendio(AfectadoIncendio.idAfectado);
+            AfectadosIncendio.Remove(AfectadoIncendio);
+        }
+
+        private void AgregarAfectadoRescate()
+        {
+            var viewmodel = new FormularioAfectadoRescateViewModel(AfectadosRescate, Evento.idEvento);
+            var view = new FormularioAfectadoRescate();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
+        }
+        private void EditarAfectadoRescate()
+        {
+            var viewmodel = new FormularioAfectadoRescateViewModel(AfectadosRescate, AfectadoRescate);
+            var view = new FormularioAfectadoRescate();
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
+        }
+        private void EliminarAfectadoRescate()
+        {
+            ARModel.EliminarAfectadoRescate(AfectadoRescate.idRescate);
+            AfectadosRescate.Remove(AfectadoRescate);
         }
 
         private String obtenerCodigoAsistenciaSeleccionado()

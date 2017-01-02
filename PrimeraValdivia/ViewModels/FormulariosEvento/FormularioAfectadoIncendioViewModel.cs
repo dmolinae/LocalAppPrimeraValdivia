@@ -14,13 +14,17 @@ namespace PrimeraValdivia.ViewModels
     {
         #region Atributos Privados
 
-        private ObservableCollection<Material> _Materiales;
-        private Material _Material;
-        private ICommand _GuardarMaterialCommand;
-        private string modo;
-        private int idMaterialActual;
+        private ObservableCollection<Item> _TiposAfectadoIncendio;
+        private ObservableCollection<Item> _Prioridades;
 
-        private Material MModel = new Material();
+        private ObservableCollection<AfectadoIncendio> _AfectadosIncendio;
+        private AfectadoIncendio _AfectadoIncendio;
+        private ICommand _GuardarAfectadoIncendioCommand;
+        private string modo;
+        private int idAfectadoIncendioActual;
+
+        private AfectadoIncendio MModel = new AfectadoIncendio();
+        private Item IModel = new Item();
 
         #endregion
 
@@ -28,36 +32,55 @@ namespace PrimeraValdivia.ViewModels
 
         public Action CloseAction { get; set; }
 
-        public Material Material
+        public AfectadoIncendio AfectadoIncendio
         {
-            get { return _Material; }
+            get { return _AfectadoIncendio; }
             set
             {
-                _Material = value;
-                OnPropertyChanged("Material");
+                _AfectadoIncendio = value;
+                OnPropertyChanged("AfectadoIncendio");
             }
         }
 
-        public ObservableCollection<Material> Materiales
+        public ObservableCollection<AfectadoIncendio> AfectadosIncendio
         {
-            get { return _Materiales; }
+            get { return _AfectadosIncendio; }
             set
             {
-                _Materiales = value;
-                OnPropertyChanged("Materiales");
+                _AfectadosIncendio = value;
+                OnPropertyChanged("AfectadosIncendio");
             }
         }
 
-        public ICommand GuardarMaterialCommand
+        public ObservableCollection<Item> TiposAfectadoIncendio
+        {
+            get { return _TiposAfectadoIncendio; }
+            set
+            {
+                _TiposAfectadoIncendio = value;
+                OnPropertyChanged("TiposAfectadoIncendio");
+            }
+        }
+        public ObservableCollection<Item> Prioridades
+        {
+            get { return _Prioridades; }
+            set
+            {
+                _Prioridades = value;
+                OnPropertyChanged("Prioridades");
+            }
+        }
+
+        public ICommand GuardarAfectadoIncendioCommand
         {
             get
             {
-                _GuardarMaterialCommand = new RelayCommand()
+                _GuardarAfectadoIncendioCommand = new RelayCommand()
                 {
                     CanExecuteDelegate = c => true,
-                    ExecuteDelegate = c => GuardarMaterial()
+                    ExecuteDelegate = c => GuardarAfectadoIncendio()
                 };
-                return _GuardarMaterialCommand;
+                return _GuardarAfectadoIncendioCommand;
             }
         }
 
@@ -65,33 +88,41 @@ namespace PrimeraValdivia.ViewModels
 
         #region Metodos
 
-        public FormularioAfectadoIncendioViewModel(ObservableCollection<Material> Materials, int idCarro)
+        public FormularioAfectadoIncendioViewModel(ObservableCollection<AfectadoIncendio> AfectadoIncendios, int idIncendio)
         {
             this.modo = "agregar";
-            Material = new Material();
-            Material.IniciarId();
-            Material.fk_idCarro = idCarro;
-            this.Materiales = Materials;
+
+            TiposAfectadoIncendio = IModel.ObtenerItemsCategoria(8);
+            Prioridades = IModel.ObtenerItemsCategoria(7);
+
+            AfectadoIncendio = new AfectadoIncendio();
+            AfectadoIncendio.IniciarId();
+            AfectadoIncendio.fk_idIncendioAfectado = idIncendio;
+            this.AfectadosIncendio = AfectadoIncendios;
         }
-        public FormularioAfectadoIncendioViewModel(ObservableCollection<Material> Materials, Material Material)
+        public FormularioAfectadoIncendioViewModel(ObservableCollection<AfectadoIncendio> AfectadoIncendios, AfectadoIncendio AfectadoIncendio)
         {
-            this.idMaterialActual = Material.idMaterial;
-            this.Materiales = Materials;
             this.modo = "editar";
-            this.Material = Material;
+
+            TiposAfectadoIncendio = IModel.ObtenerItemsCategoria(8);
+            Prioridades = IModel.ObtenerItemsCategoria(7);
+
+            this.idAfectadoIncendioActual = AfectadoIncendio.idAfectado;
+            this.AfectadosIncendio = AfectadoIncendios;
+            this.AfectadoIncendio = AfectadoIncendio;
         }
 
-        private void GuardarMaterial()
+        private void GuardarAfectadoIncendio()
         {
             if (this.modo.Equals("agregar"))
             {
-                MModel.AgregarMaterial(this.Material);
-                Materiales.Add(Material);
+                MModel.AgregarAfectadoIncendio(this.AfectadoIncendio);
+                AfectadosIncendio.Add(AfectadoIncendio);
                 CloseAction();
             }
             if (this.modo.Equals("editar"))
             {
-                MModel.EditarMaterial(this.Material, idMaterialActual);
+                MModel.EditarAfectadoIncendio(this.AfectadoIncendio, idAfectadoIncendioActual);
                 CloseAction();
             }
         }

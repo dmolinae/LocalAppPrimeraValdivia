@@ -14,7 +14,7 @@
         mc:Ignorable="d"
         GlowBrush="Black"
         WindowStartupLocation="CenterScreen"
-        WindowState="Maximized" Height="769">
+        WindowState="Maximized" Height="769" d:DesignWidth="1108">
     <Window.Resources>
         <helpers:idNombreCarroConverter x:Key="idNombreCarroConverter"/>
         <helpers:DateTimeToStringConverter x:Key="dateTimeToStringConverter"/>
@@ -331,7 +331,7 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
-                        <GroupBox Header="Datos Incendio" Grid.Column="1" Visibility="{Binding IncendioVisible}" Margin="10">
+                        <GroupBox Header="Datos Incendio" Grid.Column="1" Visibility="{Binding IncendioVisible}">
                             <Grid Background="#383838">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -419,7 +419,15 @@
                                     CanUserSortColumns="True" 
                                     Margin="10">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Nombre" Binding="{Binding Path=nombre}"/>
+                                <DataGridTextColumn Header="Prioridad" Binding="{Binding Path=prioridad, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                                <DataGridTextColumn Header="Rut" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                                <DataGridTextColumn Header="Tipo" Binding="{Binding Path=tipoAfectado, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="N°Adultos" Binding="{Binding Path=numeroAdultos, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="N°Niños" Binding="{Binding Path=numeroNinos, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Daño Vivienda(%)" Binding="{Binding Path=danoVivienda, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Daño Enseres(%)" Binding="{Binding Path=danoEnseres, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Superficie(m2)" Binding="{Binding Path=superficie, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTemplateColumn Width="70">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -434,7 +442,7 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid>
-                                                <Button Content="X" Margin="3" Command="{Binding Path=DataContext.EliminarAfectadoIncendioCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                                <Button Content="Eliminar" Margin="3" Command="{Binding Path=DataContext.EliminarAfectadoIncendioCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                             CommandParameter="{Binding}"/>
                                             </Grid>
                                         </DataTemplate>

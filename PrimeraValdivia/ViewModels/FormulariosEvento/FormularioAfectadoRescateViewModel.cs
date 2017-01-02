@@ -8,19 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace PrimeraValdivia.ViewModels.FormulariosEvento
+namespace PrimeraValdivia.ViewModels
 {
     class FormularioAfectadoRescateViewModel : ViewModelBase
     {
         #region Atributos Privados
 
-        private ObservableCollection<Material> _Materiales;
-        private Material _Material;
-        private ICommand _GuardarMaterialCommand;
+        private ObservableCollection<AfectadoRescate> _AfectadosRescate;
+        private AfectadoRescate _AfectadoRescate;
+        private ICommand _GuardarAfectadoRescateCommand;
         private string modo;
-        private int idMaterialActual;
+        private int idAfectadoRescateActual;
 
-        private Material MModel = new Material();
+        private AfectadoRescate MModel = new AfectadoRescate();
 
         #endregion
 
@@ -28,36 +28,36 @@ namespace PrimeraValdivia.ViewModels.FormulariosEvento
 
         public Action CloseAction { get; set; }
 
-        public Material Material
+        public AfectadoRescate AfectadoRescate
         {
-            get { return _Material; }
+            get { return _AfectadoRescate; }
             set
             {
-                _Material = value;
-                OnPropertyChanged("Material");
+                _AfectadoRescate = value;
+                OnPropertyChanged("AfectadoRescate");
             }
         }
 
-        public ObservableCollection<Material> Materiales
+        public ObservableCollection<AfectadoRescate> AfectadosRescate
         {
-            get { return _Materiales; }
+            get { return _AfectadosRescate; }
             set
             {
-                _Materiales = value;
-                OnPropertyChanged("Materiales");
+                _AfectadosRescate = value;
+                OnPropertyChanged("AfectadosRescate");
             }
         }
 
-        public ICommand GuardarMaterialCommand
+        public ICommand GuardarAfectadoRescateCommand
         {
             get
             {
-                _GuardarMaterialCommand = new RelayCommand()
+                _GuardarAfectadoRescateCommand = new RelayCommand()
                 {
                     CanExecuteDelegate = c => true,
-                    ExecuteDelegate = c => GuardarMaterial()
+                    ExecuteDelegate = c => GuardarAfectadoRescate()
                 };
-                return _GuardarMaterialCommand;
+                return _GuardarAfectadoRescateCommand;
             }
         }
 
@@ -65,33 +65,33 @@ namespace PrimeraValdivia.ViewModels.FormulariosEvento
 
         #region Metodos
 
-        public FormularioAfectadoRescateViewModel(ObservableCollection<Material> Materials, int idCarro)
+        public FormularioAfectadoRescateViewModel(ObservableCollection<AfectadoRescate> AfectadoRescates, int idEvento)
         {
             this.modo = "agregar";
-            Material = new Material();
-            Material.IniciarId();
-            Material.fk_idCarro = idCarro;
-            this.Materiales = Materials;
+            AfectadoRescate = new AfectadoRescate();
+            AfectadoRescate.IniciarId();
+            AfectadoRescate.fk_idEventoRescate = idEvento;
+            this.AfectadosRescate = AfectadoRescates;
         }
-        public FormularioAfectadoRescateViewModel(ObservableCollection<Material> Materials, Material Material)
+        public FormularioAfectadoRescateViewModel(ObservableCollection<AfectadoRescate> AfectadoRescates, AfectadoRescate AfectadoRescate)
         {
-            this.idMaterialActual = Material.idMaterial;
-            this.Materiales = Materials;
+            this.idAfectadoRescateActual = AfectadoRescate.idRescate;
+            this.AfectadosRescate = AfectadoRescates;
             this.modo = "editar";
-            this.Material = Material;
+            this.AfectadoRescate = AfectadoRescate;
         }
 
-        private void GuardarMaterial()
+        private void GuardarAfectadoRescate()
         {
             if (this.modo.Equals("agregar"))
             {
-                MModel.AgregarMaterial(this.Material);
-                Materiales.Add(Material);
+                MModel.AgregarAfectadoRescate(this.AfectadoRescate);
+                AfectadosRescate.Add(AfectadoRescate);
                 CloseAction();
             }
             if (this.modo.Equals("editar"))
             {
-                MModel.EditarMaterial(this.Material, idMaterialActual);
+                MModel.EditarAfectadoRescate(this.AfectadoRescate, idAfectadoRescateActual);
                 CloseAction();
             }
         }

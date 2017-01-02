@@ -92,6 +92,19 @@ INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Carabinero",6);
 INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("ONEMI",6);
 INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Servicio Medico Legal",6);
 
+INSERT INTO "Categoria" VALUES(7,"Prioridad Afectados","nombre de prioridades");
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Primario",7);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Secundario",7);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Terciario",7);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Cuaternario",7);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Quinario",7);
+
+INSERT INTO "Categoria" VALUES(8,"Tipos de Afectado Incendio","tipos de afectado en incendio");
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Dueño",8);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Arrendatario",8);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Sin ocupantes",8);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Trabajador a cargo",8);
+
 INSERT INTO Carro(idCarro,nombre,tipo,descripcion,kilometraje,horas_motor,horas_bomba)
 VALUES(0,"B1","Incendio","Carro para Incendio",0,0,0);
 INSERT INTO Carro(idCarro,nombre,tipo,descripcion,kilometraje,horas_motor,horas_bomba)

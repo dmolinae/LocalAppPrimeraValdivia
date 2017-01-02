@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS "MaterialPeligroso"(
     FOREIGN KEY("fk_idIncendio")
     REFERENCES "Incendio"("idIncendio")
 );
-CREATE TABLE IF NOT EXISTS "Afectado_Rescate"(
+CREATE TABLE IF NOT EXISTS "AfectadoRescate"(
   "idRescate" INTEGER PRIMARY KEY NOT NULL,
   "nombre" VARCHAR(45),
   "rut" VARCHAR(45),
@@ -180,15 +180,15 @@ CREATE TABLE IF NOT EXISTS "Item"(
     FOREIGN KEY("fk_idCategoria")
     REFERENCES "Categoria"("idCategoria")
 );
-CREATE TABLE IF NOT EXISTS "Afectado_Incendio"(
+CREATE TABLE IF NOT EXISTS "AfectadoIncendio"(
   "idAfectado" INTEGER PRIMARY KEY NOT NULL,
   "nombre" VARCHAR(45),
   "rut" VARCHAR(45),
   "tipoAfectado" VARCHAR(45),
-  "numeroAdulto" INTEGER,
-  "numeroNiños" INTEGER,
-  "dañoVivienda" INTEGER,
-  "dañoEnseres" INTEGER,
+  "numeroAdultos" INTEGER,
+  "numeroNinos" INTEGER,
+  "danoVivienda" INTEGER,
+  "danoEnseres" INTEGER,
   "superficie" INTEGER,
   "prioridad" VARCHAR(45),
   "fk_idIncendioAfectado" INTEGER,
@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS "Vehiculo"(
     UNIQUE("idVehiculo"),
   CONSTRAINT "fk_idRescate"
     FOREIGN KEY("fk_idRescate")
-    REFERENCES "Afectado_Rescate"("idRescate")
+    REFERENCES "AfectadoRescate"("idRescate")
 );
 CREATE TABLE IF NOT EXISTS "Material"(
   "idMaterial" INTEGER PRIMARY KEY NOT NULL,
@@ -353,5 +353,5 @@ CREATE TABLE IF NOT EXISTS "Aseguradora_Vivienda_Afectado"(
     UNIQUE("idaseguradora_afectado"),
   CONSTRAINT "fk_idAfectado"
     FOREIGN KEY("fk_idAfectado")
-    REFERENCES "Afectado_Incendio"("idAfectado")
+    REFERENCES "AfectadoIncendio"("idAfectado")
 );
