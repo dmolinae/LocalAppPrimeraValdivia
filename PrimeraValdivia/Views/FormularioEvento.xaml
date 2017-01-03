@@ -75,11 +75,7 @@
 
                                 <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
                                     <Label Content="Fecha y hora:" Width="130"/>
-                                    <TextBox Text="{Binding Evento.fecha, Converter={StaticResource dateTimeToStringConverter}}" Width="120" Height="30">
-                                        <i:Interaction.Behaviors>
-                                            <helpers:TextBoxInputMaskBehavior InputMask="00/00/0000 00:00" PromptChar="-"/>
-                                        </i:Interaction.Behaviors>
-                                    </TextBox>
+                                    <Controls:DateTimePicker SelectedDate="{Binding Evento.fecha}" Height="20" Culture="{Binding CultureInfo}"/>
                                 </StackPanel>
 
                                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">

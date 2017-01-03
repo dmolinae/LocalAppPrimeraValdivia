@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows;
+using System.Globalization;
 
 namespace PrimeraValdivia.ViewModels
 {
@@ -179,6 +180,7 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public CultureInfo CultureInfo = CultureInfo.CurrentCulture;
         #endregion
 
         #region Atributos publicos

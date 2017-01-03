@@ -15,51 +15,54 @@
         WindowState="Maximized"
         Title="{Binding Title}" Height="720" Width="1280">
     <Controls:MetroWindow.RightWindowCommands>
-        <Controls:WindowCommands>
+        <Controls:WindowCommands ShowSeparators="False">
             <Controls:ProgressRing IsActive="{Binding Loading}" Height="20" Width="20" Foreground="White"/>
-            <Button Content="Configuraciones" />
+            <Button Content="Generar Documentos" Command="{Binding GenerarDocumentosCommand}"/>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-    <TabControl x:Name="tabControl">
-        <TabItem Header="Voluntarios" Height="39" VerticalAlignment="Bottom">
-            <Grid Background="#FFE5E5E5" Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <views:Voluntarios/>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0" x:Name="tabControl">
+            <TabItem Header="Voluntarios" Height="39" VerticalAlignment="Bottom">
+                <Grid Background="#FFE5E5E5" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <views:Voluntarios/>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Eventos">
-            <Grid Background="#FFE5E5E5" Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <views:Eventos/>
+            </TabItem>
+            <TabItem Header="Eventos">
+                <Grid Background="#FFE5E5E5" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <views:Eventos/>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Carros">
-            <Grid Background="#FFE5E5E5" Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <views:Carros/>
+            </TabItem>
+            <TabItem Header="Carros">
+                <Grid Background="#FFE5E5E5" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <views:Carros/>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Generar Documentos">
-            <Grid Background="#FFE5E5E5" Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <views:GenerarDocs/>
-                </Grid>
-            </Grid>
-        </TabItem>
-    </TabControl>
+            </TabItem>
+        </TabControl>
+        <StatusBar Grid.Row="1">
+            <StatusBarItem>Base de datos de Primera Compañia de Bomberos, Valdivia</StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <Controls:ProgressRing IsActive="{Binding Loading}" Height="20" Width="20" Foreground="White"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
 </Controls:MetroWindow>
