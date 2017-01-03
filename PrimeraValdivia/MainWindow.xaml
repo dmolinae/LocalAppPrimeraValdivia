@@ -10,6 +10,8 @@
         mc:Ignorable="d"
         GlowBrush="Black"
         WindowStartupLocation="CenterScreen"
+        ShowIconOnTitleBar="True"
+        Icon="logo.ico"
         WindowState="Maximized"
         Title="{Binding Title}" Height="720" Width="1280">
     <Controls:MetroWindow.RightWindowCommands>
