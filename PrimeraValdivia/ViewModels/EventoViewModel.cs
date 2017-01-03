@@ -100,8 +100,8 @@ namespace PrimeraValdivia.ViewModels
 
         private void AgregarEvento()
         {
-            var viewmodel = new FormularioEventoViewModel(Eventos);
             var view = new FormularioEvento();
+            var viewmodel = new FormularioEventoViewModel(Eventos, view);
             view.DataContext = viewmodel;
             viewmodel.CloseAction = new Action(view.Close);
             view.Show();
@@ -114,8 +114,8 @@ namespace PrimeraValdivia.ViewModels
 
         private void MostrarEvento()
         {
-            var viewmodel = new FormularioEventoViewModel(Eventos,Evento);
             var view = new FormularioEvento();
+            var viewmodel = new FormularioEventoViewModel(Eventos,Evento,view);
             view.DataContext = viewmodel;
             viewmodel.CloseAction = new Action(view.Close);
             view.Show();

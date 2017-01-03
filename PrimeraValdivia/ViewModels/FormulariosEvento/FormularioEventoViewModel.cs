@@ -1,4 +1,6 @@
 ﻿using MyToolkit.Collections;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using PrimeraValdivia.Helpers;
 using PrimeraValdivia.Models;
 using PrimeraValdivia.Views;
@@ -11,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows;
 
 namespace PrimeraValdivia.ViewModels
 {
@@ -110,6 +113,8 @@ namespace PrimeraValdivia.ViewModels
         private Apoyo ApModel = new Apoyo();
         private AfectadoIncendio AIModel = new AfectadoIncendio();
         private AfectadoRescate ARModel = new AfectadoRescate();
+
+        private FormularioEvento view;
         
         public class VoluntarioAsistente : ViewModelBase
         {
@@ -818,8 +823,9 @@ namespace PrimeraValdivia.ViewModels
 
         #region Metodos
 
-        public FormularioEventoViewModel(ObservableCollection<Evento> Eventos)
+        public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, FormularioEvento view)
         {
+            this.view = view;
             modo = "agregar";
 
             this.Eventos = Eventos;
@@ -841,8 +847,9 @@ namespace PrimeraValdivia.ViewModels
             TiposLugar = ItModel.ObtenerItemsCategoria(4);
             TiposConstruccion = ItModel.ObtenerItemsCategoria(5);
         }
-        public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, Evento Evento)
+        public FormularioEventoViewModel(ObservableCollection<Evento> Eventos, Evento Evento, FormularioEvento view)
         {
+            this.view = view;
             modo = "editar";
 
             this.Evento = Evento;
@@ -1082,7 +1089,7 @@ namespace PrimeraValdivia.ViewModels
             IModel.AgregarIncendio(Incendio);
         }
 
-        private void ActionButtonSiguiente()
+        private async void ActionButtonSiguiente()
         {
             switch (tabIndex)
             {
@@ -1110,22 +1117,38 @@ namespace PrimeraValdivia.ViewModels
                     SiguienteButtonContent = "Guardar";
                     break;
                 case 3:
-                    if(modo == "agregar")
+                    if (VoluntariosSinMarcar.Count > 0)
                     {
-                        GuardarEvento();
-                        if (Evento.codigoServicio == "02") GuardarIncendio();
+                        MetroDialogSettings settings = new MetroDialogSettings();
+                        settings.NegativeButtonText = "Cancelar";
+                        settings.AffirmativeButtonText = "Continuar";
+                        MessageDialogResult result = await view.ShowMessageAsync("Estas seguro?", "Quedaron voluntarios sin marcar asistencia, se les marcará falta a todos ellos, continuar?",MessageDialogStyle.AffirmativeAndNegative,settings);
+                        if(result == MessageDialogResult.Affirmative)
+                        {
+                            fChecked = true;
+                            MarcarRestantes();
+                            GuardarYCerrarFormularioEvento();
+                        }
                     }
-                    else
-                    {
-                        EModel.EditarEvento(Evento, Evento.idEvento);
-                        if (Evento.codigoServicio == "02") IModel.EditarIncendio(Incendio, Incendio.idIncendio);
-                    }
-                    CloseAction();
+                    else GuardarYCerrarFormularioEvento();
                     break;
             }
             if (tabIndex < 3) tabIndex++;
         }
-
+        private void GuardarYCerrarFormularioEvento()
+        {
+            if (modo == "agregar")
+            {
+                GuardarEvento();
+                if (Evento.codigoServicio == "02") GuardarIncendio();
+            }
+            else if (modo == "editar")
+            {
+                EModel.EditarEvento(Evento, Evento.idEvento);
+                if (Evento.codigoServicio == "02") IModel.EditarIncendio(Incendio, Incendio.idIncendio);
+            }
+            CloseAction();
+        }
         private void ActionButtonAtras()
         {
             switch (tabIndex)
