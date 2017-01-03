@@ -471,7 +471,11 @@
                                     CanUserSortColumns="True" 
                                     Margin="10">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Nombre" Binding="{Binding Path=nombre}"/>
+                                <DataGridTextColumn Header="Prioridad" Binding="{Binding Path=prioridad, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding Path=nombre, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                                <DataGridTextColumn Header="Rut" Binding="{Binding Path=rut, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                                <DataGridTextColumn Header="Tipo" Binding="{Binding Path=tipoAfectado, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Estado" Binding="{Binding Path=estado, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTemplateColumn Width="70">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -648,7 +652,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Label FontSize="12" Foreground="#FF272727" Content="Cuadro de busqueda"/>
-                        <TextBox Grid.Row="1" VerticalAlignment="Top" Text="{Binding nameFilter, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Controls:TextBoxHelper.Watermark="Ingrese nombre de voluntario" Grid.Row="1" VerticalAlignment="Top" Text="{Binding nameFilter, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                     <Grid Grid.Column="1" Grid.Row="0" Margin="8">
                         <Grid.RowDefinitions>

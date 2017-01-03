@@ -105,6 +105,16 @@ INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Arrendatario",8);
 INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Sin ocupantes",8);
 INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Trabajador a cargo",8);
 
+INSERT INTO "Categoria" VALUES(9,"Tipos de Afectado Rescate","tipos de afectado en rescate");
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Chofer",9);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Peatón",9);
+
+INSERT INTO "Categoria" VALUES(10,"Estados afectado","estado vital de un afectado");
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Leve",10);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Medio",10);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Grave",10);
+INSERT INTO "Item"("nombre","fk_idCategoria") VALUES("Fallecido",10);
+
 INSERT INTO Carro(idCarro,nombre,tipo,descripcion,kilometraje,horas_motor,horas_bomba)
 VALUES(0,"B1","Incendio","Carro para Incendio",0,0,0);
 INSERT INTO Carro(idCarro,nombre,tipo,descripcion,kilometraje,horas_motor,horas_bomba)

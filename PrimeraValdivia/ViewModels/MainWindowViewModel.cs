@@ -14,6 +14,29 @@ namespace PrimeraValdivia.ViewModels
 {
     class MainWindowViewModel : ViewModelBase
     {
+        private bool _Loading = false;
+        private string _Title;
+
+        
+        public string Title
+        {
+            get { return _Title; }
+            set
+            {
+                _Title = value;
+                OnPropertyChanged("Title");
+            }
+        }
+        public bool Loading
+        {
+            get { return _Loading; }
+            set
+            {
+                _Loading = value;
+                OnPropertyChanged("Loading");
+            }
+        }
+
         public MainWindowViewModel()
         {
             _Title = "Primera Valdivia";
@@ -22,40 +45,5 @@ namespace PrimeraValdivia.ViewModels
             //utils.cargarBD();
         }
 
-        private string _Title;
-        public string Title
-        {
-            get { return _Title; }
-
-            set
-            {
-                SetProperty(ref _Title, value);
-            }
-        }
-
-        private ICommand _SetTextCommand;
-        public ICommand SetTextCommand
-        {
-            get
-            {
-                this._SetTextCommand = new RelayCommand()
-                {
-                    CanExecuteDelegate = c => CanUpdateTitle(),
-                    ExecuteDelegate = c => SetTitle()
-                };
-                return this._SetTextCommand;
-            }
-        }
-
-        private bool CanUpdateTitle()
-        {
-            return Title.Length < 50;
-        }
-
-        private void SetTitle()
-        {
-            Title += "";
-        }
-        
     }
 }

@@ -13,7 +13,7 @@
         mc:Ignorable="d"
         GlowBrush="Black"
         WindowStartupLocation="CenterScreen" 
-             Width="400" Height="Auto">
+             Width="400" Height="350">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel.Resources>
@@ -23,7 +23,7 @@
         </StackPanel.Resources>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="ID Afectado" Width="130"/>
-            <TextBox IsEnabled="False" Text="{Binding AfectadoRescate.idAfectado}" Width="200"/>
+            <TextBox IsEnabled="False" Text="{Binding AfectadoRescate.idRescate}" Width="200"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Prioridad" Width="130"/>
@@ -39,39 +39,11 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Tipo de Afectado" Width="130"/>
-            <ComboBox IsEditable="False" ItemsSource="{Binding TiposAfectadoRescate}" DisplayMemberPath="nombre" Text="{Binding AfectadoRescate.tipoAfectado}" Width="200"/>
+            <ComboBox IsEditable="True" ItemsSource="{Binding TiposAfectadoRescate}" DisplayMemberPath="nombre" Text="{Binding AfectadoRescate.tipoAfectado}" Width="200"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Número Adultos" Width="130"/>
-            <TextBox Text="{Binding AfectadoRescate.numeroAdultos}" Width="200"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Número Niños" Width="130"/>
-            <TextBox Text="{Binding AfectadoRescate.numeroNinos}" Width="200"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Daño Vivienda" Width="130"/>
-            <TextBox Text="{Binding AfectadoRescate.danoVivienda}" Width="200">
-                <i:Interaction.Behaviors>
-                    <helpers:TextBoxInputMaskBehavior InputMask="00 %" PromptChar="0"/>
-                </i:Interaction.Behaviors>
-            </TextBox>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Daño Enseres" Width="130"/>
-            <TextBox Text="{Binding AfectadoRescate.danoEnseres}" Width="200">
-                <i:Interaction.Behaviors>
-                    <helpers:TextBoxInputMaskBehavior InputMask="00 %" PromptChar="0"/>
-                </i:Interaction.Behaviors>
-            </TextBox>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Superficie" Width="130"/>
-            <TextBox Text="{Binding AfectadoRescate.superficie}" Width="200">
-                <i:Interaction.Behaviors>
-                    <helpers:TextBoxInputMaskBehavior InputMask="999 m2" PromptChar="0"/>
-                </i:Interaction.Behaviors>
-            </TextBox>
+            <Label Content="Estado" Width="130"/>
+            <ComboBox IsEditable="False" ItemsSource="{Binding EstadosAfectado}" DisplayMemberPath="nombre" Text="{Binding AfectadoRescate.estado}" Width="200"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">

@@ -123,6 +123,7 @@ CREATE TABLE IF NOT EXISTS "AfectadoRescate"(
   "rut" VARCHAR(45),
   "tipoAfectado" VARCHAR(45),
   "estado" VARCHAR(45),
+  "prioridad" VARCHAR(45),
   "fk_idEventoRescate" INTEGER,
   CONSTRAINT "idRescate_UNIQUE"
     UNIQUE("idRescate"),

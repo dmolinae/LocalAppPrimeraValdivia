@@ -12,6 +12,12 @@
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
         Title="{Binding Title}" Height="720" Width="1280">
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Controls:ProgressRing IsActive="{Binding Loading}" Height="20" Width="20" Foreground="White"/>
+            <Button Content="Configuraciones" />
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
     <TabControl x:Name="tabControl">
         <TabItem Header="Voluntarios" Height="39" VerticalAlignment="Bottom">
             <Grid Background="#FFE5E5E5" Margin="10">

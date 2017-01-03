@@ -14,6 +14,10 @@ namespace PrimeraValdivia.ViewModels
     {
         #region Atributos Privados
 
+        private ObservableCollection<Item> _TiposAfectadoRescate;
+        private ObservableCollection<Item> _Prioridades;
+        private ObservableCollection<Item> _EstadosAfectado;
+
         private ObservableCollection<AfectadoRescate> _AfectadosRescate;
         private AfectadoRescate _AfectadoRescate;
         private ICommand _GuardarAfectadoRescateCommand;
@@ -21,6 +25,7 @@ namespace PrimeraValdivia.ViewModels
         private int idAfectadoRescateActual;
 
         private AfectadoRescate MModel = new AfectadoRescate();
+        private Item IModel = new Item();
 
         #endregion
 
@@ -48,6 +53,34 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public ObservableCollection<Item> TiposAfectadoRescate
+        {
+            get { return _TiposAfectadoRescate; }
+            set
+            {
+                _TiposAfectadoRescate = value;
+                OnPropertyChanged("TiposAfectadoRescate");
+            }
+        }
+        public ObservableCollection<Item> Prioridades
+        {
+            get { return _Prioridades; }
+            set
+            {
+                _Prioridades = value;
+                OnPropertyChanged("Prioridades");
+            }
+        }
+        public ObservableCollection<Item> EstadosAfectado
+        {
+            get { return _EstadosAfectado; }
+            set
+            {
+                _EstadosAfectado = value;
+                OnPropertyChanged("EstadosAfectado");
+            }
+        }
+
         public ICommand GuardarAfectadoRescateCommand
         {
             get
@@ -68,6 +101,11 @@ namespace PrimeraValdivia.ViewModels
         public FormularioAfectadoRescateViewModel(ObservableCollection<AfectadoRescate> AfectadoRescates, int idEvento)
         {
             this.modo = "agregar";
+
+            TiposAfectadoRescate = IModel.ObtenerItemsCategoria(9);
+            Prioridades = IModel.ObtenerItemsCategoria(7);
+            EstadosAfectado = IModel.ObtenerItemsCategoria(10);
+
             AfectadoRescate = new AfectadoRescate();
             AfectadoRescate.IniciarId();
             AfectadoRescate.fk_idEventoRescate = idEvento;
@@ -75,9 +113,14 @@ namespace PrimeraValdivia.ViewModels
         }
         public FormularioAfectadoRescateViewModel(ObservableCollection<AfectadoRescate> AfectadoRescates, AfectadoRescate AfectadoRescate)
         {
+            this.modo = "editar";
+
+            TiposAfectadoRescate = IModel.ObtenerItemsCategoria(9);
+            Prioridades = IModel.ObtenerItemsCategoria(7);
+            EstadosAfectado = IModel.ObtenerItemsCategoria(10);
+
             this.idAfectadoRescateActual = AfectadoRescate.idRescate;
             this.AfectadosRescate = AfectadoRescates;
-            this.modo = "editar";
             this.AfectadoRescate = AfectadoRescate;
         }
 

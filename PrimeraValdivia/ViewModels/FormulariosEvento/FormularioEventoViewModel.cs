@@ -1010,18 +1010,25 @@ namespace PrimeraValdivia.ViewModels
 
         private void AgregarAsistencia()
         {
-            String codigo = obtenerCodigoAsistenciaSeleccionado();
+            try
+            {
+                String codigo = obtenerCodigoAsistenciaSeleccionado();
 
-            Asistencia Asistencia = new Asistencia(Voluntario.idVoluntario, Evento.idEvento, codigo, Evento.asistenciaObligatoria);
-            AModel.AgregarAsistencia(Asistencia);
-            VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
-                Voluntario.idVoluntario,
-                Voluntario.rut,
-                VModel.ObtenerNombreVoluntario(Voluntario.idVoluntario),
-                VModel.ObtenerCargoVoluntario(Voluntario.idVoluntario),
-                codigo);
-            AsistentesTabla.Insert(0, asistente_tabla);
-            VoluntariosSinMarcar.Remove(Voluntario);
+                Asistencia Asistencia = new Asistencia(Voluntario.idVoluntario, Evento.idEvento, codigo, Evento.asistenciaObligatoria);
+                AModel.AgregarAsistencia(Asistencia);
+                VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
+                    Voluntario.idVoluntario,
+                    Voluntario.rut,
+                    VModel.ObtenerNombreVoluntario(Voluntario.idVoluntario),
+                    VModel.ObtenerCargoVoluntario(Voluntario.idVoluntario),
+                    codigo);
+                AsistentesTabla.Insert(0, asistente_tabla);
+                VoluntariosSinMarcar.Remove(Voluntario);
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Data);
+            }
         }
 
         private void MarcarAsistencia()
