@@ -41,7 +41,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Hora Salida Cuartel" Width="130"/>
-                <TextBox Text="{Binding MaterialMayor.horaSalidaCuartel}" Width="200">
+                <TextBox Text="{Binding MaterialMayor.horaSalidaCuartel}" Controls:TextBoxHelper.SelectAllOnFocus="True" Width="200">
                     <i:Interaction.Behaviors>
                         <helpers:TextBoxInputMaskBehavior InputMask="00:00" PromptChar="-"/>
                     </i:Interaction.Behaviors>
@@ -49,7 +49,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Hora Llegada Evento" Width="130"/>
-                <TextBox Text="{Binding MaterialMayor.horaLlegadaEvento}" Width="200">
+                <TextBox Text="{Binding MaterialMayor.horaLlegadaEvento}" Controls:TextBoxHelper.SelectAllOnFocus="True" Width="200">
                     <i:Interaction.Behaviors>
                         <helpers:TextBoxInputMaskBehavior InputMask="00:00" PromptChar="-"/>
                     </i:Interaction.Behaviors>
@@ -57,7 +57,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Hora Salida Evento" Width="130"/>
-                <TextBox Text="{Binding MaterialMayor.horaSalidaEvento}" Width="200">
+                <TextBox Text="{Binding MaterialMayor.horaSalidaEvento}" Controls:TextBoxHelper.SelectAllOnFocus="True" Width="200">
                     <i:Interaction.Behaviors>
                         <helpers:TextBoxInputMaskBehavior InputMask="00:00" PromptChar="-"/>
                     </i:Interaction.Behaviors>
@@ -65,7 +65,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Hora Llegada Cuartel" Width="130"/>
-                <TextBox Text="{Binding MaterialMayor.horaLlegadaCuartel}" Width="200">
+                <TextBox Text="{Binding MaterialMayor.horaLlegadaCuartel}" Controls:TextBoxHelper.SelectAllOnFocus="True" Width="200">
                     <i:Interaction.Behaviors>
                         <helpers:TextBoxInputMaskBehavior InputMask="00:00" PromptChar="-"/>
                     </i:Interaction.Behaviors>
@@ -73,11 +73,11 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Kilometraje Salida" Width="130"/>
-                <TextBox Text="{Binding MaterialMayor.kilometrajeSalida}" Width="200"/>
+                <TextBox Text="{Binding MaterialMayor.kilometrajeSalida}" Controls:TextBoxHelper.SelectAllOnFocus="True" Width="200"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Kilometraje Llegada" Width="130"/>
-                <TextBox Text="{Binding MaterialMayor.kilometrajeLlegada}" Width="200"/>
+                <TextBox Text="{Binding MaterialMayor.kilometrajeLlegada}" Controls:TextBoxHelper.SelectAllOnFocus="True" Width="200"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
                 <Button Content="Guardar" Command="{Binding GuardarMaterialMayorCommand}"/>

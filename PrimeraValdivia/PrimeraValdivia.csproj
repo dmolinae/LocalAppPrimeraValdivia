@@ -155,6 +155,7 @@
     <Compile Include="Models\Carro.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\CompaniaVoluntario.cs" />
+    <Compile Include="Models\HistoriaAsistencia.cs" />
     <Compile Include="Models\Incendio\Incendio.cs" />
     <Compile Include="Models\Incendio\AfectadoIncendio.cs" />
     <Compile Include="Models\Incendio\AseguradoraViviendaAfectado.cs" />

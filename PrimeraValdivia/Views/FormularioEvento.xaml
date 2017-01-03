@@ -14,6 +14,8 @@
         mc:Ignorable="d"
         GlowBrush="Black"
         WindowStartupLocation="CenterScreen"
+        ShowIconOnTitleBar="True"
+        Title="Formulario Evento"
         WindowState="Maximized" Height="769" d:DesignWidth="1108">
     <Window.Resources>
         <helpers:idNombreCarroConverter x:Key="idNombreCarroConverter"/>
@@ -23,6 +25,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TabControl Grid.Row="0" SelectedIndex="{Binding tabIndex}">
@@ -75,7 +78,7 @@
 
                                 <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
                                     <Label Content="Fecha y hora:" Width="130"/>
-                                    <Controls:DateTimePicker SelectedDate="{Binding Evento.fecha}" Height="20" Culture="{Binding CultureInfo}"/>
+                                    <Controls:DateTimePicker SelectedDate="{Binding Evento.fecha}" Height="25" Culture="{Binding CultureInfo}"/>
                                 </StackPanel>
 
                                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -97,9 +100,7 @@
                                 </Grid.RowDefinitions>
                                 <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Label Content="Clave:" Width="130"/>
-                                    <TextBox MouseDoubleClick="SelectAddress"
-                                             GotKeyboardFocus="SelectAddress"
-                                             PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"
+                                    <TextBox Controls:TextBoxHelper.SelectAllOnFocus="True"
                                              Text="{Binding Evento.claveServicio}" Width="70">
                                         <i:Interaction.Behaviors>
                                             <helpers:TextBoxInputMaskBehavior InputMask="00-0-0" PromptChar="0"/>
@@ -122,9 +123,7 @@
                                 </Grid.RowDefinitions>
                                 <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Label Content="Codigo:" Width="130"/>
-                                    <TextBox MouseDoubleClick="SelectAddress"
-                                             GotKeyboardFocus="SelectAddress"
-                                             PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"
+                                    <TextBox Controls:TextBoxHelper.SelectAllOnFocus="True"
                                              Text="{Binding Evento.codigoServicio}" Width="70">
                                         <i:Interaction.Behaviors>
                                             <helpers:TextBoxInputMaskBehavior InputMask="00" PromptChar="0"/>
@@ -156,9 +155,7 @@
                                 </StackPanel>
                                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Label Content=" "/>
-                                    <TextBox MouseDoubleClick="SelectAddress"
-                                             GotKeyboardFocus="SelectAddress"
-                                             PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" 
+                                    <TextBox Controls:TextBoxHelper.SelectAllOnFocus="True"
                                         Text="{Binding Evento.numeroCalle}" Width="50" Margin="0,0,0,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                                 </StackPanel>
 
@@ -171,9 +168,7 @@
                                 </StackPanel>
                                 <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Label Content=" "/>
-                                    <TextBox MouseDoubleClick="SelectAddress"
-                                             GotKeyboardFocus="SelectAddress"
-                                             PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" 
+                                    <TextBox Controls:TextBoxHelper.SelectAllOnFocus="True"
                                              IsEnabled="{Binding RescateEnabled}" Text="{Binding Evento.kilometroRuta}" Width="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,0,10"/>
                                 </StackPanel>
 
@@ -680,10 +675,16 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,100,20">
-            <Button Content="Atras" Command="{Binding ButtonAtrasCommand}"/>
-            <Button Content="{Binding SiguienteButtonContent}" Command="{Binding ButtonSiguienteCommand}"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+            <Button Content="Atras" Width="200" Command="{Binding ButtonAtrasCommand}"/>
+            <Button Content="{Binding SiguienteButtonContent}" Width="200" Command="{Binding ButtonSiguienteCommand}"/>
         </StackPanel>
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>Base de datos de Primera Compañia de Bomberos, Valdivia</StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <Controls:ProgressRing IsActive="{Binding Loading}" Height="20" Width="20" Foreground="White"/>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Controls:MetroWindow>
 

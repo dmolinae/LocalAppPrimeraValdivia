@@ -101,6 +101,8 @@ namespace PrimeraValdivia.ViewModels
 
         private bool buttonAtrasEnabled = false;
 
+        private bool _Loading;
+
         private int _tabIndex;
         private int _iCarro;
 
@@ -114,6 +116,7 @@ namespace PrimeraValdivia.ViewModels
         private Apoyo ApModel = new Apoyo();
         private AfectadoIncendio AIModel = new AfectadoIncendio();
         private AfectadoRescate ARModel = new AfectadoRescate();
+        private HistoriaAsistencia HAModel = new HistoriaAsistencia();
 
         private FormularioEvento view;
         
@@ -252,6 +255,16 @@ namespace PrimeraValdivia.ViewModels
             {
                 _incendioEnabled = value;
                 OnPropertyChanged("IncendioEnabled");
+            }
+        }
+
+        public bool Loading
+        {
+            get { return _Loading; }
+            set
+            {
+                _Loading = value;
+                OnPropertyChanged("Loading");
             }
         }
         public bool RescateEnabled
@@ -992,32 +1005,65 @@ namespace PrimeraValdivia.ViewModels
             AfectadosRescate.Remove(AfectadoRescate);
         }
 
-        private String obtenerCodigoAsistenciaSeleccionado()
+        private String obtenerCodigoAsistenciaSeleccionado(String tipo)
         {
             string codigo = "";
-            if (Evento.asistenciaObligatoria)
+            if (tipo == "asistenciaMensual")
             {
-                if (aChecked) codigo = "A";
-                if (fChecked) codigo = "F";
-                if (lChecked) codigo = "L";
+                if (Evento.asistenciaObligatoria)
+                {
+                    if (aChecked) codigo = "A";
+                    if (fChecked) codigo = "F";
+                    if (lChecked) codigo = "L";
+                }
+                else
+                {
+                    if (aChecked) codigo = "a";
+                    if (fChecked) codigo = " ";
+                    if (lChecked) codigo = " ";
+                }
             }
-            else
+            else if(tipo == "hojaVida")
             {
-                if (aChecked) codigo = "a";
-                if (fChecked) codigo = " ";
-                if (lChecked) codigo = " ";
+                if (Evento.asistenciaObligatoria)
+                {
+                    if (aChecked) codigo = "A";
+                    if (fChecked) codigo = "F";
+                    if (lChecked) codigo = "null";
+                }
+                else
+                {
+                    if (aChecked) codigo = "A";
+                    if (fChecked) codigo = "null";
+                    if (lChecked) codigo = "null";
+                }
             }
             return codigo;
+        }
+
+        private void AgregarAsistenciaHistoria(Voluntario voluntario)
+        {
+            if (obtenerCodigoAsistenciaSeleccionado("hojaVida") != "null")
+            {
+                HAModel.AgregarAsistenciaHistoria(voluntario.idVoluntario, Evento.fecha.Month, Evento.fecha.Year, obtenerCodigoAsistenciaSeleccionado("hojaVida"));
+                if (Evento.asistenciaObligatoria)
+                {
+                    HAModel.AgregarAsistenciaHistoria(voluntario.idVoluntario, Evento.fecha.Month, Evento.fecha.Year, "LL");
+                }
+            }
         }
 
         private void AgregarAsistencia()
         {
             try
             {
-                String codigo = obtenerCodigoAsistenciaSeleccionado();
+                String codigo = obtenerCodigoAsistenciaSeleccionado("asistenciaMensual");
 
                 Asistencia Asistencia = new Asistencia(Voluntario.idVoluntario, Evento.idEvento, codigo, Evento.asistenciaObligatoria);
                 AModel.AgregarAsistencia(Asistencia);
+
+                AgregarAsistenciaHistoria(Voluntario);
+
                 VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
                     Voluntario.idVoluntario,
                     Voluntario.rut,
@@ -1040,19 +1086,22 @@ namespace PrimeraValdivia.ViewModels
 
         private void EditarAsistencia()
         {
-            String codigo = obtenerCodigoAsistenciaSeleccionado();
+            String codigo = obtenerCodigoAsistenciaSeleccionado("asistenciaMensual");
             Asistente.codigo_asistencia = codigo;
             AModel.EditarAsistencia(new Asistencia(Asistente.id,Evento.idEvento,codigo,Evento.asistenciaObligatoria));
         }
 
         private void MarcarRestantes()
         {
-            String codigo = obtenerCodigoAsistenciaSeleccionado();
+            String codigo = obtenerCodigoAsistenciaSeleccionado("asistenciaMensual");
             Asistencia Asistencia;
+            Loading = true;
             foreach(Voluntario voluntario in VoluntariosSinMarcar)
             {
                 Asistencia = new Asistencia(voluntario.idVoluntario, Evento.idEvento, codigo, Evento.asistenciaObligatoria);
                 AModel.AgregarAsistencia(Asistencia);
+
+                AgregarAsistenciaHistoria(voluntario);
 
                 VoluntarioAsistente asistente_tabla = new VoluntarioAsistente(
                     voluntario.idVoluntario,
@@ -1062,6 +1111,7 @@ namespace PrimeraValdivia.ViewModels
                     codigo);
                 AsistentesTabla.Insert(0, asistente_tabla);
             }
+            Loading = false;
             VoluntariosSinMarcar.Clear();
         }
 
