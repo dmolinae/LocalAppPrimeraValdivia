@@ -268,16 +268,16 @@ namespace PrimeraValdivia.Models
 			return Voluntarios;
 		}
 
-		public ObservableCollection<Voluntario> ObtenerVoluntario(String rut)
+		public Voluntario ObtenerVoluntario(int idVoluntario)
 		{
-			ObservableCollection<Voluntario> Voluntarios = new ObservableCollection<Voluntario>();
+			Voluntario Voluntario = new Voluntario();
 			query = String.Format(
-				"SELECT * FROM Voluntario WHERE rut = '{0}'",
-				rut);
+				"SELECT * FROM Voluntario WHERE idVoluntario = {0}",
+				idVoluntario);
 			DataTable dt = utils.ExecuteQuery(query);
 			foreach (DataRow row in dt.Rows)
 			{
-				Voluntario Voluntario = new Voluntario(
+				Voluntario = new Voluntario(
 					int.Parse(row["idVoluntario"].ToString()),
 					row["nombre"].ToString(),
 					DateTime.Parse(row["fechaNacimiento"].ToString()),
@@ -292,9 +292,8 @@ namespace PrimeraValdivia.Models
 					row["codigoRadial"].ToString(),
 					row["rut"].ToString()
 				);
-				Voluntarios.Add(Voluntario);
 			}
-			return Voluntarios;
+			return Voluntario;
 		}
         public String ObtenerRutVoluntario(int idVoluntario)
         {

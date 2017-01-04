@@ -11,6 +11,9 @@ using PrimeraValdivia.Helpers;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using System.ComponentModel;
+using GalaSoft.MvvmLight.Command;
 
 namespace PrimeraValdivia.ViewModels
 {
@@ -30,8 +33,13 @@ namespace PrimeraValdivia.ViewModels
         private ICommand _GuardarCalificacionCommand;
         private ICommand _MostrarFormularioCalificacionCommand;
         private ICommand _EliminarCalificacionCommand;
+        private ICommand _WindowClosingCommand;
         private string modo;
+        private bool salir = false;
         private int idVoluntarioActual;
+        private String rutVoluntarioActual;
+
+        private FormularioVoluntario view;
 
         private CompaniaVoluntario CVModel = new CompaniaVoluntario();
         private Voluntario VModel = new Voluntario();
@@ -124,7 +132,7 @@ namespace PrimeraValdivia.ViewModels
         {
             get
             {
-                _GuardarVoluntarioCommand = new RelayCommand()
+                _GuardarVoluntarioCommand = new Helpers.RelayCommand()
                 {
                     CanExecuteDelegate = c => true,
                     ExecuteDelegate = c => GuardarVoluntario()
@@ -137,7 +145,7 @@ namespace PrimeraValdivia.ViewModels
         {
             get
             {
-                _AgregarCalificacionCommand = new RelayCommand()
+                _AgregarCalificacionCommand = new Helpers.RelayCommand()
                 {
                     CanExecuteDelegate = c => true,
                     ExecuteDelegate = c => AgregarCalificacion()
@@ -150,7 +158,7 @@ namespace PrimeraValdivia.ViewModels
         {
             get
             {
-                _MostrarFormularioCalificacionCommand = new RelayCommand()
+                _MostrarFormularioCalificacionCommand = new Helpers.RelayCommand()
                 {
                     CanExecuteDelegate = c => true,
                     ExecuteDelegate = c => EditarCalificacion()
@@ -163,7 +171,7 @@ namespace PrimeraValdivia.ViewModels
         {
             get
             {
-                _GuardarCalificacionCommand = new RelayCommand()
+                _GuardarCalificacionCommand = new Helpers.RelayCommand()
                 {
                     CanExecuteDelegate = c => true,
                     ExecuteDelegate = c => GuardarCalificacion()
@@ -176,7 +184,7 @@ namespace PrimeraValdivia.ViewModels
         {
             get
             {
-                _EliminarCalificacionCommand = new RelayCommand()
+                _EliminarCalificacionCommand = new Helpers.RelayCommand()
                 {
                     CanExecuteDelegate = c => true,
                     ExecuteDelegate = c => EliminarCalificacion()
@@ -185,12 +193,30 @@ namespace PrimeraValdivia.ViewModels
             }
         }
 
+        public ICommand WindowClosingCommand
+        {
+            get
+            {
+                _WindowClosingCommand = new RelayCommand<CancelEventArgs>(
+                    (args) =>{
+                        if (!salir)
+                        {
+                            args.Cancel = true;
+                            WindowClosingEvent();
+                        }
+                });
+                return _WindowClosingCommand;
+            }
+        }
+
         #endregion
 
         #region Metodos
 
-        public FormularioVoluntarioViewModel(ObservableCollection<Voluntario> Voluntarios)
+        public FormularioVoluntarioViewModel(ObservableCollection<Voluntario> Voluntarios, FormularioVoluntario view)
         {
+            this.view = view;
+
             this.Cargos = IModel.ObtenerItemsCategoria(0);
 
             this.modo = "agregar";
@@ -211,12 +237,15 @@ namespace PrimeraValdivia.ViewModels
             TabItems = new ObservableCollection<TabItem>();
             TabItems.Add(tabItem);
         }
-        public FormularioVoluntarioViewModel(ObservableCollection<Voluntario> Voluntarios, Voluntario Voluntario)
+        public FormularioVoluntarioViewModel(ObservableCollection<Voluntario> Voluntarios, Voluntario Voluntario, FormularioVoluntario view)
         {
+            this.view = view;
+
             this.Calificaciones = CModel.ObtenerCalificacions(Voluntario.idVoluntario);
             this.Cargos = IModel.ObtenerItemsCategoria(0);
 
             this.idVoluntarioActual = Voluntario.idVoluntario;
+            this.rutVoluntarioActual = Voluntario.rut;
             this.modo = "editar";
             this.Voluntarios = Voluntarios;
             this.Voluntario = Voluntario;
@@ -279,6 +308,43 @@ namespace PrimeraValdivia.ViewModels
         {
             CModel.AgregarCalificacion(this.Calificacion);
             Calificaciones.Add(this.Calificacion);
+        }
+
+        private async void WindowClosingEvent()
+        {
+            MetroDialogSettings settings = new MetroDialogSettings();
+            settings.NegativeButtonText = "Cancelar";
+            settings.AffirmativeButtonText = "Salir";
+            settings.FirstAuxiliaryButtonText = "Guardar y Salir";
+            MessageDialogResult result = await view.ShowMessageAsync("Seguro que deseas salir?", "Los cambios realizados no se guardarán", MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary, settings);
+            if (result == MessageDialogResult.Affirmative)
+            {
+                //Mapear valores sin efectuar cambio
+                Voluntario oldVolunt = VModel.ObtenerVoluntario(this.idVoluntarioActual);
+
+                Voluntario.nombre = oldVolunt.nombre;
+                Voluntario.fechaNacimiento = oldVolunt.fechaNacimiento;
+                Voluntario.ciudadNacimiento = oldVolunt.ciudadNacimiento;
+                Voluntario.grupoSanguineo = oldVolunt.grupoSanguineo;
+                Voluntario.profesion = oldVolunt.profesion;
+                Voluntario.servicioMilitar = oldVolunt.servicioMilitar;
+                Voluntario.insignia = oldVolunt.insignia;
+                Voluntario.cargo = oldVolunt.cargo;
+                Voluntario.nRegistroInterno = oldVolunt.nRegistroInterno;
+                Voluntario.nRegistroExterno = oldVolunt.nRegistroExterno;
+                Voluntario.codigoRadial = oldVolunt.codigoRadial;
+                Voluntario.rut = oldVolunt.rut;
+
+                this.salir = true;
+                CloseAction();
+            }
+            else if(result == MessageDialogResult.FirstAuxiliary)
+            {
+                GuardarVoluntario();
+
+                this.salir = true;
+                CloseAction();
+            }
         }
         #endregion
     }

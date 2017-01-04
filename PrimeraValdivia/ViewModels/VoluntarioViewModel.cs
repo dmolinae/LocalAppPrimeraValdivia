@@ -98,8 +98,8 @@ namespace PrimeraValdivia.ViewModels
         {
             var voluntario = new Voluntario();
 
-            var viewmodel = new FormularioVoluntarioViewModel(Voluntarios);
             var view = new FormularioVoluntario();
+            var viewmodel = new FormularioVoluntarioViewModel(Voluntarios, view);
             view.DataContext = viewmodel;
             viewmodel.CloseAction = new Action(view.Close);
             view.Show();
@@ -113,8 +113,8 @@ namespace PrimeraValdivia.ViewModels
 
         private void MostrarVoluntario()
         {
-            var viewmodel = new FormularioVoluntarioViewModel(Voluntarios, Voluntario);
             var view = new FormularioVoluntario();
+            var viewmodel = new FormularioVoluntarioViewModel(Voluntarios, Voluntario, view);
             view.DataContext = viewmodel;
             viewmodel.CloseAction = new Action(view.Close);
             view.Show();
