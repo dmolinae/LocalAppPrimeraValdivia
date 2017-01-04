@@ -10,12 +10,15 @@ using System.Windows.Input;
 using PrimeraValdivia.Helpers;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace PrimeraValdivia.ViewModels
 {
     class FormularioVoluntarioViewModel : ViewModelBase
     {
         #region Atributos Privados
+
+        private ObservableCollection<TabItem> _TabItems;
 
         private ObservableCollection<Voluntario> _Voluntarios;
         private ObservableCollection<Calificacion> _Calificaciones;
@@ -50,6 +53,15 @@ namespace PrimeraValdivia.ViewModels
             {
                 _Cargos = value;
                 OnPropertyChanged("Cargos");
+            }
+        }
+        public ObservableCollection<TabItem> TabItems
+        {
+            get { return _TabItems; }
+            set
+            {
+                _TabItems = value;
+                OnPropertyChanged("TabItems");
             }
         }
 
@@ -191,6 +203,13 @@ namespace PrimeraValdivia.ViewModels
             this.CompaniaVoluntario.IniciarId();
 
             this.Calificaciones = CModel.ObtenerCalificacions(Voluntario.idVoluntario);
+
+            var tabItemViewModel = new AnoVoluntarioTabItemViewModel(2017,Voluntario.idVoluntario);
+            var tabItem = new AnoVoluntarioTabItem();
+            tabItem.DataContext = tabItemViewModel;
+
+            TabItems = new ObservableCollection<TabItem>();
+            TabItems.Add(tabItem);
         }
         public FormularioVoluntarioViewModel(ObservableCollection<Voluntario> Voluntarios, Voluntario Voluntario)
         {
@@ -203,6 +222,13 @@ namespace PrimeraValdivia.ViewModels
             this.Voluntario = Voluntario;
 
             this.CompaniaVoluntario = CVModel.ObtenerCompaniaVoluntario(Voluntario.rut,0);
+
+            var tabItemViewModel = new AnoVoluntarioTabItemViewModel(2017, Voluntario.idVoluntario);
+            var tabItem = new AnoVoluntarioTabItem();
+            tabItem.DataContext = tabItemViewModel;
+
+            TabItems = new ObservableCollection<TabItem>();
+            TabItems.Add(tabItem);
         }
 
         private void GuardarVoluntario()

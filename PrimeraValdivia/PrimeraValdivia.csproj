@@ -149,6 +149,7 @@
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\idNombreCarroConverter.cs" />
     <Compile Include="Helpers\TextBoxInputMaskBehavior.cs" />
+    <Compile Include="Models\HistoriaAsistencia\AnoHistoriaAsistencia.cs" />
     <Compile Include="Models\Apoyo.cs" />
     <Compile Include="Models\Asistencia.cs" />
     <Compile Include="Models\Calificacion.cs" />
@@ -164,10 +165,12 @@
     <Compile Include="Models\Material.cs" />
     <Compile Include="Models\MaterialMayor.cs" />
     <Compile Include="Models\Material_MaterialMayor.cs" />
+    <Compile Include="Models\HistoriaAsistencia\MesHistoriaAsistencia.cs" />
     <Compile Include="Models\Rescate\AfectadoRescate.cs" />
     <Compile Include="Models\Rescate\AseguradoraVehiculo.cs" />
     <Compile Include="Models\Rescate\Vehiculo.cs" />
     <Compile Include="Models\Voluntario.cs" />
+    <Compile Include="ViewModels\AnoVoluntarioTabItemViewModel.cs" />
     <Compile Include="ViewModels\CarroViewModel.cs" />
     <Compile Include="ViewModels\CompaniaViewModel.cs" />
     <Compile Include="ViewModels\EventoViewModel.cs" />
@@ -185,6 +188,9 @@
     <Compile Include="Helpers\Utils.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\VoluntarioViewModel.cs" />
+    <Compile Include="Views\AnoVoluntarioTabItem.xaml.cs">
+      <DependentUpon>AnoVoluntarioTabItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FormularioAfectadoIncendio.xaml.cs">
       <DependentUpon>FormularioAfectadoIncendio.xaml</DependentUpon>
     </Compile>
@@ -236,6 +242,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AnoVoluntarioTabItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\FormularioAfectadoIncendio.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
