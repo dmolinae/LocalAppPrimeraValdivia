@@ -47,7 +47,9 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Content="Foto" Height="150" Width="120"></Button>
+                <Button Command="{Binding EditarFotoCommand}">
+                    <Image Source="{Binding ImageSource}" Height="150" Width="120" Stretch="Fill"/>
+                </Button>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Label Content="{Binding Voluntario.nombre, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" FontSize="25">
                         <Label.Effect>

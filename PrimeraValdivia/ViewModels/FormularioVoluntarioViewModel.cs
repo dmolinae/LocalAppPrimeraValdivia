@@ -14,6 +14,8 @@ using System.Windows.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.Win32;
+using System.Windows.Media.Imaging;
 
 namespace PrimeraValdivia.ViewModels
 {
@@ -35,6 +37,8 @@ namespace PrimeraValdivia.ViewModels
         private ICommand _EliminarCalificacionCommand;
         private ICommand _WindowClosingCommand;
         private ICommand _AgregarAnoCommand;
+        private ICommand _EditarFotoCommand;
+        private BitmapImage _ImageSource;
         private String _NuevoAno;
         private bool _Loading;
 
@@ -67,6 +71,15 @@ namespace PrimeraValdivia.ViewModels
             {
                 _NuevoAno = value;
                 OnPropertyChanged("NuevoAno");
+            }
+        }
+        public BitmapImage ImageSource
+        {
+            get { return _ImageSource; }
+            set
+            {
+                _ImageSource = value;
+                OnPropertyChanged("ImageSource");
             }
         }
         public bool Loading
@@ -244,6 +257,18 @@ namespace PrimeraValdivia.ViewModels
                 return _AgregarAnoCommand;
             }
         }
+        public ICommand EditarFotoCommand
+        {
+            get
+            {
+                _EditarFotoCommand = new Helpers.RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => EditarFoto()
+                };
+                return _EditarFotoCommand;
+            }
+        }
 
         #endregion
 
@@ -293,8 +318,61 @@ namespace PrimeraValdivia.ViewModels
                 tabItem.DataContext = tabItemViewModel;
                 TabItems.Add(tabItem);
             }
-        }
 
+            String path = AppDomain.CurrentDomain.BaseDirectory;
+            String destFile = System.IO.Path.Combine("ProfileImages", Voluntario.rut + ".png");
+
+            destFile = System.IO.Path.Combine(path, destFile);
+
+            try
+            {
+                BitmapImage b = new BitmapImage();
+                b.BeginInit();
+                b.UriSource = new Uri(destFile);
+                b.EndInit();
+
+                ImageSource = b;
+            }
+            catch(Exception e)
+            {
+                Debug.Write(e.Message);
+            }
+        }
+        private async void EditarFoto()
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            BitmapImage b = new BitmapImage();
+            openFile.Title = "Seleccione la Imagen a Mostrar";
+            openFile.Filter = "Todos(*.*) | *.*| Imagenes | *.jpg; *.gif; *.png; *.bmp";
+            if (openFile.ShowDialog() == true)
+            {
+                try
+                {
+                    if (!System.IO.Directory.Exists("ProfileImages"))
+                    {
+                        System.IO.Directory.CreateDirectory("ProfileImages");
+                    }
+                    String path = AppDomain.CurrentDomain.BaseDirectory;
+                    String destFile = System.IO.Path.Combine("ProfileImages", Voluntario.rut + ".png");
+
+                    destFile = System.IO.Path.Combine(path, destFile);
+
+                    System.IO.File.Copy(openFile.FileName, destFile, true);
+
+                    b.BeginInit();
+                    b.UriSource = new Uri(destFile);
+                    b.EndInit();
+
+                    ImageSource = b;
+                }
+                catch(Exception e)
+                {
+                    MetroDialogSettings settings = new MetroDialogSettings();
+                    settings.AffirmativeButtonText = "OK";
+                    MessageDialogResult result = await view.ShowMessageAsync("No se puedo acceder a esa imagen", "Inténtalo nuevamente utilizando otra imagen.", MessageDialogStyle.Affirmative, settings);
+                }
+            }
+        }
         private void GuardarVoluntario()
         {
             this.salir = true;

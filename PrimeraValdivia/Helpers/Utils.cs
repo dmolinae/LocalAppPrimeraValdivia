@@ -42,7 +42,7 @@ namespace PrimeraValdivia.Helpers
             conn.Close();
         }
 
-        private static string getMainPath()
+        public string getMainPath()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory;
             string actualPath = Directory.GetParent(path).FullName;
