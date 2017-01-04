@@ -21,10 +21,21 @@ namespace PrimeraValdivia.ViewModels
         private Utils utils = new Utils();
         private Voluntario model = new Voluntario();
 
+        private bool _Loading = false;
+
         #endregion
 
         #region Propiedades/Comandos públicos
 
+        public bool Loading
+        {
+            get { return _Loading; }
+            set
+            {
+                _Loading = value;
+                OnPropertyChanged("Loading");
+            }
+        }
         public Voluntario Voluntario
         {
             get { return _Voluntario; }
@@ -113,11 +124,13 @@ namespace PrimeraValdivia.ViewModels
 
         private void MostrarVoluntario()
         {
+            this.Loading = true;
             var view = new FormularioVoluntario();
             var viewmodel = new FormularioVoluntarioViewModel(Voluntarios, Voluntario, view);
             view.DataContext = viewmodel;
             viewmodel.CloseAction = new Action(view.Close);
             view.Show();
+            this.Loading = false;
         }
 
         #endregion

@@ -116,7 +116,9 @@ namespace PrimeraValdivia.ViewModels
         private Apoyo ApModel = new Apoyo();
         private AfectadoIncendio AIModel = new AfectadoIncendio();
         private AfectadoRescate ARModel = new AfectadoRescate();
-        private HistoriaAsistencia HAModel = new HistoriaAsistencia();
+
+        private AnoHistoriaAsistencia AHAModel = new AnoHistoriaAsistencia();
+        private MesHistoriaAsistencia MHAModel = new MesHistoriaAsistencia();
 
         private FormularioEvento view;
         
@@ -1045,10 +1047,12 @@ namespace PrimeraValdivia.ViewModels
         {
             if (obtenerCodigoAsistenciaSeleccionado("hojaVida") != "null")
             {
-                HAModel.AgregarAsistenciaHistoria(voluntario.idVoluntario, Evento.fecha.Month, Evento.fecha.Year, obtenerCodigoAsistenciaSeleccionado("hojaVida"));
+                int fk_ano = AHAModel.AgregarAnoHistoriaAsistencia(Evento.fecha.Year, voluntario.idVoluntario);
+
+                MHAModel.AgregarMesHistoriaAsistencia(fk_ano, Evento.fecha.Month, obtenerCodigoAsistenciaSeleccionado("hojaVida"));
                 if (Evento.asistenciaObligatoria)
                 {
-                    HAModel.AgregarAsistenciaHistoria(voluntario.idVoluntario, Evento.fecha.Month, Evento.fecha.Year, "LL");
+                    MHAModel.AgregarMesHistoriaAsistencia(fk_ano, Evento.fecha.Month,"LL");
                 }
             }
         }

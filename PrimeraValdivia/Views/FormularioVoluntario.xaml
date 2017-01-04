@@ -16,7 +16,7 @@
         WindowStartupLocation="CenterScreen"
         Background="#FF2C2C2C"
         
-        Width="1200" Height="643.787">
+        Width="1200" Height="660">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
             <cmd:EventToCommand Command="{Binding WindowClosingCommand}" PassEventArgsToCommand="True" />
@@ -201,9 +201,9 @@
                         </Button.Effect>
                     </Button>
                 </Grid>
-                <TabControl Grid.Row="1" 
+                <Controls:MetroAnimatedSingleRowTabControl Grid.Row="1" 
                         ItemsSource="{Binding TabItems}">
-                </TabControl>
+                </Controls:MetroAnimatedSingleRowTabControl>
             </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>

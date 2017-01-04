@@ -66,15 +66,29 @@ namespace PrimeraValdivia.Models
 			this.fk_idVoluntarioH = fk_idVoluntarioH;
 		}
 
-        public void AgregarAnoHistoriaAsistencia(AnoHistoriaAsistencia AnoHistoriaAsistencia)
+        public int AgregarAnoHistoriaAsistencia(int ano, int idVoluntario)
 		{
-			query = String.Format(
-				"INSERT INTO AnoHistoriaAsistencia(idAnoHistoriaAsistencia,ano,fk_idVoluntarioH) VALUES({0},{1},{2})",
-				AnoHistoriaAsistencia.idAnoHistoriaAsistencia,
-				AnoHistoriaAsistencia.ano,
-				AnoHistoriaAsistencia.fk_idVoluntarioH
-				);
-			utils.ExecuteNonQuery(query);
+            AnoHistoriaAsistencia AnoHistoriaAsistencia = new AnoHistoriaAsistencia();
+            if (ExisteAnoHistoriaAsistencia(ano, idVoluntario))
+            {
+                AnoHistoriaAsistencia = ObtenerAnoHistoriaAsistencia(ano, idVoluntario);
+                return AnoHistoriaAsistencia.idAnoHistoriaAsistencia;
+            }
+            else
+            {
+                AnoHistoriaAsistencia.IniciarId();
+                AnoHistoriaAsistencia.ano = ano;
+                AnoHistoriaAsistencia.fk_idVoluntarioH = idVoluntario;
+
+                query = String.Format(
+                    "INSERT INTO AnoHistoriaAsistencia(idAnoHistoriaAsistencia,ano,fk_idVoluntarioH) VALUES({0},{1},{2})",
+                    AnoHistoriaAsistencia.idAnoHistoriaAsistencia,
+                    AnoHistoriaAsistencia.ano,
+                    AnoHistoriaAsistencia.fk_idVoluntarioH
+                    );
+                utils.ExecuteNonQuery(query);
+                return AnoHistoriaAsistencia.idAnoHistoriaAsistencia;
+            }
 		}
 
         public void EditarAnoHistoriaAsistencia(AnoHistoriaAsistencia AnoHistoriaAsistencia, int idAnoHistoriaAsistencia)
@@ -97,42 +111,57 @@ namespace PrimeraValdivia.Models
 			utils.ExecuteNonQuery(query);
 		}
 
-        public ObservableCollection<AnoHistoriaAsistencia> ObtenerAnoHistoriaAsistencias()
-		{
-			ObservableCollection<AnoHistoriaAsistencia> AnoHistoriaAsistencias = new ObservableCollection<AnoHistoriaAsistencia>();
-			query = " SELECT * FROM AnoHistoriaAsistencia";
-			DataTable dt = utils.ExecuteQuery(query);
-			foreach (DataRow row in dt.Rows)
-			{
-				AnoHistoriaAsistencia AnoHistoriaAsistencia = new AnoHistoriaAsistencia(
-					int.Parse(row["idAnoHistoriaAsistencia"].ToString()),
-					int.Parse(row["ano"].ToString()),
-					int.Parse(row["fk_idVoluntarioH"].ToString())
-				);
-				AnoHistoriaAsistencias.Add(AnoHistoriaAsistencia);
-			}
-			return AnoHistoriaAsistencias;
-		}
+        public bool ExisteAnoHistoriaAsistencia(int ano, int idVoluntario)
+        {
+            bool existe = false;
+            query = String.Format(
+                "SELECT * FROM AnoHistoriaAsistencia WHERE ano = {0} and fk_idVoluntarioH = {1}",
+                ano,
+                idVoluntario);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                existe = true;
+            }
+            return existe;
+        }
 
-		public ObservableCollection<AnoHistoriaAsistencia> ObtenerAnoHistoriaAsistencia(int idAnoHistoriaAsistencia)
+        public AnoHistoriaAsistencia ObtenerAnoHistoriaAsistencia(int ano, int idVoluntario)
 		{
-			ObservableCollection<AnoHistoriaAsistencia> AnoHistoriaAsistencias = new ObservableCollection<AnoHistoriaAsistencia>();
+			AnoHistoriaAsistencia AnoHistoriaAsistencia = new AnoHistoriaAsistencia();
 			query = String.Format(
-				"SELECT * FROM AnoHistoriaAsistencia WHERE idAnoHistoriaAsistencia = {0}",
-				idAnoHistoriaAsistencia);
-			DataTable dt = utils.ExecuteQuery(query);
+                "SELECT * FROM AnoHistoriaAsistencia WHERE ano = {0} and fk_idVoluntarioH = {1}",
+                ano,
+                idVoluntario);
+            DataTable dt = utils.ExecuteQuery(query);
 			foreach (DataRow row in dt.Rows)
 			{
-				AnoHistoriaAsistencia AnoHistoriaAsistencia = new AnoHistoriaAsistencia(
+				AnoHistoriaAsistencia = new AnoHistoriaAsistencia(
 					int.Parse(row["idAnoHistoriaAsistencia"].ToString()),
 					int.Parse(row["ano"].ToString()),
 					int.Parse(row["fk_idVoluntarioH"].ToString())
 				);
-				AnoHistoriaAsistencias.Add(AnoHistoriaAsistencia);
 			}
-			return AnoHistoriaAsistencias;
+			return AnoHistoriaAsistencia;
 		}
-
+        public ObservableCollection<AnoHistoriaAsistencia> ObtenerAnosHistoriaVoluntario(int idVoluntario)
+        {
+            ObservableCollection<AnoHistoriaAsistencia> AnoHistoriaAsistencias = new ObservableCollection<AnoHistoriaAsistencia>();
+            query = String.Format(
+                "SELECT * FROM AnoHistoriaAsistencia WHERE fk_idVoluntarioH = {0} ORDER BY ano ASC",
+                idVoluntario);
+            DataTable dt = utils.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                AnoHistoriaAsistencia AnoHistoriaAsistencia = new AnoHistoriaAsistencia(
+                    int.Parse(row["idAnoHistoriaAsistencia"].ToString()),
+                    int.Parse(row["ano"].ToString()),
+                    int.Parse(row["fk_idVoluntarioH"].ToString())
+                );
+                AnoHistoriaAsistencias.Add(AnoHistoriaAsistencia);
+            }
+            return AnoHistoriaAsistencias;
+        }
         public void IniciarId()
 		{
 			query = "SELECT * FROM AnoHistoriaAsistencia ORDER BY idAnoHistoriaAsistencia DESC LIMIT 1";

@@ -1,4 +1,5 @@
 ﻿using PrimeraValdivia.Models;
+using PrimeraValdivia.DataModels;
 using PrimeraValdivia.Helpers;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Diagnostics;
+using PrimeraValdivia.Views;
 
 namespace PrimeraValdivia.ViewModels
 {
@@ -17,65 +20,12 @@ namespace PrimeraValdivia.ViewModels
         private ObservableCollection<MesAsistencia> _Meses;
         private MesAsistencia _Mes;
         private ICommand _EditarNumeroCommand;
-        private string modo;
         private int _Year;
 
-        private HistoriaAsistencia HAModel = new HistoriaAsistencia();
-        
-        public class MesAsistencia : ViewModelBase
-        {
-            private String _nombreMes;
-            public String nombreMes
-            {
-                get { return _nombreMes; }
-                set
-                {
-                    _nombreMes = value;
-                    OnPropertyChanged("nombreMes");
-                }
-            }
-            private int _LL;
-            public int LL
-            {
-                get { return _LL; }
-                set
-                {
-                    _LL = value;
-                    OnPropertyChanged("LL");
-                }
-            }
-            private int _A;
-            public int A
-            {
-                get { return _A; }
-                set
-                {
-                    _A = value;
-                    OnPropertyChanged("A");
-                }
-            }
-            private int _F;
-            public int F
-            {
-                get { return _F; }
-                set
-                {
-                    _F = value;
-                    OnPropertyChanged("F");
-                }
-            }
-            public MesAsistencia(String nombreMes, int LL, int A, int F)
-            {
-                this.nombreMes = nombreMes;
-                this.LL = LL;
-                this.A = A;
-                this.F = F;
-            }
-            public MesAsistencia()
-            {
+        private int fk_year;
 
-            }
-        }
+        private AnoHistoriaAsistencia AHAModel = new AnoHistoriaAsistencia();
+        private MesHistoriaAsistencia MHAModel = new MesHistoriaAsistencia();
 
         #endregion
 
@@ -141,12 +91,13 @@ namespace PrimeraValdivia.ViewModels
 
             Meses = new ObservableCollection<MesAsistencia>();
 
-            for(int i = 1;i < 13; i++)
+            fk_year = AHAModel.AgregarAnoHistoriaAsistencia(Year, idVoluntario);
+            for (int i = 1;i < 13; i++)
             {
                 MesAsistencia nuevoMes = new MesAsistencia();
                 foreach(String tipo in tipos)
                 {
-                    HistoriaAsistencia historiaAsistencia = HAModel.ObtenerHistoriaAsistencia(Year, i, idVoluntario, tipo);
+                    MesHistoriaAsistencia historiaAsistencia = MHAModel.ObtenerMesHistoriaAsistencia(fk_year, i, tipo);
                     switch (historiaAsistencia.tipo)
                     {
                         case "LL":
@@ -205,7 +156,11 @@ namespace PrimeraValdivia.ViewModels
 
         private void EditarNumero()
         {
-            
+            var view = new FormularioMes();
+            var viewmodel = new FormularioMesViewModel(Mes,fk_year);
+            view.DataContext = viewmodel;
+            viewmodel.CloseAction = new Action(view.Close);
+            view.Show();
         }
         #endregion
     }

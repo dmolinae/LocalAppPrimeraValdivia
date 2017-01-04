@@ -108,7 +108,7 @@ namespace PrimeraValdivia.ViewModels
         }
         private void EliminarEvento()
         {
-            model.EliminarEvento(Evento.idEvento);
+            model.EliminarEvento(Evento);
             Eventos.Remove(Evento);
         }
 

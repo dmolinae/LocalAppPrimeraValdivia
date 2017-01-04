@@ -17,6 +17,11 @@ namespace PrimeraValdivia.Models
     class Evento : ViewModelBase
     {
         private Utils utils = new Utils();
+
+        private Asistencia AModel = new Asistencia();
+        private MesHistoriaAsistencia MHAModel = new MesHistoriaAsistencia();
+        private AnoHistoriaAsistencia AHAModel = new AnoHistoriaAsistencia();
+
         private string query;
 
         #region Atributos
@@ -360,16 +365,32 @@ namespace PrimeraValdivia.Models
 			utils.ExecuteNonQuery(query);
 		}
 
-		public void EliminarEvento(int idEvento)
+		public void EliminarEvento(Evento Evento)
 		{
 			query = String.Format(
 				"DELETE FROM Evento WHERE idEvento = {0}",
-				idEvento);
+				Evento.idEvento);
 			utils.ExecuteNonQuery(query);
-            query = String.Format(
-                "DELETE FROM Asistencia WHERE fk_idEvento = {0}",
-                idEvento);
-            utils.ExecuteNonQuery(query);
+
+            ObservableCollection<Asistencia> AsistenciasEvento = AModel.ObtenerAsistentesEvento(Evento.idEvento);
+            foreach(Asistencia asistencia in AsistenciasEvento)
+            {
+                AModel.EliminarAsistencia(asistencia.idAsistencia);
+                int fk_year = AHAModel.AgregarAnoHistoriaAsistencia(Evento.fecha.Year, asistencia.fk_idVoluntario);
+
+                if (asistencia.codigoAsistencia == "A" || asistencia.codigoAsistencia == "a")
+                {
+                    MHAModel.DisminuirMesHistoriaAsistencia(fk_year, Evento.fecha.Month, "A");
+                }
+                else if (asistencia.codigoAsistencia == "F")
+                {
+                    MHAModel.DisminuirMesHistoriaAsistencia(fk_year, Evento.fecha.Month, "F");
+                }
+                if (asistencia.asistenciaObligatoria)
+                {
+                    MHAModel.DisminuirMesHistoriaAsistencia(fk_year, Evento.fecha.Month, "LL");
+                }
+            }
 		}
 
         public ObservableCollection<Evento> ObtenerEventos()

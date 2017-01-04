@@ -33,7 +33,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Button Content="Editar" Command="{Binding Path=DataContext.MostrarFormularioCalificacionCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                <Button Content="Editar" Command="{Binding Path=DataContext.EditarNumeroCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                             CommandParameter="{Binding}"/>
                             </Grid>
                         </DataTemplate>

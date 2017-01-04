@@ -45,6 +45,8 @@ namespace PrimeraValdivia.ViewModels
         private Voluntario VModel = new Voluntario();
         private Item IModel = new Item();
         private Calificacion CModel = new Calificacion();
+        private AnoHistoriaAsistencia AHAModel = new AnoHistoriaAsistencia();
+        private MesHistoriaAsistencia MHAModel = new MesHistoriaAsistencia();
 
         private ObservableCollection<Item> _Cargos;
 
@@ -230,12 +232,7 @@ namespace PrimeraValdivia.ViewModels
 
             this.Calificaciones = CModel.ObtenerCalificacions(Voluntario.idVoluntario);
 
-            var tabItemViewModel = new AnoVoluntarioTabItemViewModel(2017,Voluntario.idVoluntario);
-            var tabItem = new AnoVoluntarioTabItem();
-            tabItem.DataContext = tabItemViewModel;
-
             TabItems = new ObservableCollection<TabItem>();
-            TabItems.Add(tabItem);
         }
         public FormularioVoluntarioViewModel(ObservableCollection<Voluntario> Voluntarios, Voluntario Voluntario, FormularioVoluntario view)
         {
@@ -252,16 +249,21 @@ namespace PrimeraValdivia.ViewModels
 
             this.CompaniaVoluntario = CVModel.ObtenerCompaniaVoluntario(Voluntario.rut,0);
 
-            var tabItemViewModel = new AnoVoluntarioTabItemViewModel(2017, Voluntario.idVoluntario);
-            var tabItem = new AnoVoluntarioTabItem();
-            tabItem.DataContext = tabItemViewModel;
+            ObservableCollection<AnoHistoriaAsistencia> anos = AHAModel.ObtenerAnosHistoriaVoluntario(Voluntario.idVoluntario);
 
             TabItems = new ObservableCollection<TabItem>();
-            TabItems.Add(tabItem);
+            foreach (AnoHistoriaAsistencia ano in anos)
+            {
+                var tabItemViewModel = new AnoVoluntarioTabItemViewModel(ano.ano, Voluntario.idVoluntario);
+                var tabItem = new AnoVoluntarioTabItem();
+                tabItem.DataContext = tabItemViewModel;
+                TabItems.Add(tabItem);
+            }
         }
 
         private void GuardarVoluntario()
         {
+            this.salir = true;
             this.CompaniaVoluntario.fk_voluntario = Voluntario.rut;
             this.CompaniaVoluntario.fk_compania = 0; //cambiar para implementar mas companias
 
@@ -270,14 +272,13 @@ namespace PrimeraValdivia.ViewModels
                 VModel.AgregarVoluntario(Voluntario);
                 CVModel.AgregarCompaniaVoluntario(this.CompaniaVoluntario);
                 Voluntarios.Add(Voluntario);
-                CloseAction();
             }
-            if (this.modo.Equals("editar"))
+            else if (this.modo.Equals("editar"))
             {
                 VModel.EditarVoluntario(Voluntario, this.idVoluntarioActual);
                 CVModel.EditarCompaniaVoluntario(this.CompaniaVoluntario, this.CompaniaVoluntario.idCompaniaVoluntario);
-                CloseAction();
             }
+            CloseAction();
         }
 
         private void AgregarCalificacion()
@@ -341,9 +342,6 @@ namespace PrimeraValdivia.ViewModels
             else if(result == MessageDialogResult.FirstAuxiliary)
             {
                 GuardarVoluntario();
-
-                this.salir = true;
-                CloseAction();
             }
         }
         #endregion

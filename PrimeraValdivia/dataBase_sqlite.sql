@@ -131,15 +131,24 @@ CREATE TABLE IF NOT EXISTS "AfectadoRescate"(
     FOREIGN KEY("fk_idEventoRescate")
     REFERENCES "Evento"("idEvento")
 );
-CREATE TABLE IF NOT EXISTS "HistoriaAsistencia"(
-  "idHistoriaAsistencia" INTEGER PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS "MesHistoriaAsistencia"(
+  "idMesHistoriaAsistencia" INTEGER PRIMARY KEY AUTOINCREMENT,
   "tipo" VARCHAR(45),
   "numero" INTEGER,
   "mes" INTEGER,
+  "fk_idAnoHistoriaAsistencia" INTEGER,
+  CONSTRAINT "idMesHistoriaAsistencia_UNIQUE"
+    UNIQUE("idMesHistoriaAsistencia"),
+  CONSTRAINT "fk_idAnoHistoriaAsistencia"
+    FOREIGN KEY("fk_idAnoHistoriaAsistencia")
+    REFERENCES "AnoHistoriaAsistencia"("idAnoHistoriaAsistencia")
+);
+CREATE TABLE IF NOT EXISTS "AnoHistoriaAsistencia"(
+  "idAnoHistoriaAsistencia" INTEGER PRIMARY KEY AUTOINCREMENT,
   "ano" INTEGER,
   "fk_idVoluntarioH" INTEGER,
-  CONSTRAINT "idHistoriaAsistencia_UNIQUE"
-    UNIQUE("idHistoriaAsistencia"),
+  CONSTRAINT "idAnoHistoriaAsistencia_UNIQUE"
+    UNIQUE("idAnoHistoriaAsistencia"),
   CONSTRAINT "fk_idVoluntarioH"
     FOREIGN KEY("fk_idVoluntarioH")
     REFERENCES "Voluntario"("idVoluntario")
