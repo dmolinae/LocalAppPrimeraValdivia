@@ -34,6 +34,10 @@ namespace PrimeraValdivia.ViewModels
         private ICommand _MostrarFormularioCalificacionCommand;
         private ICommand _EliminarCalificacionCommand;
         private ICommand _WindowClosingCommand;
+        private ICommand _AgregarAnoCommand;
+        private String _NuevoAno;
+        private bool _Loading;
+
         private string modo;
         private bool salir = false;
         private int idVoluntarioActual;
@@ -56,6 +60,24 @@ namespace PrimeraValdivia.ViewModels
 
         public Action CloseAction { get; set; }
 
+        public String NuevoAno
+        {
+            get { return _NuevoAno; }
+            set
+            {
+                _NuevoAno = value;
+                OnPropertyChanged("NuevoAno");
+            }
+        }
+        public bool Loading
+        {
+            get { return _Loading; }
+            set
+            {
+                _Loading = value;
+                OnPropertyChanged("Loading");
+            }
+        }
         public ObservableCollection<Item> Cargos
         {
             get { return _Cargos; }
@@ -210,6 +232,18 @@ namespace PrimeraValdivia.ViewModels
                 return _WindowClosingCommand;
             }
         }
+        public ICommand AgregarAnoCommand
+        {
+            get
+            {
+                _AgregarAnoCommand = new Helpers.RelayCommand()
+                {
+                    CanExecuteDelegate = c => true,
+                    ExecuteDelegate = c => AgregarAno()
+                };
+                return _AgregarAnoCommand;
+            }
+        }
 
         #endregion
 
@@ -279,6 +313,31 @@ namespace PrimeraValdivia.ViewModels
                 CVModel.EditarCompaniaVoluntario(this.CompaniaVoluntario, this.CompaniaVoluntario.idCompaniaVoluntario);
             }
             CloseAction();
+        }
+        private void AgregarAno()
+        {
+            Loading = true;
+
+            try
+            {
+                AHAModel.AgregarAnoHistoriaAsistencia(int.Parse(NuevoAno), Voluntario.idVoluntario);
+
+                ObservableCollection<AnoHistoriaAsistencia> anos = AHAModel.ObtenerAnosHistoriaVoluntario(Voluntario.idVoluntario);
+                TabItems = new ObservableCollection<TabItem>();
+                foreach (AnoHistoriaAsistencia ano in anos)
+                {
+                    var tabItemViewModel = new AnoVoluntarioTabItemViewModel(ano.ano, Voluntario.idVoluntario);
+                    var tabItem = new AnoVoluntarioTabItem();
+                    tabItem.DataContext = tabItemViewModel;
+                    TabItems.Add(tabItem);
+                }
+                Loading = false;
+            }
+            catch(Exception e)
+            {
+                Debug.Write(e.Message);
+                Loading = false;
+            }
         }
 
         private void AgregarCalificacion()

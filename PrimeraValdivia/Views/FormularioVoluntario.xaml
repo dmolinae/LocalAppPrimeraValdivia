@@ -39,6 +39,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
@@ -50,19 +51,11 @@
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Label Content="{Binding Voluntario.nombre, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" FontSize="25">
                         <Label.Effect>
-                            <DropShadowEffect Opacity="0.5" ShadowDepth="1.5"/>
+                            <DropShadowEffect Opacity="0.5" ShadowDepth="0.5"/>
                         </Label.Effect>
                     </Label>
-                    <Label Content="{Binding Voluntario.rut, UpdateSourceTrigger=PropertyChanged}" FontSize="13">
-                        <Label.Effect>
-                            <DropShadowEffect Opacity="0.2" ShadowDepth="0.5"/>
-                        </Label.Effect>
-                    </Label>
-                    <Label Content="{Binding Voluntario.cargo, UpdateSourceTrigger=PropertyChanged}" FontSize="13">
-                        <Label.Effect>
-                            <DropShadowEffect Opacity="0.2" ShadowDepth="0.5"/>
-                        </Label.Effect>
-                    </Label>
+                    <Label Content="{Binding Voluntario.rut, UpdateSourceTrigger=PropertyChanged}" FontSize="13"/>
+                    <Label Content="{Binding Voluntario.cargo, UpdateSourceTrigger=PropertyChanged}" FontSize="13"/>
                 </StackPanel>
             </StackPanel>
             <Grid Grid.Row="1">
@@ -177,7 +170,7 @@
                 </StackPanel>
             </Grid>
         </Grid>
-        <Grid Grid.Column="2">
+        <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -194,8 +187,13 @@
                             <DropShadowEffect Opacity="0.5" ShadowDepth="0.5"/>
                         </Label.Effect>
                     </Label>
-                    <Label Content="Agregar Año" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0"/>
-                    <Button HorizontalAlignment="Right" Command="{Binding AgregarAnoCommand}" RenderTransformOrigin="0.496,0.486" Background="#FFF7F7F7" Width="60" Template="{DynamicResource AddButtonControlTemplate}" Margin="0,0,4,8" Content="">
+                    <TextBox Controls:TextBoxHelper.Watermark="Año"
+                             Text="{Binding NuevoAno}"
+                             HorizontalAlignment="Right"
+                             Width="50" Margin="0,0,70,0" Height="20">
+                    </TextBox>
+                    <Label Content="Agregar Año" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0" FontSize="10"/>
+                    <Button HorizontalAlignment="Right" Command="{Binding AgregarAnoCommand}" RenderTransformOrigin="0.496,0.486" Background="#FFF7F7F7" Width="60" Template="{DynamicResource AddButtonControlTemplate}" Margin="0,0,2,0">
                         <Button.Effect>
                             <DropShadowEffect Opacity="0.5" ShadowDepth="1.5"/>
                         </Button.Effect>
@@ -267,5 +265,6 @@
             </Grid>
         </Grid>
         <Button Grid.Row="1" Grid.Column="2" Width="100" Height="30" HorizontalAlignment="Right" Content="Guardar" Command="{Binding GuardarVoluntarioCommand}" Margin="0,0,30,10"/>
+        <Controls:MetroProgressBar Grid.Row="2" IsIndeterminate="{Binding Loading}" Foreground="White"/>
     </Grid>
 </Controls:MetroWindow>
