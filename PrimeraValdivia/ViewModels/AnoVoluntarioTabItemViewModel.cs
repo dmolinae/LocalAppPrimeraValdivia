@@ -20,9 +20,11 @@ namespace PrimeraValdivia.ViewModels
         private ObservableCollection<MesAsistencia> _Meses;
         private MesAsistencia _Mes;
         private ICommand _EditarNumeroCommand;
+        private ICommand _CloseTabCommand;
         private int _Year;
 
         private int fk_year;
+        private int idVoluntario;
 
         private AnoHistoriaAsistencia AHAModel = new AnoHistoriaAsistencia();
         private MesHistoriaAsistencia MHAModel = new MesHistoriaAsistencia();
@@ -75,6 +77,18 @@ namespace PrimeraValdivia.ViewModels
                 return _EditarNumeroCommand;
             }
         }
+        public ICommand CloseTabCommand
+        {
+            get
+            {
+                _CloseTabCommand = new RelayCommand()
+                {
+                    CanExecuteDelegate = c => CanCloseTab(),
+                    ExecuteDelegate = c => CloseTab()
+                };
+                return _CloseTabCommand;
+            }
+        }
 
         #endregion
 
@@ -83,6 +97,7 @@ namespace PrimeraValdivia.ViewModels
         public AnoVoluntarioTabItemViewModel(int Year, int idVoluntario)
         {
             this.Year = Year;
+            this.idVoluntario = idVoluntario;
 
             ObservableCollection<String> tipos = new ObservableCollection<string>();
             tipos.Add("LL");
@@ -161,6 +176,14 @@ namespace PrimeraValdivia.ViewModels
             view.DataContext = viewmodel;
             viewmodel.CloseAction = new Action(view.Close);
             view.Show();
+        }
+        private bool CanCloseTab()
+        {
+            return !MHAModel.ExisteAnoHistoriaAsistencia(fk_year);
+        }
+        private void CloseTab()
+        {
+            AHAModel.EliminarAnoHistoriaAsistencia(this.fk_year);
         }
         #endregion
     }
