@@ -16,6 +16,7 @@ using System.ComponentModel;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
 using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace PrimeraValdivia.ViewModels
 {
@@ -320,18 +321,26 @@ namespace PrimeraValdivia.ViewModels
             }
 
             String path = AppDomain.CurrentDomain.BaseDirectory;
-            String destFile = System.IO.Path.Combine("ProfileImages", Voluntario.rut + ".png");
+            String destFile = Path.Combine("ProfileImages", Voluntario.rut + ".png");
 
-            destFile = System.IO.Path.Combine(path, destFile);
+            destFile = Path.Combine(path, destFile);
 
             try
             {
-                BitmapImage b = new BitmapImage();
-                b.BeginInit();
-                b.UriSource = new Uri(destFile);
-                b.EndInit();
+                MemoryStream ms = new MemoryStream();
+                FileStream stream = new FileStream(destFile, FileMode.Open, FileAccess.Read);
+                ms.SetLength(stream.Length);
+                stream.Read(ms.GetBuffer(), 0, (int)stream.Length);
 
-                ImageSource = b;
+                ms.Flush();
+                stream.Close();
+                
+                BitmapImage src = new BitmapImage();
+                src.BeginInit();
+                src.StreamSource = ms;
+                src.EndInit();
+
+                ImageSource = src;
             }
             catch(Exception e)
             {
@@ -341,32 +350,41 @@ namespace PrimeraValdivia.ViewModels
         private async void EditarFoto()
         {
             OpenFileDialog openFile = new OpenFileDialog();
-            BitmapImage b = new BitmapImage();
             openFile.Title = "Seleccione la Imagen a Mostrar";
             openFile.Filter = "Todos(*.*) | *.*| Imagenes | *.jpg; *.gif; *.png; *.bmp";
             if (openFile.ShowDialog() == true)
             {
                 try
                 {
-                    if (!System.IO.Directory.Exists("ProfileImages"))
+                    if (!Directory.Exists("ProfileImages"))
                     {
-                        System.IO.Directory.CreateDirectory("ProfileImages");
+                        Directory.CreateDirectory("ProfileImages");
                     }
                     String path = AppDomain.CurrentDomain.BaseDirectory;
-                    String destFile = System.IO.Path.Combine("ProfileImages", Voluntario.rut + ".png");
+                    String destFile = Path.Combine("ProfileImages", Voluntario.rut + ".png");
 
-                    destFile = System.IO.Path.Combine(path, destFile);
+                    destFile = Path.Combine(path, destFile);
 
-                    System.IO.File.Copy(openFile.FileName, destFile, true);
+                    File.Copy(openFile.FileName, destFile, true);
 
-                    b.BeginInit();
-                    b.UriSource = new Uri(destFile);
-                    b.EndInit();
+                    MemoryStream ms = new MemoryStream();
+                    FileStream stream = new FileStream(destFile, FileMode.Open, FileAccess.Read);
+                    ms.SetLength(stream.Length);
+                    stream.Read(ms.GetBuffer(), 0, (int)stream.Length);
 
-                    ImageSource = b;
+                    ms.Flush();
+                    stream.Close();
+
+                    BitmapImage src = new BitmapImage();
+                    src.BeginInit();
+                    src.StreamSource = ms;
+                    src.EndInit();
+
+                    ImageSource = src;
                 }
                 catch(Exception e)
                 {
+                    Debug.Write(e.Message);
                     MetroDialogSettings settings = new MetroDialogSettings();
                     settings.AffirmativeButtonText = "OK";
                     MessageDialogResult result = await view.ShowMessageAsync("No se puedo acceder a esa imagen", "Inténtalo nuevamente utilizando otra imagen.", MessageDialogStyle.Affirmative, settings);
